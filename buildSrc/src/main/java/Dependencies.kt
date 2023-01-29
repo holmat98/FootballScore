@@ -104,3 +104,8 @@ object LeakCanary {
 
     const val DEPENDENCY = "com.squareup.leakcanary:leakcanary-android:$version"
 }
+
+object Accompanist {
+
+    const val SYSTEM_UI_CONTROLLER = "com.google.accompanist:accompanist-systemuicontroller:0.28.0"
+}

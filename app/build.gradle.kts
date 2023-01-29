@@ -90,6 +90,9 @@ dependencies {
 
     // LeakCanary
     debugImplementation(LeakCanary.DEPENDENCY)
+
+    // Accompanist
+    implementation(Accompanist.SYSTEM_UI_CONTROLLER)
 }
 
 tasks.withType<Test> {

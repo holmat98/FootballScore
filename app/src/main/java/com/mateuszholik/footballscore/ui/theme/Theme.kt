@@ -3,8 +3,11 @@ package com.mateuszholik.footballscore.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorPalette = darkColorScheme(
     primary = md_theme_dark_primary,
@@ -30,10 +33,12 @@ private val DarkColorPalette = darkColorScheme(
     surfaceVariant = md_theme_dark_surfaceVariant,
     onSurfaceVariant = md_theme_dark_onSurfaceVariant,
     outline = md_theme_dark_outline,
+    outlineVariant = md_theme_dark_outlineVariant,
     inverseOnSurface = md_theme_dark_inverseOnSurface,
     inverseSurface = md_theme_dark_inverseSurface,
     inversePrimary = md_theme_dark_inversePrimary,
-    surfaceTint = md_theme_dark_surfaceTint
+    surfaceTint = md_theme_dark_surfaceTint,
+    scrim = md_theme_dark_scrim,
 )
 
 private val LightColorPalette = lightColorScheme(
@@ -60,21 +65,27 @@ private val LightColorPalette = lightColorScheme(
     surfaceVariant = md_theme_light_surfaceVariant,
     onSurfaceVariant = md_theme_light_onSurfaceVariant,
     outline = md_theme_light_outline,
+    outlineVariant = md_theme_light_outlineVariant,
     inverseOnSurface = md_theme_light_inverseOnSurface,
     inverseSurface = md_theme_light_inverseSurface,
     inversePrimary = md_theme_light_inversePrimary,
-    surfaceTint = md_theme_light_surfaceTint
+    surfaceTint = md_theme_light_surfaceTint,
+    scrim = md_theme_light_scrim,
 )
 
 @Composable
 fun FootballScoreTheme(
+    dynamicColors: Boolean = false,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
+    val context = LocalContext.current
+
+    val colors = when {
+        darkTheme && dynamicColors -> dynamicDarkColorScheme(context)
+        !darkTheme && dynamicColors -> dynamicLightColorScheme(context)
+        darkTheme -> DarkColorPalette
+        else -> LightColorPalette
     }
 
     MaterialTheme(
