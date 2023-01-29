@@ -98,3 +98,9 @@ object GoogleServices {
         }
     }
 }
+
+object LeakCanary {
+    private const val version = "2.10"
+
+    const val DEPENDENCY = "com.squareup.leakcanary:leakcanary-android:$version"
+}

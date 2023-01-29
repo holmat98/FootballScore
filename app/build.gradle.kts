@@ -87,6 +87,9 @@ dependencies {
 
     // Crashlytics
     implementation(GoogleServices.Firebase.Crashlytics.DEPENDENCY)
+
+    // LeakCanary
+    debugImplementation(LeakCanary.DEPENDENCY)
 }
 
 tasks.withType<Test> {
