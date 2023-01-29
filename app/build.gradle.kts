@@ -79,6 +79,9 @@ dependencies {
     // Lifecycle
     implementation(Lifecycle.LIFECYCLE_RUNTIME)
     implementation(Lifecycle.VIEW_MODEL)
+
+    // Timber
+    implementation(Timber.DEPENDENCY)
 }
 
 tasks.withType<Test> {

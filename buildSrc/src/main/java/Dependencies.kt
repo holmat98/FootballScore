@@ -74,3 +74,9 @@ object Lifecycle {
     const val VIEW_MODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     const val LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
 }
+
+object Timber {
+    private const val version = "5.0.1"
+
+    const val DEPENDENCY = "com.jakewharton.timber:timber:$version"
+}
