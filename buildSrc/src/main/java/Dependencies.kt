@@ -1,6 +1,8 @@
 object Plugins {
     const val ANDROID_APPLICATION = "com.android.application"
     const val KOTLIN = "org.jetbrains.kotlin.android"
+    const val FIREBASE_CRASHLYTICS = "com.google.firebase.crashlytics"
+    const val GOOGLE_SERVICES = "com.google.gms.google-services"
 }
 
 object GradlePlugins {
@@ -79,4 +81,20 @@ object Timber {
     private const val version = "5.0.1"
 
     const val DEPENDENCY = "com.jakewharton.timber:timber:$version"
+}
+
+object GoogleServices {
+    private const val version = "4.3.15"
+
+    const val DEPENDENCY = "com.google.gms:google-services:$version"
+
+    object Firebase {
+        object Crashlytics {
+            private const val gradleVersion = "2.9.2"
+            private const val version = "18.3.3"
+
+            const val GRADLE = "com.google.firebase:firebase-crashlytics-gradle:$gradleVersion"
+            const val DEPENDENCY = "com.google.firebase:firebase-crashlytics:$version"
+        }
+    }
 }

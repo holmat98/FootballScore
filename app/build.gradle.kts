@@ -1,6 +1,8 @@
 plugins {
     id (Plugins.ANDROID_APPLICATION)
     id (Plugins.KOTLIN)
+    id (Plugins.GOOGLE_SERVICES)
+    id (Plugins.FIREBASE_CRASHLYTICS)
 }
 
 android {
@@ -82,6 +84,9 @@ dependencies {
 
     // Timber
     implementation(Timber.DEPENDENCY)
+
+    // Crashlytics
+    implementation(GoogleServices.Firebase.Crashlytics.DEPENDENCY)
 }
 
 tasks.withType<Test> {
