@@ -23,7 +23,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField(type = "String", name = "API_KEY", value = "\"${project.property("API_KEY") as String}\"")
+            buildConfigField(type = "String", name = "API_URL", value = "\"http://api.football-data.org/v4\"")
+        }
         release {
+            buildConfigField(type = "String", name = "API_KEY", value = "\"${project.property("API_KEY") as String}\"")
+            buildConfigField(type = "String", name = "API_URL", value = "\"http://api.football-data.org/v4\"")
+
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile(Proguard.FILE),
