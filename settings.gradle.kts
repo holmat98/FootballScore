@@ -7,3 +7,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "FootballScore"
 include(":app")
+include(":core:designsystem")

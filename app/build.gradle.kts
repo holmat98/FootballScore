@@ -56,6 +56,9 @@ android {
 
 dependencies {
 
+    // Modules
+    implementation(project(":core:designsystem"))
+
     // Activity
     implementation(Activity.DEPENDENCY)
 
