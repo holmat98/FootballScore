@@ -3,6 +3,7 @@ object Plugins {
     const val KOTLIN = "org.jetbrains.kotlin.android"
     const val FIREBASE_CRASHLYTICS = "com.google.firebase.crashlytics"
     const val GOOGLE_SERVICES = "com.google.gms.google-services"
+    const val ANDROID_LIBRARY = "com.android.library"
 }
 
 object GradlePlugins {
