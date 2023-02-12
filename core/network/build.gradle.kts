@@ -46,6 +46,10 @@ dependencies {
     implementation(Retrofit.DEPENDENCY)
     implementation(Retrofit.GsonConverter.DEPENDENCY)
 
+    // OkHttp
+    implementation(OkHttp.DEPENDENCY)
+    implementation(OkHttp.Interceptor.DEPENDENCY)
+
     // Hilt
     implementation(Hilt.DEPENDENCY)
     kapt(Hilt.Compiler.DEPENDENCY)

@@ -123,6 +123,16 @@ object Retrofit {
     }
 }
 
+object OkHttp {
+    private const val version = "4.10.0"
+
+    const val DEPENDENCY = "com.squareup.okhttp3:okhttp:$version"
+
+    object Interceptor {
+        const val DEPENDENCY = "com.squareup.okhttp3:logging-interceptor:$version"
+    }
+}
+
 object Hilt {
     const val version = "2.44"
 
