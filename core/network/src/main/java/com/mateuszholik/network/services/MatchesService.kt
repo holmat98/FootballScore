@@ -10,15 +10,15 @@ import retrofit2.http.Query
 
 internal interface MatchesService {
 
-    @GET("/matches")
+    @GET("v4/matches")
     suspend fun getMatchesForDateRange(
         @Query("dateFrom") dateFrom: String,
-        @Query("dateTo") dateTo: String
+        @Query("dateTo") dateTo: String,
     ): Response<MatchesApi>
 
-    @GET("/matches/{id}")
+    @GET("v4/matches/{id}")
     suspend fun getMatch(@Path("id") id: Int): Response<MatchApi>
 
-    @GET("/matches/{id}/head2head")
+    @GET("v4/matches/{id}/head2head")
     suspend fun getHead2HeadForMatch(@Path("id") id: Int): Response<Head2HeadApi>
 }
