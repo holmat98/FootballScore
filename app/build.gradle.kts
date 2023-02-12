@@ -20,9 +20,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        buildConfigField(type = "String", name = "API_KEY", value = "\"${project.property("API_KEY") as String}\"")
-        buildConfigField(type = "String", name = "API_URL", value = "\"http://api.football-data.org/v4\"")
     }
 
     buildTypes {
@@ -30,7 +27,7 @@ android {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile(Proguard.FILE),
-                Proguard.RULES
+                Proguard.RULES_FILE
             )
         }
     }
