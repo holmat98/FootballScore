@@ -3,6 +3,8 @@ plugins {
     id (Plugins.KOTLIN)
     id (Plugins.GOOGLE_SERVICES)
     id (Plugins.FIREBASE_CRASHLYTICS)
+    kotlin (Plugins.KAPT)
+    id (Plugins.HILT)
 }
 
 android {
@@ -96,6 +98,10 @@ dependencies {
 
     // Accompanist
     implementation(Accompanist.SYSTEM_UI_CONTROLLER)
+
+    // Hilt
+    implementation(Hilt.DEPENDENCY)
+    kapt(Hilt.Compiler.DEPENDENCY)
 }
 
 tasks.withType<Test> {

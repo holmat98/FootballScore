@@ -11,3 +11,7 @@ buildscript {
         classpath (GoogleServices.Firebase.Crashlytics.GRADLE)
     }
 }
+
+plugins {
+    id(Hilt.PLUGIN) version Hilt.version apply false
+}

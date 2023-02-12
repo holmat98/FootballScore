@@ -2,9 +2,11 @@ package com.mateuszholik.footballscore
 
 import android.app.Application
 import com.mateuszholik.footballscore.logging.CrashReportingTree
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
-class App : Application() {
+@HiltAndroidApp
+class FootballScoreApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

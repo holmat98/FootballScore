@@ -1,6 +1,8 @@
 plugins {
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOTLIN)
+    kotlin (Plugins.KAPT)
+    id (Plugins.HILT)
 }
 
 android {
@@ -43,4 +45,8 @@ dependencies {
     // Retrofit
     implementation(Retrofit.DEPENDENCY)
     implementation(Retrofit.GsonConverter.DEPENDENCY)
+
+    // Hilt
+    implementation(Hilt.DEPENDENCY)
+    kapt(Hilt.Compiler.DEPENDENCY)
 }
