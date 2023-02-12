@@ -6,8 +6,9 @@ import timber.log.Timber
 
 class CrashReportingTree : Timber.Tree() {
 
+    private val crashlytics = FirebaseCrashlytics.getInstance()
+
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        val crashlytics = FirebaseCrashlytics.getInstance()
         crashlytics.log(message)
 
         if (priority == ERROR) {

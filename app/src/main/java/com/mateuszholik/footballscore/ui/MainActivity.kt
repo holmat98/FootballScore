@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            FootballScoreTheme(dynamicColors = true) {
+            FootballScoreTheme(dynamicColors = false) {
                 val systemUiController = rememberSystemUiController()
 
                 systemUiController.setSystemBarsColor(
