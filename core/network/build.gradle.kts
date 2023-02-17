@@ -1,6 +1,6 @@
 plugins {
     id(Plugins.ANDROID_LIBRARY)
-    id(Plugins.KOTLIN)
+    id(Plugins.KOTLIN_ANDROID)
     kotlin (Plugins.KAPT)
     id (Plugins.HILT)
 }

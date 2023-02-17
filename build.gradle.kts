@@ -14,4 +14,5 @@ buildscript {
 
 plugins {
     id(Hilt.PLUGIN) version Hilt.version apply false
+    id(GradlePlugins.KOTLIN_JVM) version GradlePlugins.kotlinVersion apply false
 }

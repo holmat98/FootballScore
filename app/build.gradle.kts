@@ -1,6 +1,6 @@
 plugins {
     id (Plugins.ANDROID_APPLICATION)
-    id (Plugins.KOTLIN)
+    id (Plugins.KOTLIN_ANDROID)
     id (Plugins.GOOGLE_SERVICES)
     id (Plugins.FIREBASE_CRASHLYTICS)
     kotlin (Plugins.KAPT)
@@ -57,6 +57,7 @@ dependencies {
 
     // Modules
     implementation(project(":core:designsystem"))
+    implementation(project(":core:model"))
 
     // Activity
     implementation(Activity.DEPENDENCY)
