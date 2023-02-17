@@ -1,8 +1,10 @@
 package com.mateuszholik.network.models
 
+import com.google.gson.annotations.SerializedName
+
 data class ScoreApi(
-    val duration: String,
-    val fullTime: FullTimeScoreApi,
-    val halfTime: HalfTimeScoreApi,
-    val winner: String
+    @SerializedName("away")
+    val away: Int?,
+    @SerializedName("home")
+    val home: Int?,
 )

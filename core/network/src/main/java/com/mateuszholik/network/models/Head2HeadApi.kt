@@ -1,6 +1,10 @@
 package com.mateuszholik.network.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Head2HeadApi(
-    val aggregates: AggregatesApi,
-    val matches: List<MatchApi>
+    @SerializedName("aggregates")
+    val aggregatedH2HData: AggregatedH2HDataApi,
+    @SerializedName("matches")
+    val matches: List<MatchApi>,
 )
