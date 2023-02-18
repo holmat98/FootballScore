@@ -7,6 +7,6 @@ data class Season(
     val endDate: LocalDate,
     val id: Int,
     val startDate: LocalDate,
-    val winner: Any,
+    val winner: String?,
     val stages: List<String>?,
 )

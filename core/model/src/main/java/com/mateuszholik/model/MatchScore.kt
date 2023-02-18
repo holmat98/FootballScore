@@ -4,5 +4,5 @@ data class MatchScore(
     val duration: String,
     val fullTime: Score,
     val halfTime: Score,
-    val winner: String,
+    val winner: String?,
 )
