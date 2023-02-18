@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mateuszholik.domain"
+    namespace = "com.mateuszholik.common"
     compileSdk = DefaultConfig.COMPILE_SDK
 
     defaultConfig {
@@ -35,11 +35,6 @@ android {
 }
 
 dependencies {
-
-    // Modules
-    implementation(project(":core:common"))
-    implementation(project(":core:data"))
-    implementation(project(":core:model"))
 
     // CoreKtx
     implementation(CoreKtx.DEPENDENCY)
