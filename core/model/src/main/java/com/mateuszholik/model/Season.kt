@@ -1,10 +1,12 @@
 package com.mateuszholik.model
 
+import java.time.LocalDate
+
 data class Season(
     val currentMatchday: Int,
-    val endDate: String,
+    val endDate: LocalDate,
     val id: Int,
-    val startDate: String,
+    val startDate: LocalDate,
     val winner: Any,
     val stages: List<String>?,
 )
