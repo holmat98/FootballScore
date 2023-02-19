@@ -9,6 +9,8 @@ data class MatchApi(
     val awayTeam: TeamApi,
     @SerializedName("competition")
     val competition: CompetitionApi,
+    @SerializedName("group")
+    val group: String? = null,
     @SerializedName("homeTeam")
     val homeTeam: TeamApi,
     @SerializedName("id")
