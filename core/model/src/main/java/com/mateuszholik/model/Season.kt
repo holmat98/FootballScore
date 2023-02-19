@@ -8,5 +8,4 @@ data class Season(
     val id: Int,
     val startDate: LocalDate,
     val winner: String?,
-    val stages: List<String>?,
 )

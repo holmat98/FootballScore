@@ -1,8 +1,8 @@
 package com.mateuszholik.model
 
 data class MatchScore(
-    val duration: String,
+    val duration: Duration,
     val fullTime: Score,
     val halfTime: Score,
-    val winner: String?,
+    val winner: Winner,
 )

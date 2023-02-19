@@ -8,5 +8,5 @@ data class Competition(
     val emblem: String,
     val id: Int,
     val name: String,
-    val type: String
+    val type: CompetitionType,
 )
