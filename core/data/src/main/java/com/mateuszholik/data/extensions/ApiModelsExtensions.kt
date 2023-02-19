@@ -111,7 +111,7 @@ internal fun SeasonApi.toCommonModel(): Season =
         endDate = endDate.toLocalDate(),
         id = id,
         startDate = startDate.toLocalDate(),
-        winner = winner,
+        winner = winner.orEmpty(),
     )
 
 internal fun Head2HeadApi.toCommonModel(): Head2Head =
