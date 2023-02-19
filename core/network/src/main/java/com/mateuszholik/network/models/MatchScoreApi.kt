@@ -10,5 +10,5 @@ data class MatchScoreApi(
     @SerializedName("halfTime")
     val halfTime: ScoreApi,
     @SerializedName("winner")
-    val winner: String,
+    val winner: String? = null,
 )

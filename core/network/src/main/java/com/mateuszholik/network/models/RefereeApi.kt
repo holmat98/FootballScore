@@ -8,7 +8,7 @@ data class RefereeApi(
     @SerializedName("name")
     val name: String,
     @SerializedName("nationality")
-    val nationality: String,
+    val nationality: String? = null,
     @SerializedName("type")
     val type: String,
 )

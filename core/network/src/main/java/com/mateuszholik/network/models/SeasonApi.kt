@@ -12,7 +12,7 @@ data class SeasonApi(
     @SerializedName("startDate")
     val startDate: String,
     @SerializedName("winner")
-    val winner: Any,
+    val winner: String? = null,
     @SerializedName("stages")
     val stages: List<String>?,
 )
