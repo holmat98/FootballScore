@@ -1,6 +1,5 @@
 package com.mateuszholik.data.di
 
-import com.mateuszholik.common.providers.DispatchersProvider
 import com.mateuszholik.data.repositories.MatchesRepository
 import com.mateuszholik.data.repositories.MatchesRepositoryImpl
 import com.mateuszholik.network.repositories.MatchesApiRepository
@@ -18,10 +17,8 @@ internal object RepositoriesModule {
     @Singleton
     fun providesMatchesRepository(
         matchesApiRepository: MatchesApiRepository,
-        dispatchersProvider: DispatchersProvider,
     ): MatchesRepository =
         MatchesRepositoryImpl(
-            matchesApiRepository = matchesApiRepository,
-            dispatchersProvider = dispatchersProvider
+            matchesApiRepository = matchesApiRepository
         )
 }
