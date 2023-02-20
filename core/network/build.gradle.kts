@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mateuszholik.designsystem"
+    namespace = "com.mateuszholik.network"
     compileSdk = DefaultConfig.COMPILE_SDK
 
     defaultConfig {
@@ -13,6 +13,9 @@ android {
 
         testInstrumentationRunner = DefaultConfig.TEST_INSTRUMENTATION_RUNNER
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField(type = "String", name = "API_KEY", value = "\"${project.property("API_KEY") as String}\"")
+        buildConfigField(type = "String", name = "API_URL", value = "\"http://api.football-data.org/v4\"")
     }
 
     buildTypes {
@@ -30,24 +33,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Compose.KOTLIN_COMPILER_EXTENSION_VERSION
-    }
 }
 
 dependencies {
 
+    // CoreKtx
     implementation(CoreKtx.DEPENDENCY)
 
-    // Compose
-    implementation(Compose.UI)
-    implementation(Compose.MATERIAL)
-    implementation(Compose.PREVIEW)
-    implementation(Compose.NAVIGATION)
-    androidTestImplementation(Compose.TESTS)
-    debugImplementation(Compose.UI_TOOLING)
-    debugImplementation(Compose.TEST_MANIFEST)
+    // Retrofit
+    implementation(Retrofit.DEPENDENCY)
+    implementation(Retrofit.GsonConverter.DEPENDENCY)
 }

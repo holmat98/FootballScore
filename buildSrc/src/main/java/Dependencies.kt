@@ -27,7 +27,7 @@ object DefaultConfig {
 
 object Proguard {
     const val FILE = "proguard-android-optimize.txt"
-    const val RULES = "proguard-rules.pro"
+    const val RULES_FILE = "proguard-rules.pro"
 }
 
 object CoreKtx {
@@ -109,4 +109,14 @@ object LeakCanary {
 object Accompanist {
 
     const val SYSTEM_UI_CONTROLLER = "com.google.accompanist:accompanist-systemuicontroller:0.28.0"
+}
+
+object Retrofit {
+    private const val version = "2.9.0"
+
+    const val DEPENDENCY = "com.squareup.retrofit2:retrofit:$version"
+
+    object GsonConverter {
+        const val DEPENDENCY = "com.squareup.retrofit2:converter-gson:$version"
+    }
 }
