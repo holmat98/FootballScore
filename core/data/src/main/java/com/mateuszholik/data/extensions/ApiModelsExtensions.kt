@@ -35,7 +35,7 @@ internal fun MatchApi.toCommonModel(): Match =
     Match(
         awayTeam = awayTeam.toCommonModel(),
         competition = competition.toCommonModel(area),
-        group = getGroup(group),
+        group = Group.values().firstOrNull { it.groupName == group } ?: Group.N_A,
         homeTeam = homeTeam.toCommonModel(),
         id = id,
         lastUpdated = lastUpdated.toLocalDateTime(),
@@ -48,19 +48,6 @@ internal fun MatchApi.toCommonModel(): Match =
         utcDate = utcDate.toLocalDateTime(),
         venue = venue.orEmpty()
     )
-
-private fun getGroup(groupName: String?): Group =
-    when (groupName) {
-        "Group A" -> Group.GROUP_A
-        "Group B" -> Group.GROUP_B
-        "Group C" -> Group.GROUP_C
-        "Group D" -> Group.GROUP_D
-        "Group E" -> Group.GROUP_E
-        "Group F" -> Group.GROUP_F
-        "Group G" -> Group.GROUP_G
-        "Group H" -> Group.GROUP_H
-        else -> Group.N_A
-    }
 
 internal fun TeamApi.toCommonModel(): Team =
     Team(
