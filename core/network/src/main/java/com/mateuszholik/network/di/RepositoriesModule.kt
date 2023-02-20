@@ -7,7 +7,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 @Module
@@ -19,6 +18,5 @@ internal object RepositoriesModule {
     fun providesMatchesApiRepository(matchesService: MatchesService): MatchesApiRepository =
         MatchesApiRepositoryImpl(
             matchesService = matchesService,
-            ioDispatcher = Dispatchers.IO
         )
 }

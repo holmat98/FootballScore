@@ -7,10 +7,8 @@ import com.mateuszholik.network.models.MatchApi
 import com.mateuszholik.network.models.MatchesApi
 import com.mateuszholik.network.models.ResultApi
 import com.mateuszholik.network.services.MatchesService
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import java.time.LocalDate
 
 interface MatchesApiRepository {
@@ -24,7 +22,6 @@ interface MatchesApiRepository {
 
 internal class MatchesApiRepositoryImpl(
     private val matchesService: MatchesService,
-    private val ioDispatcher: CoroutineDispatcher,
 ) : MatchesApiRepository {
 
     override fun getMatchesForDateRange(
@@ -38,15 +35,15 @@ internal class MatchesApiRepositoryImpl(
                     dateTo = dateTo.asString()
                 ).toResultApi()
             )
-        }.flowOn(ioDispatcher)
+        }
 
     override fun getMatch(id: Int): Flow<ResultApi<MatchApi>> =
         flow {
             emit(matchesService.getMatch(id).toResultApi())
-        }.flowOn(ioDispatcher)
+        }
 
     override fun getHead2HeadForMatch(id: Int): Flow<ResultApi<Head2HeadApi>> =
         flow {
             emit(matchesService.getHead2HeadForMatch(id).toResultApi())
-        }.flowOn(ioDispatcher)
+        }
 }
