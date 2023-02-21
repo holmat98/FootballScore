@@ -9,5 +9,8 @@ internal fun <T> Response<T>.toResultApi(): ResultApi<T> =
             ResultApi.Success(it)
         } ?: ResultApi.EmptyBody()
     } else {
-        ResultApi.Error(code = code(), message = message())
+        ResultApi.Error(
+            code = code(),
+            message = errorBody()?.string().orEmpty()
+        )
     }
