@@ -1,6 +1,8 @@
 plugins {
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOTLIN)
+    kotlin (Plugins.KAPT)
+    id (Plugins.HILT)
 }
 
 android {
@@ -15,7 +17,7 @@ android {
         consumerProguardFiles("consumer-rules.pro")
 
         buildConfigField(type = "String", name = "API_KEY", value = "\"${project.property("API_KEY") as String}\"")
-        buildConfigField(type = "String", name = "API_URL", value = "\"http://api.football-data.org/v4\"")
+        buildConfigField(type = "String", name = "API_URL", value = "\"https://api.football-data.org/\"")
     }
 
     buildTypes {
@@ -43,4 +45,12 @@ dependencies {
     // Retrofit
     implementation(Retrofit.DEPENDENCY)
     implementation(Retrofit.GsonConverter.DEPENDENCY)
+
+    // OkHttp
+    implementation(OkHttp.DEPENDENCY)
+    implementation(OkHttp.Interceptor.DEPENDENCY)
+
+    // Hilt
+    implementation(Hilt.DEPENDENCY)
+    kapt(Hilt.Compiler.DEPENDENCY)
 }

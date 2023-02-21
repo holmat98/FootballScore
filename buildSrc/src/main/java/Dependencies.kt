@@ -4,6 +4,8 @@ object Plugins {
     const val FIREBASE_CRASHLYTICS = "com.google.firebase.crashlytics"
     const val GOOGLE_SERVICES = "com.google.gms.google-services"
     const val ANDROID_LIBRARY = "com.android.library"
+    const val KAPT = "kapt"
+    const val HILT = "com.google.dagger.hilt.android"
 }
 
 object GradlePlugins {
@@ -118,5 +120,26 @@ object Retrofit {
 
     object GsonConverter {
         const val DEPENDENCY = "com.squareup.retrofit2:converter-gson:$version"
+    }
+}
+
+object OkHttp {
+    private const val version = "4.10.0"
+
+    const val DEPENDENCY = "com.squareup.okhttp3:okhttp:$version"
+
+    object Interceptor {
+        const val DEPENDENCY = "com.squareup.okhttp3:logging-interceptor:$version"
+    }
+}
+
+object Hilt {
+    const val version = "2.44"
+
+    const val PLUGIN = "com.google.dagger.hilt.android"
+    const val DEPENDENCY = "com.google.dagger:hilt-android:$version"
+
+    object Compiler {
+        const val DEPENDENCY = "com.google.dagger:hilt-android-compiler:$version"
     }
 }
