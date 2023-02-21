@@ -1,6 +1,7 @@
 object Plugins {
     const val ANDROID_APPLICATION = "com.android.application"
-    const val KOTLIN = "org.jetbrains.kotlin.android"
+    const val KOTLIN = "kotlin"
+    const val KOTLIN_ANDROID = "org.jetbrains.kotlin.android"
     const val FIREBASE_CRASHLYTICS = "com.google.firebase.crashlytics"
     const val GOOGLE_SERVICES = "com.google.gms.google-services"
     const val ANDROID_LIBRARY = "com.android.library"
@@ -9,11 +10,12 @@ object Plugins {
 }
 
 object GradlePlugins {
-    private const val kotlinVersion = "1.8.0"
+    const val kotlinVersion = "1.8.0"
     private const val gradlePluginVersion = "7.4.0"
 
     const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:$gradlePluginVersion"
     const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    const val KOTLIN_JVM = "org.jetbrains.kotlin.jvm"
 }
 
 object DefaultConfig {

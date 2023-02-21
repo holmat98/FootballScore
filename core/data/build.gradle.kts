@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mateuszholik.network"
+    namespace = "com.mateuszholik.data"
     compileSdk = DefaultConfig.COMPILE_SDK
 
     defaultConfig {
@@ -15,9 +15,6 @@ android {
 
         testInstrumentationRunner = DefaultConfig.TEST_INSTRUMENTATION_RUNNER
         consumerProguardFiles("consumer-rules.pro")
-
-        buildConfigField(type = "String", name = "API_KEY", value = "\"${project.property("API_KEY") as String}\"")
-        buildConfigField(type = "String", name = "API_URL", value = "\"https://api.football-data.org/\"")
     }
 
     buildTypes {
@@ -39,16 +36,11 @@ android {
 
 dependencies {
 
+    // Modules
+    implementation(project(":core:model"))
+
     // CoreKtx
     implementation(CoreKtx.DEPENDENCY)
-
-    // Retrofit
-    implementation(Retrofit.DEPENDENCY)
-    implementation(Retrofit.GsonConverter.DEPENDENCY)
-
-    // OkHttp
-    implementation(OkHttp.DEPENDENCY)
-    implementation(OkHttp.Interceptor.DEPENDENCY)
 
     // Hilt
     implementation(Hilt.DEPENDENCY)

@@ -9,3 +9,7 @@ rootProject.name = "FootballScore"
 include(":app")
 include(":core:designsystem")
 include(":core:network")
+include(":core:model")
+include(":core:data")
+include(":core:domain")
+include(":core:common")
