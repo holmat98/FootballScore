@@ -38,6 +38,7 @@ dependencies {
 
     // Modules
     implementation(project(":core:model"))
+    implementation(project(":core:network"))
 
     // CoreKtx
     implementation(CoreKtx.DEPENDENCY)
