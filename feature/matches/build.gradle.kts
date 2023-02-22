@@ -1,32 +1,24 @@
 plugins {
-    id (Plugins.ANDROID_APPLICATION)
+    id(Plugins.ANDROID_LIBRARY)
     id (Plugins.KOTLIN_ANDROID)
-    id (Plugins.GOOGLE_SERVICES)
-    id (Plugins.FIREBASE_CRASHLYTICS)
     kotlin (Plugins.KAPT)
     id (Plugins.HILT)
 }
 
 android {
-    namespace = DefaultConfig.NAMESPACE
+    namespace = "com.mateuszholik.matches"
     compileSdk = DefaultConfig.COMPILE_SDK
 
     defaultConfig {
-        applicationId = DefaultConfig.APPLICATION_ID
         minSdk = DefaultConfig.MIN_SDK
         targetSdk = DefaultConfig.TARGET_SDK
-        versionCode = DefaultConfig.VERSION_CODE
-        versionName = DefaultConfig.VERSION_NAME
 
         testInstrumentationRunner = DefaultConfig.TEST_INSTRUMENTATION_RUNNER
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile(Proguard.FILE),
                 Proguard.RULES_FILE
@@ -46,22 +38,15 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Compose.KOTLIN_COMPILER_EXTENSION_VERSION
     }
-    packagingOptions {
-        resources {
-            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
-        }
-    }
 }
 
 dependencies {
 
     // Modules
     implementation(project(":core:designsystem"))
+    implementation(project(":core:domain"))
     implementation(project(":core:model"))
-    implementation(project(":feature:matches"))
-
-    // Activity
-    implementation(Activity.DEPENDENCY)
+    implementation(project(":core:uicomponents"))
 
     // Compose
     implementation(Compose.UI)
@@ -75,37 +60,18 @@ dependencies {
     // Material Design
     implementation(MaterialDesign.DEPENDENCY)
 
-    // Tests
-    testImplementation(Testing.JUnit.DEPENDENCY)
-    testCompileOnly(Testing.JUnit.API_DEPENDENCY)
-    testRuntimeOnly(Testing.JUnit.ENGINE)
-    androidTestImplementation(Testing.ANDROID_J_UNIT)
-    androidTestImplementation(Testing.ESPRESSO)
-
     // Core ktx
     implementation(CoreKtx.DEPENDENCY)
 
     // Lifecycle
     implementation(Lifecycle.LIFECYCLE_RUNTIME)
     implementation(Lifecycle.VIEW_MODEL)
+    implementation(Lifecycle.Compose.DEPENDENCY)
 
     // Timber
     implementation(Timber.DEPENDENCY)
 
-    // Crashlytics
-    implementation(GoogleServices.Firebase.Crashlytics.DEPENDENCY)
-
-    // LeakCanary
-    debugImplementation(LeakCanary.DEPENDENCY)
-
-    // Accompanist
-    implementation(Accompanist.SYSTEM_UI_CONTROLLER)
-
     // Hilt
     implementation(Hilt.DEPENDENCY)
     kapt(Hilt.Compiler.DEPENDENCY)
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }
