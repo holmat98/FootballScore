@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,9 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.spacing
+import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.uicomponents.R
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -50,54 +52,63 @@ private fun Day(
     day: LocalDate,
     onDaySelected: (LocalDate) -> Unit,
 ) {
-    Column(
+    Card(
         modifier = Modifier
             .padding(MaterialTheme.spacing.tiny)
             .clip(CircleShape)
             .background(MaterialTheme.colorScheme.surface)
             .clickable { onDaySelected(day) },
-        horizontalAlignment = Alignment.CenterHorizontally
+        elevation = CardDefaults.elevatedCardElevation(),
+        colors = CardDefaults.elevatedCardColors()
     ) {
-        Text(
-            modifier = Modifier.padding(MaterialTheme.spacing.tiny),
-            text = day.dayOfWeek.toText(),
-            fontSize = 4.sp,
-            color = MaterialTheme.colorScheme.onSurface
-        )
-        Text(
-            modifier = Modifier.padding(
-                bottom = MaterialTheme.spacing.tiny
-            ),
-            text = "${day.dayOfMonth}.${day.month.value}",
-            fontSize = 4.sp,
-            color = MaterialTheme.colorScheme.onSurface
-        )
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                modifier = Modifier.padding(MaterialTheme.spacing.tiny),
+                text = day.dayOfWeek.toText(),
+                fontSize = MaterialTheme.textSizing.tiny,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Text(
+                modifier = Modifier.padding(
+                    bottom = MaterialTheme.spacing.tiny
+                ),
+                text = "${day.dayOfMonth}.${day.month.value}",
+                fontSize = MaterialTheme.textSizing.tiny,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        }
     }
 }
 
 @Composable
 private fun SelectedDay(day: LocalDate) {
-    Column(
+    Card(
         modifier = Modifier
             .padding(MaterialTheme.spacing.tiny)
             .clip(CircleShape)
             .background(MaterialTheme.colorScheme.primaryContainer),
-        horizontalAlignment = Alignment.CenterHorizontally
+        elevation = CardDefaults.elevatedCardElevation(),
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        )
     ) {
-        Text(
-            modifier = Modifier.padding(MaterialTheme.spacing.tiny),
-            text = day.dayOfWeek.toText(),
-            fontSize = 4.sp,
-            color = MaterialTheme.colorScheme.onPrimaryContainer
-        )
-        Text(
-            modifier = Modifier.padding(
-                bottom = MaterialTheme.spacing.tiny
-            ),
-            text = "${day.dayOfMonth}.${day.month.value}",
-            fontSize = 4.sp,
-            color = MaterialTheme.colorScheme.onPrimaryContainer
-        )
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                modifier = Modifier.padding(MaterialTheme.spacing.tiny),
+                text = day.dayOfWeek.toText(),
+                fontSize = MaterialTheme.textSizing.tiny,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
+            )
+            Text(
+                modifier = Modifier.padding(
+                    bottom = MaterialTheme.spacing.tiny
+                ),
+                text = "${day.dayOfMonth}.${day.month.value}",
+                fontSize = MaterialTheme.textSizing.tiny,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
+            )
+        }
     }
 }
 
