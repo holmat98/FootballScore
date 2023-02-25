@@ -89,7 +89,12 @@ fun FootballScoreTheme(
         else -> LightColorPalette
     }
 
-    CompositionLocalProvider(LocalSpacing provides Spacing()) {
+    CompositionLocalProvider(
+        LocalSpacing provides Spacing(),
+        LocalSizing provides Sizing(),
+        LocalCornerRadius provides CornerRadius(),
+        LocalTextSizing provides TextSizing()
+    ) {
         MaterialTheme(
             colorScheme = colors,
             typography = Typography,

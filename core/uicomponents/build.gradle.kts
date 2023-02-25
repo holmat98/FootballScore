@@ -55,4 +55,7 @@ dependencies {
     androidTestImplementation(Compose.TESTS)
     debugImplementation(Compose.UI_TOOLING)
     debugImplementation(Compose.TEST_MANIFEST)
+
+    // Glide
+    implementation(Glide.DEPENDENCY)
 }

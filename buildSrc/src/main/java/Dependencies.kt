@@ -150,3 +150,9 @@ object Hilt {
         const val DEPENDENCY = "com.google.dagger:hilt-android-compiler:$version"
     }
 }
+
+object Glide {
+    private const val version = "1.0.0-alpha.1"
+
+    const val DEPENDENCY = "com.github.bumptech.glide:compose:$version"
+}
