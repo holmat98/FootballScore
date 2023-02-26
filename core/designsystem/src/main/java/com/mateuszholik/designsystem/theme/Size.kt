@@ -15,6 +15,7 @@ data class Size(
 
 @Immutable
 data class Sizing(
+    val tinyImage: Size = Size(20.dp, 15.dp),
     val smallImage: Size = Size(50.dp, 30.dp)
 )
 

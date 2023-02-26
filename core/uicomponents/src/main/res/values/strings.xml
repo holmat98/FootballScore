@@ -7,4 +7,5 @@
     <string name="calendar_saturday">Sat</string>
     <string name="calendar_sunday">Sun</string>
     <string name="calendar_today">Today</string>
+    <string name="match_postponed">Postponed</string>
 </resources>

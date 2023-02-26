@@ -4,31 +4,23 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
-import com.mateuszholik.designsystem.theme.cornerRadius
-import com.mateuszholik.designsystem.theme.sizing
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Competition
 import com.mateuszholik.model.CompetitionType
+import com.mateuszholik.uicomponents.images.RoundedImage
 
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun CompetitionHeader(
     competition: Competition,
@@ -40,16 +32,7 @@ fun CompetitionHeader(
             .background(competition.type.backgroundColorForCompetition),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        GlideImage(
-            modifier = Modifier
-                .width(MaterialTheme.sizing.smallImage.width)
-                .padding(MaterialTheme.spacing.tiny)
-                .height(MaterialTheme.sizing.smallImage.height)
-                .clip(RoundedCornerShape(MaterialTheme.cornerRadius.small))
-                .background(MaterialTheme.colorScheme.surface),
-            model = competition.emblem,
-            contentDescription = null,
-        )
+        RoundedImage(imageUrl = competition.emblem)
         Text(
             modifier = Modifier.padding(MaterialTheme.spacing.tiny),
             text = competition.name,
