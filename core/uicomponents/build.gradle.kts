@@ -58,4 +58,7 @@ dependencies {
 
     // Glide
     implementation(Glide.DEPENDENCY)
+
+    // Lottie
+    implementation(Lottie.DEPENDENCY)
 }

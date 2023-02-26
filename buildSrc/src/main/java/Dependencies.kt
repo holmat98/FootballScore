@@ -156,3 +156,9 @@ object Glide {
 
     const val DEPENDENCY = "com.github.bumptech.glide:compose:$version"
 }
+
+object Lottie {
+    private const val version = "6.0.0"
+
+    const val DEPENDENCY = "com.airbnb.android:lottie-compose:$version"
+}

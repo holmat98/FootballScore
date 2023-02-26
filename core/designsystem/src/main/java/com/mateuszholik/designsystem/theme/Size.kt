@@ -8,14 +8,11 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-data class Size(
-    val width: Dp,
-    val height: Dp
-)
-
 @Immutable
 data class Sizing(
-    val smallImage: Size = Size(50.dp, 50.dp)
+    val small: Dp = 25.dp,
+    val normal: Dp = 50.dp,
+    val large: Dp = 75.dp
 )
 
 val LocalSizing = staticCompositionLocalOf { Sizing() }

@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.mateuszholik.designsystem.theme.Size
 import com.mateuszholik.designsystem.theme.cornerRadius
 import com.mateuszholik.designsystem.theme.sizing
 import com.mateuszholik.designsystem.theme.spacing
@@ -23,16 +22,16 @@ import com.mateuszholik.designsystem.theme.spacing
 fun RoundedImage(
     imageUrl: String,
     contentDescription: String? = null,
-    size: Size = MaterialTheme.sizing.smallImage,
+    size: Dp = MaterialTheme.sizing.normal,
     padding: Dp = MaterialTheme.spacing.tiny,
     cornerRadius: Dp = MaterialTheme.cornerRadius.small,
     backgroundColor: Color = MaterialTheme.colorScheme.surface
 ) {
     GlideImage(
         modifier = Modifier
-            .width(size.width)
+            .width(size)
             .padding(padding)
-            .height(size.height)
+            .height(size)
             .clip(RoundedCornerShape(cornerRadius))
             .background(backgroundColor),
         model = imageUrl,
