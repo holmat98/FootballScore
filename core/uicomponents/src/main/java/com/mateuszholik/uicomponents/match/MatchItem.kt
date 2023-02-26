@@ -13,8 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
-import com.mateuszholik.designsystem.theme.cornerRadius
-import com.mateuszholik.designsystem.theme.sizing
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Match
@@ -48,7 +46,7 @@ fun MatchItem(
             homeTeam = match.homeTeam,
             awayTeam = match.awayTeam,
             score = match.score.fullTime,
-            scoreColor = MaterialTheme.colorScheme.primary
+            scoreColor = MaterialTheme.colorScheme.primaryContainer
         )
         Status.POSTPONED -> PostponedMatch(
             modifier = modifier,
@@ -174,16 +172,12 @@ private fun Teams(
 @Composable
 private fun TeamItem(team: Team) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        RoundedImage(
-            imageUrl = team.crest,
-            size = MaterialTheme.sizing.tinyImage,
-            cornerRadius = MaterialTheme.cornerRadius.small
-        )
+        RoundedImage(imageUrl = team.crest)
         Text(
             modifier = Modifier.padding(MaterialTheme.spacing.tiny),
             text = team.name,
             color = MaterialTheme.colorScheme.onSurface,
-            fontSize = MaterialTheme.textSizing.small
+            fontSize = MaterialTheme.textSizing.normal
         )
     }
 }
@@ -198,7 +192,7 @@ private fun Score(
         Text(
             modifier = Modifier.padding(MaterialTheme.spacing.tiny),
             text = "${score.home}",
-            fontSize = MaterialTheme.textSizing.small,
+            fontSize = MaterialTheme.textSizing.normal,
             color = scoreColor
         )
         Text(
@@ -256,7 +250,7 @@ private fun InPlayMatchPreview() {
                 tla = "MU"
             ),
             score = Score(1, 1),
-            scoreColor = MaterialTheme.colorScheme.primary
+            scoreColor = MaterialTheme.colorScheme.primaryContainer
         )
     }
 }
