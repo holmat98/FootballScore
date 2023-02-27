@@ -10,7 +10,9 @@ import androidx.compose.ui.unit.dp
 
 @Immutable
 data class Sizing(
+    val extraSmall: Dp = 15.dp,
     val small: Dp = 25.dp,
+    val medium: Dp = 35.dp,
     val normal: Dp = 50.dp,
     val large: Dp = 75.dp
 )

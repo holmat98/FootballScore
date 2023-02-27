@@ -10,8 +10,10 @@ import androidx.compose.ui.unit.dp
 
 @Immutable
 data class CornerRadius(
+    val none: Dp = 0.dp,
     val small: Dp = 4.dp,
     val normal: Dp = 8.dp,
+    val medium: Dp = 12.dp,
     val large: Dp = 16.dp
 )
 

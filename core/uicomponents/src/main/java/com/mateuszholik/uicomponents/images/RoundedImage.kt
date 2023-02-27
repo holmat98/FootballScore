@@ -1,6 +1,8 @@
 package com.mateuszholik.uicomponents.images
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -11,30 +13,34 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
 import com.mateuszholik.designsystem.theme.cornerRadius
 import com.mateuszholik.designsystem.theme.sizing
 import com.mateuszholik.designsystem.theme.spacing
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun RoundedImage(
     imageUrl: String,
     contentDescription: String? = null,
     size: Dp = MaterialTheme.sizing.normal,
-    padding: Dp = MaterialTheme.spacing.tiny,
+    padding: Dp = MaterialTheme.spacing.medium,
+    innerPadding: Dp = MaterialTheme.spacing.extraSmall,
     cornerRadius: Dp = MaterialTheme.cornerRadius.small,
-    backgroundColor: Color = MaterialTheme.colorScheme.surface
+    backgroundColor: Color = MaterialTheme.colorScheme.surface,
 ) {
-    GlideImage(
+    Box(
         modifier = Modifier
             .width(size)
-            .padding(padding)
             .height(size)
+            .padding(padding)
             .clip(RoundedCornerShape(cornerRadius))
-            .background(backgroundColor),
-        model = imageUrl,
-        contentDescription = contentDescription,
-    )
+            .background(backgroundColor)
+    ) {
+        Image(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+            url = imageUrl,
+            contentDescription = contentDescription
+        )
+    }
 }

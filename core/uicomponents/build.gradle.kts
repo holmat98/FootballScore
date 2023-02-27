@@ -56,8 +56,9 @@ dependencies {
     debugImplementation(Compose.UI_TOOLING)
     debugImplementation(Compose.TEST_MANIFEST)
 
-    // Glide
-    implementation(Glide.DEPENDENCY)
+    // Coil
+    implementation(Coil.DEPENDENCY)
+    implementation(Coil.Svg.DEPENDENCY)
 
     // Lottie
     implementation(Lottie.DEPENDENCY)

@@ -12,8 +12,11 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
+import com.mateuszholik.designsystem.theme.cornerRadius
+import com.mateuszholik.designsystem.theme.sizing
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Competition
@@ -32,13 +35,37 @@ fun CompetitionHeader(
             .background(competition.type.backgroundColorForCompetition),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        RoundedImage(imageUrl = competition.emblem)
-        Text(
-            modifier = Modifier.padding(MaterialTheme.spacing.tiny),
-            text = competition.name,
-            color = competition.type.textColorForCompetition,
-            fontSize = MaterialTheme.textSizing.normal
+        RoundedImage(
+            imageUrl = competition.emblem,
+            cornerRadius = MaterialTheme.cornerRadius.medium,
+            padding = MaterialTheme.spacing.small,
+            size = MaterialTheme.sizing.normal
         )
+        Column {
+            Text(
+                modifier = Modifier.padding(MaterialTheme.spacing.tiny),
+                text = competition.name.uppercase(),
+                color = competition.type.textColorForCompetition,
+                fontSize = MaterialTheme.textSizing.small,
+                fontWeight = FontWeight.Bold
+            )
+            Row {
+                RoundedImage(
+                    imageUrl = competition.countryFlag,
+                    padding = MaterialTheme.spacing.tiny,
+                    innerPadding = MaterialTheme.spacing.none,
+                    cornerRadius = MaterialTheme.cornerRadius.none,
+                    size = MaterialTheme.sizing.extraSmall,
+                    backgroundColor = Color.Transparent
+                )
+                Text(
+                    modifier = Modifier.padding(MaterialTheme.spacing.tiny),
+                    text = competition.countryName.uppercase(),
+                    color = competition.type.textColorForCompetition,
+                    fontSize = MaterialTheme.textSizing.extraSmall,
+                )
+            }
+        }
     }
 }
 

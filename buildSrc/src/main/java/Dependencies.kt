@@ -151,10 +151,14 @@ object Hilt {
     }
 }
 
-object Glide {
-    private const val version = "1.0.0-alpha.1"
+object Coil {
+    private const val version = "2.2.2"
 
-    const val DEPENDENCY = "com.github.bumptech.glide:compose:$version"
+    const val DEPENDENCY = "io.coil-kt:coil-compose:$version"
+
+    object Svg {
+        const val DEPENDENCY = "io.coil-kt:coil-svg:$version"
+    }
 }
 
 object Lottie {
