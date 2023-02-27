@@ -7,6 +7,11 @@
     <string name="calendar_saturday">Sat</string>
     <string name="calendar_sunday">Sun</string>
     <string name="calendar_today">Today</string>
+    <string name="error_client">An client error occurred</string>
+    <string name="error_empty_data">No data was returned</string>
+    <string name="error_no_internet">You have no internet connection</string>
+    <string name="error_server">An server error occurred</string>
+    <string name="error_unknown">An unknown error occurred</string>
     <string name="match_postponed">Postponed</string>
     <string name="match_half_time">Half time</string>
 </resources>
