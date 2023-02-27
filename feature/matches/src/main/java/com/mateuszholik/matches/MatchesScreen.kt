@@ -3,7 +3,9 @@ package com.mateuszholik.matches
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -42,8 +44,11 @@ private fun Matches(result: Map<Competition, List<MatchInfo>>) {
             stickyHeader {
                 CompetitionHeader(competition = competition)
             }
-            items(items = matches) {
-                MatchItem(matchInfo = it)
+            itemsIndexed(items = matches) {index, matchInfo ->
+                MatchItem(matchInfo = matchInfo)
+                if (index < matches.lastIndex) {
+                    Divider(color = MaterialTheme.colorScheme.outline)
+                }
             }
         }
     }
