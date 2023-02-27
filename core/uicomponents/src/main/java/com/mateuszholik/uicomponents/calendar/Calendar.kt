@@ -7,21 +7,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
+import com.mateuszholik.designsystem.theme.cornerRadius
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.uicomponents.R
+import com.mateuszholik.uicomponents.extensions.asString
 import java.time.DayOfWeek
 import java.time.LocalDate
 
@@ -52,69 +53,61 @@ private fun Day(
     day: LocalDate,
     onDaySelected: (LocalDate) -> Unit,
 ) {
-    Card(
+    Column(
         modifier = Modifier
             .padding(MaterialTheme.spacing.tiny)
-            .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.surface)
+            .clip(RoundedCornerShape(MaterialTheme.cornerRadius.normal))
+            .background(MaterialTheme.colorScheme.secondaryContainer)
             .clickable { onDaySelected(day) },
-        elevation = CardDefaults.elevatedCardElevation(),
-        colors = CardDefaults.elevatedCardColors()
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                modifier = Modifier.padding(MaterialTheme.spacing.tiny),
-                text = day.dayOfWeek.toText(),
-                fontSize = MaterialTheme.textSizing.tiny,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            Text(
-                modifier = Modifier.padding(
-                    bottom = MaterialTheme.spacing.tiny
-                ),
-                text = "${day.dayOfMonth}.${day.month.value}",
-                fontSize = MaterialTheme.textSizing.tiny,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-        }
+        Text(
+            modifier = Modifier.padding(MaterialTheme.spacing.tiny),
+            text = day.dayOfWeek.toText,
+            fontSize = MaterialTheme.textSizing.tiny,
+            color = MaterialTheme.colorScheme.onSecondaryContainer
+        )
+        Text(
+            modifier = Modifier.padding(
+                bottom = MaterialTheme.spacing.tiny
+            ),
+            text = day.asString(),
+            fontSize = MaterialTheme.textSizing.tiny,
+            color = MaterialTheme.colorScheme.onSecondaryContainer
+        )
     }
 }
 
 @Composable
 private fun SelectedDay(day: LocalDate) {
-    Card(
+    Column(
         modifier = Modifier
             .padding(MaterialTheme.spacing.tiny)
-            .clip(CircleShape)
+            .clip(RoundedCornerShape(MaterialTheme.cornerRadius.normal))
             .background(MaterialTheme.colorScheme.primaryContainer),
-        elevation = CardDefaults.elevatedCardElevation(),
-        colors = CardDefaults.elevatedCardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-        )
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                modifier = Modifier.padding(MaterialTheme.spacing.tiny),
-                text = day.dayOfWeek.toText(),
-                fontSize = MaterialTheme.textSizing.tiny,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
-            )
-            Text(
-                modifier = Modifier.padding(
-                    bottom = MaterialTheme.spacing.tiny
-                ),
-                text = "${day.dayOfMonth}.${day.month.value}",
-                fontSize = MaterialTheme.textSizing.tiny,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
-            )
-        }
+        Text(
+            modifier = Modifier.padding(MaterialTheme.spacing.tiny),
+            text = day.dayOfWeek.toText,
+            fontSize = MaterialTheme.textSizing.tiny,
+            color = MaterialTheme.colorScheme.onPrimaryContainer
+        )
+        Text(
+            modifier = Modifier.padding(
+                bottom = MaterialTheme.spacing.tiny
+            ),
+            text = day.asString(),
+            fontSize = MaterialTheme.textSizing.tiny,
+            color = MaterialTheme.colorScheme.onPrimaryContainer
+        )
     }
 }
 
-@Composable
-private fun DayOfWeek.toText(): String =
-    when (this) {
+private val DayOfWeek.toText: String
+    @Composable
+    @ReadOnlyComposable
+    get() = when (this) {
         DayOfWeek.MONDAY -> stringResource(R.string.calendar_monday)
         DayOfWeek.TUESDAY -> stringResource(R.string.calendar_tuesday)
         DayOfWeek.WEDNESDAY -> stringResource(R.string.calendar_wednesday)
