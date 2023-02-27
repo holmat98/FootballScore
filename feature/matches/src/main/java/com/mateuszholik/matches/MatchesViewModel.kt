@@ -5,20 +5,23 @@ import androidx.lifecycle.viewModelScope
 import com.mateuszholik.common.extensions.toUiState
 import com.mateuszholik.domain.usecases.GetMatchesForDateUseCase
 import com.mateuszholik.model.Competition
+import com.mateuszholik.model.ErrorType
 import com.mateuszholik.model.Match
 import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import timber.log.Timber
 import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
 class MatchesViewModel @Inject constructor(
-    getMatchesForDateUseCase: GetMatchesForDateUseCase
+    getMatchesForDateUseCase: GetMatchesForDateUseCase,
 ) : ViewModel() {
 
     val matches: StateFlow<UiState<Map<Competition, List<MatchInfo>>>> =
@@ -31,11 +34,14 @@ class MatchesViewModel @Inject constructor(
                         }
                 }
             }
+            .catch {
+                Timber.e("Error occurred during getting the list of matches", it)
+                emit(UiState.Error(ErrorType.UNKNOWN))
+            }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.Lazily,
                 initialValue = UiState.Loading(),
-
                 )
 }
 
