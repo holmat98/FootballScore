@@ -25,26 +25,17 @@ import java.time.LocalDate
 fun MatchesScreen(
     viewModel: MatchesViewModel = hiltViewModel(),
 ) {
+    val days by viewModel.days
+    val currentDay by viewModel.currentDay.collectAsStateWithLifecycle()
     val matchesUiState by viewModel.matches.collectAsStateWithLifecycle()
 
     when (matchesUiState) {
         is UiState.Loading -> Loading()
         is UiState.Success -> Content(
-            days = listOf(
-                LocalDate.of(2023, 2, 18),
-                LocalDate.of(2023, 2, 19),
-                LocalDate.of(2023, 2, 20),
-                LocalDate.of(2023, 2, 21),
-                LocalDate.of(2023, 2, 22),
-                LocalDate.of(2023, 2, 23),
-                LocalDate.of(2023, 2, 24),
-                LocalDate.of(2023, 2, 25),
-                LocalDate.of(2023, 2, 26),
-                LocalDate.of(2023, 2, 27),
-                LocalDate.of(2023, 2, 28),
-            ),
-            selectedDay = LocalDate.of(2023, 2, 23),
-            data = (matchesUiState as UiState.Success<Map<Competition, List<MatchInfo>>>).data
+            days = days,
+            selectedDay = currentDay,
+            data = (matchesUiState as UiState.Success<Map<Competition, List<MatchInfo>>>).data,
+            onDaySelected = { viewModel.updateCurrentDate(it) }
         )
         is UiState.Error ->
             ErrorInfo((matchesUiState as UiState.Error<Map<Competition, List<MatchInfo>>>).errorType)
@@ -57,13 +48,14 @@ private fun Content(
     days: List<LocalDate>,
     selectedDay: LocalDate,
     data: Map<Competition, List<MatchInfo>>,
+    onDaySelected: (LocalDate) -> Unit
 ) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         item {
             Calendar(
                 days = days,
                 selectedDay = selectedDay,
-                onDaySelected = {}
+                onDaySelected = onDaySelected
             )
         }
 
