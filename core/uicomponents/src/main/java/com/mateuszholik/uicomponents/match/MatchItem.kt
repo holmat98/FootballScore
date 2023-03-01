@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.mateuszholik.model.Match
 import com.mateuszholik.model.Status
-import com.mateuszholik.uicomponents.R
+import com.mateuszholik.designsystem.R
 import com.mateuszholik.uicomponents.extensions.asString
 
 @Composable
@@ -44,6 +44,18 @@ fun MatchItem(
             homeTeam = match.homeTeam,
             awayTeam = match.awayTeam,
             text = match.utcDate.asString()
+        )
+        Status.CANCELLED -> ScheduledMatch(
+            modifier = modifier,
+            homeTeam = match.homeTeam,
+            awayTeam = match.awayTeam,
+            text = stringResource(R.string.match_cancelled)
+        )
+        Status.SUSPENDED -> ScheduledMatch(
+            modifier = modifier,
+            homeTeam = match.homeTeam,
+            awayTeam = match.awayTeam,
+            text = stringResource(R.string.match_suspended)
         )
     }
 }

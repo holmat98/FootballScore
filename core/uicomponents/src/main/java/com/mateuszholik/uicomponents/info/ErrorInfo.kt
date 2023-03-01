@@ -6,7 +6,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.model.ErrorType
-import com.mateuszholik.uicomponents.R
+import com.mateuszholik.designsystem.R
 
 @Composable
 fun ErrorInfo(errorType: ErrorType) {

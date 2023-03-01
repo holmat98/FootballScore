@@ -21,6 +21,7 @@ import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Competition
 import com.mateuszholik.model.CompetitionType
+import com.mateuszholik.designsystem.R
 import com.mateuszholik.uicomponents.images.RoundedImage
 
 
@@ -39,7 +40,8 @@ fun CompetitionHeader(
             imageUrl = competition.emblem,
             cornerRadius = MaterialTheme.cornerRadius.medium,
             padding = MaterialTheme.spacing.small,
-            size = MaterialTheme.sizing.normal
+            size = MaterialTheme.sizing.normal,
+            onErrorImageRes = R.drawable.ic_ball
         )
         Column {
             Text(
@@ -56,7 +58,8 @@ fun CompetitionHeader(
                     innerPadding = MaterialTheme.spacing.none,
                     cornerRadius = MaterialTheme.cornerRadius.none,
                     size = MaterialTheme.sizing.extraSmall,
-                    backgroundColor = Color.Transparent
+                    backgroundColor = Color.Transparent,
+                    onErrorImageRes = R.drawable.ic_ball
                 )
                 Text(
                     modifier = Modifier.padding(MaterialTheme.spacing.tiny),

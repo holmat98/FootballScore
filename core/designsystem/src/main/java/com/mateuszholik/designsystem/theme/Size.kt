@@ -10,11 +10,11 @@ import androidx.compose.ui.unit.dp
 
 @Immutable
 data class Sizing(
-    val extraSmall: Dp = 15.dp,
-    val small: Dp = 25.dp,
-    val medium: Dp = 35.dp,
-    val normal: Dp = 50.dp,
-    val large: Dp = 75.dp
+    val extraSmall: Dp = 16.dp,
+    val small: Dp = 24.dp,
+    val medium: Dp = 36.dp,
+    val normal: Dp = 48.dp,
+    val large: Dp = 64.dp
 )
 
 val LocalSizing = staticCompositionLocalOf { Sizing() }

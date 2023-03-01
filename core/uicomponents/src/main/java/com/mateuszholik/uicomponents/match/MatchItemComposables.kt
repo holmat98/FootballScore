@@ -16,6 +16,7 @@ import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Score
 import com.mateuszholik.model.Team
+import com.mateuszholik.designsystem.R
 import com.mateuszholik.uicomponents.images.Image
 
 @Composable
@@ -44,7 +45,8 @@ internal fun TeamItem(team: Team) {
             modifier = Modifier
                 .size(MaterialTheme.sizing.small)
                 .padding(MaterialTheme.spacing.extraSmall),
-            url = team.crest
+            url = team.crest,
+            onErrorImageRes = R.drawable.ic_ball
         )
         Text(
             text = team.name.uppercase(),

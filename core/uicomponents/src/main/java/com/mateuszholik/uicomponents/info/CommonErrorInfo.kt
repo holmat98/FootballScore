@@ -2,6 +2,7 @@ package com.mateuszholik.uicomponents.info
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,11 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.spacing
-import com.mateuszholik.uicomponents.R
+import com.mateuszholik.designsystem.R
+import com.mateuszholik.designsystem.theme.textSizing
 
 @Composable
 internal fun CommonErrorInfo(
@@ -24,7 +27,10 @@ internal fun CommonErrorInfo(
     text: String,
     imageContentDescription: String? = null,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+    ) {
         Image(
             modifier = Modifier
                 .fillMaxWidth()
@@ -37,7 +43,9 @@ internal fun CommonErrorInfo(
                 .fillMaxWidth()
                 .padding(MaterialTheme.spacing.medium),
             text = text,
-            color = MaterialTheme.colorScheme.error
+            color = MaterialTheme.colorScheme.error,
+            fontSize = MaterialTheme.textSizing.large,
+            textAlign = TextAlign.Center
         )
 
     }

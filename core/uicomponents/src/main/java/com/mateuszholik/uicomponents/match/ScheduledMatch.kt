@@ -15,7 +15,7 @@ import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Team
-import com.mateuszholik.uicomponents.R
+import com.mateuszholik.designsystem.R
 
 @Composable
 fun ScheduledMatch(

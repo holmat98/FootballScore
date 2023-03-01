@@ -1,5 +1,6 @@
 package com.mateuszholik.uicomponents.images
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,7 @@ import com.mateuszholik.designsystem.theme.spacing
 @Composable
 fun RoundedImage(
     imageUrl: String,
+    @DrawableRes onErrorImageRes: Int,
     contentDescription: String? = null,
     size: Dp = MaterialTheme.sizing.normal,
     padding: Dp = MaterialTheme.spacing.medium,
@@ -40,7 +42,8 @@ fun RoundedImage(
                 .fillMaxSize()
                 .padding(innerPadding),
             url = imageUrl,
-            contentDescription = contentDescription
+            contentDescription = contentDescription,
+            onErrorImageRes = onErrorImageRes
         )
     }
 }

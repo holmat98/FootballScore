@@ -11,19 +11,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.cornerRadius
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
-import com.mateuszholik.uicomponents.R
 import com.mateuszholik.uicomponents.extensions.asString
-import java.time.DayOfWeek
+import com.mateuszholik.uicomponents.extensions.toText
 import java.time.LocalDate
 
 @Composable
@@ -55,24 +53,28 @@ private fun Day(
 ) {
     Column(
         modifier = Modifier
-            .padding(MaterialTheme.spacing.tiny)
-            .clip(RoundedCornerShape(MaterialTheme.cornerRadius.normal))
+            .padding(MaterialTheme.spacing.small)
+            .clip(RoundedCornerShape(MaterialTheme.cornerRadius.large))
             .background(MaterialTheme.colorScheme.secondaryContainer)
             .clickable { onDaySelected(day) },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            modifier = Modifier.padding(MaterialTheme.spacing.tiny),
+            modifier = Modifier.padding(MaterialTheme.spacing.extraSmall),
             text = day.dayOfWeek.toText,
-            fontSize = MaterialTheme.textSizing.tiny,
+            fontSize = MaterialTheme.textSizing.normal,
+            fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSecondaryContainer
         )
         Text(
             modifier = Modifier.padding(
-                bottom = MaterialTheme.spacing.tiny
+                bottom = MaterialTheme.spacing.extraSmall,
+                start = MaterialTheme.spacing.extraSmall,
+                end = MaterialTheme.spacing.extraSmall,
             ),
             text = day.asString(),
-            fontSize = MaterialTheme.textSizing.tiny,
+            fontSize = MaterialTheme.textSizing.normal,
+            fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSecondaryContainer
         )
     }
@@ -82,40 +84,31 @@ private fun Day(
 private fun SelectedDay(day: LocalDate) {
     Column(
         modifier = Modifier
-            .padding(MaterialTheme.spacing.tiny)
-            .clip(RoundedCornerShape(MaterialTheme.cornerRadius.normal))
+            .padding(MaterialTheme.spacing.small)
+            .clip(RoundedCornerShape(MaterialTheme.cornerRadius.large))
             .background(MaterialTheme.colorScheme.primaryContainer),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            modifier = Modifier.padding(MaterialTheme.spacing.tiny),
+            modifier = Modifier.padding(MaterialTheme.spacing.extraSmall),
             text = day.dayOfWeek.toText,
-            fontSize = MaterialTheme.textSizing.tiny,
+            fontSize = MaterialTheme.textSizing.normal,
+            fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onPrimaryContainer
         )
         Text(
             modifier = Modifier.padding(
-                bottom = MaterialTheme.spacing.tiny
+                bottom = MaterialTheme.spacing.extraSmall,
+                start = MaterialTheme.spacing.extraSmall,
+                end = MaterialTheme.spacing.extraSmall,
             ),
             text = day.asString(),
-            fontSize = MaterialTheme.textSizing.tiny,
+            fontSize = MaterialTheme.textSizing.normal,
+            fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onPrimaryContainer
         )
     }
 }
-
-private val DayOfWeek.toText: String
-    @Composable
-    @ReadOnlyComposable
-    get() = when (this) {
-        DayOfWeek.MONDAY -> stringResource(R.string.calendar_monday)
-        DayOfWeek.TUESDAY -> stringResource(R.string.calendar_tuesday)
-        DayOfWeek.WEDNESDAY -> stringResource(R.string.calendar_wednesday)
-        DayOfWeek.THURSDAY -> stringResource(R.string.calendar_thursday)
-        DayOfWeek.FRIDAY -> stringResource(R.string.calendar_friday)
-        DayOfWeek.SATURDAY -> stringResource(R.string.calendar_saturday)
-        DayOfWeek.SUNDAY -> stringResource(R.string.calendar_sunday)
-    }
 
 @Preview
 @Composable

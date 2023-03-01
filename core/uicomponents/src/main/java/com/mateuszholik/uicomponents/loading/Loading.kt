@@ -12,7 +12,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
-import com.mateuszholik.uicomponents.R
+import com.mateuszholik.designsystem.R
 
 @Composable
 fun Loading() {
