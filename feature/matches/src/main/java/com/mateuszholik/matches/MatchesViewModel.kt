@@ -13,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.map
@@ -29,17 +30,17 @@ class MatchesViewModel @Inject constructor(
     dateRangeProvider: DateRangeProvider,
 ) : ViewModel() {
 
-    val days = mutableStateOf(
-        dateRangeProvider.provide(
+    val days = dateRangeProvider.provide(
             startingDate = currentDateProvider.provide().minusDays(HALF_NUM_OF_DAYS.toLong()),
             numOfDays = NUM_OF_DAYS
         )
-    )
 
-    val currentDay = MutableStateFlow(currentDateProvider.provide())
+    private val _currentDay = MutableStateFlow(currentDateProvider.provide())
+    val currentDay: StateFlow<LocalDate>
+        get() = _currentDay
 
     @OptIn(FlowPreview::class)
-    val matches = currentDay.flatMapMerge {
+    val matches = _currentDay.flatMapMerge {
         getMatchesForDateUseCase(it)
     }
         .map { result ->
@@ -57,7 +58,7 @@ class MatchesViewModel @Inject constructor(
 
     fun updateCurrentDate(newCurrentDate: LocalDate) {
         viewModelScope.launch {
-            currentDay.emit(newCurrentDate)
+            _currentDay.emit(newCurrentDate)
         }
     }
 
