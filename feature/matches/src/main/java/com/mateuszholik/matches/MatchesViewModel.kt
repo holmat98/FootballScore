@@ -1,6 +1,5 @@
 package com.mateuszholik.matches
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mateuszholik.common.extensions.toUiState
@@ -15,7 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -40,7 +39,7 @@ class MatchesViewModel @Inject constructor(
         get() = _currentDay
 
     @OptIn(FlowPreview::class)
-    val matches = _currentDay.flatMapMerge {
+    val matches = _currentDay.flatMapConcat {
         getMatchesForDateUseCase(it)
     }
         .map { result ->
