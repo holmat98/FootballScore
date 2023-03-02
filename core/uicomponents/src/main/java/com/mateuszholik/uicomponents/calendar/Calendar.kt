@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,16 +31,28 @@ fun Calendar(
     onDaySelected: (LocalDate) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    LazyRow(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surface)
-    ) {
-        items(items = days) { day ->
-            if (day == selectedDay) {
-                SelectedDay(day = day)
+    LazyRow(modifier = modifier.fillMaxWidth()) {
+        itemsIndexed(items = days) { index, day ->
+            val dayItemModifier = if (index < days.lastIndex) {
+                Modifier.padding(
+                    top = MaterialTheme.spacing.small,
+                    start = MaterialTheme.spacing.small,
+                    bottom = MaterialTheme.spacing.small,
+                )
             } else {
-                Day(day = day, onDaySelected = onDaySelected)
+                Modifier.padding(MaterialTheme.spacing.small)
+            }
+            if (day == selectedDay) {
+                SelectedDay(
+                    modifier = dayItemModifier,
+                    day = day
+                )
+            } else {
+                Day(
+                    modifier = dayItemModifier,
+                    day = day,
+                    onDaySelected = onDaySelected
+                )
             }
         }
     }
@@ -48,19 +60,23 @@ fun Calendar(
 
 @Composable
 private fun Day(
+    modifier: Modifier,
     day: LocalDate,
     onDaySelected: (LocalDate) -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .padding(MaterialTheme.spacing.small)
+        modifier = modifier
             .clip(RoundedCornerShape(MaterialTheme.cornerRadius.large))
             .background(MaterialTheme.colorScheme.secondaryContainer)
             .clickable { onDaySelected(day) },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            modifier = Modifier.padding(MaterialTheme.spacing.extraSmall),
+            modifier = Modifier.padding(
+                top = MaterialTheme.spacing.extraSmall,
+                start = MaterialTheme.spacing.extraSmall,
+                end = MaterialTheme.spacing.extraSmall
+            ),
             text = day.dayOfWeek.toText,
             fontSize = MaterialTheme.textSizing.normal,
             fontWeight = FontWeight.Bold,
@@ -81,16 +97,22 @@ private fun Day(
 }
 
 @Composable
-private fun SelectedDay(day: LocalDate) {
+private fun SelectedDay(
+    modifier: Modifier,
+    day: LocalDate,
+) {
     Column(
-        modifier = Modifier
-            .padding(MaterialTheme.spacing.small)
+        modifier = modifier
             .clip(RoundedCornerShape(MaterialTheme.cornerRadius.large))
             .background(MaterialTheme.colorScheme.primaryContainer),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            modifier = Modifier.padding(MaterialTheme.spacing.extraSmall),
+            modifier = Modifier.padding(
+                top = MaterialTheme.spacing.extraSmall,
+                start = MaterialTheme.spacing.extraSmall,
+                end = MaterialTheme.spacing.extraSmall
+            ),
             text = day.dayOfWeek.toText,
             fontSize = MaterialTheme.textSizing.normal,
             fontWeight = FontWeight.Bold,
@@ -121,6 +143,12 @@ private fun Preview() {
                 LocalDate.of(2023, 2, 20),
                 LocalDate.of(2023, 2, 21),
                 LocalDate.of(2023, 2, 22),
+                LocalDate.of(2023, 2, 23),
+                LocalDate.of(2023, 2, 24),
+                LocalDate.of(2023, 2, 25),
+                LocalDate.of(2023, 2, 26),
+                LocalDate.of(2023, 2, 27),
+                LocalDate.of(2023, 2, 28),
             ),
             selectedDay = LocalDate.of(2023, 2, 20),
             onDaySelected = {}
