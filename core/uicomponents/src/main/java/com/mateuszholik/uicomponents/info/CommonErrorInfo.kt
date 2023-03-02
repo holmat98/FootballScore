@@ -34,14 +34,14 @@ internal fun CommonErrorInfo(
         Image(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(MaterialTheme.spacing.medium),
+                .padding(MaterialTheme.spacing.normal),
             painter = painterResource(imageRes),
             contentDescription = imageContentDescription
         )
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(MaterialTheme.spacing.medium),
+                .padding(MaterialTheme.spacing.normal),
             text = text,
             color = MaterialTheme.colorScheme.error,
             fontSize = MaterialTheme.textSizing.large,

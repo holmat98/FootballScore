@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -55,30 +56,38 @@ fun DatePickerDialog(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(
-                        color = MaterialTheme.colorScheme.primary,
+                        color = MaterialTheme.colorScheme.surface,
                         shape = RoundedCornerShape(
                             topStart = MaterialTheme.cornerRadius.large,
                             topEnd = MaterialTheme.cornerRadius.large
                         )
                     )
-                    .padding(MaterialTheme.spacing.medium)
             ) {
 
                 Text(
+                    modifier = Modifier.padding(
+                        top = MaterialTheme.spacing.normal,
+                        start = MaterialTheme.spacing.medium,
+                        bottom = MaterialTheme.spacing.large
+                    ),
                     text = title,
                     style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onPrimary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-
-                Spacer(modifier = Modifier.size(MaterialTheme.sizing.small))
 
                 Text(
+                    modifier = Modifier.padding(
+                        start = MaterialTheme.spacing.medium,
+                        bottom = MaterialTheme.spacing.extraSmall
+                    ),
                     text = "${currentDate.dayOfWeek.toText}, ${currentDate.month.toText} ${currentDate.year}",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onPrimary
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
-                Spacer(modifier = Modifier.size(MaterialTheme.sizing.extraSmall))
+                Spacer(modifier = Modifier.size(MaterialTheme.sizing.tiny))
+
+                Divider()
             }
 
             CalendarView { selectedDate -> currentDate = selectedDate }
@@ -87,12 +96,15 @@ fun DatePickerDialog(
                 modifier = Modifier
                     .align(Alignment.End)
                     .padding(
-                        bottom = MaterialTheme.spacing.medium,
-                        end = MaterialTheme.spacing.medium
+                        bottom = MaterialTheme.spacing.normal,
+                        end = MaterialTheme.spacing.normal
                     )
             ) {
 
-                TextButton(onClick = onDismissRequest) {
+                TextButton(
+                    modifier = Modifier.padding(end = MaterialTheme.spacing.small),
+                    onClick = onDismissRequest
+                ) {
                     Text(text = negativeButtonText)
                 }
 
@@ -114,7 +126,7 @@ private fun CalendarView(
 ) {
     AndroidView(
         factory = {
-            CalendarView(ContextThemeWrapper(it, R.style.CalenderViewCustom))
+            CalendarView(ContextThemeWrapper(it, R.style.Theme_CalendarView))
         }
     ) {
         it.setOnDateChangeListener { _, year, month, dayOfMonth ->
@@ -129,8 +141,8 @@ private fun Preview() {
     FootballScoreTheme {
         DatePickerDialog(
             title = "Select date",
-            positiveButtonText = "ok",
-            negativeButtonText = "cancel",
+            positiveButtonText = "OK",
+            negativeButtonText = "Cancel",
             onDateSelected = {},
             onDismissRequest = {}
         )

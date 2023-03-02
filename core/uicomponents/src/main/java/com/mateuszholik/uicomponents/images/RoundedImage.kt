@@ -24,7 +24,7 @@ fun RoundedImage(
     @DrawableRes onErrorImageRes: Int,
     contentDescription: String? = null,
     size: Dp = MaterialTheme.sizing.normal,
-    padding: Dp = MaterialTheme.spacing.medium,
+    padding: Dp = MaterialTheme.spacing.normal,
     innerPadding: Dp = MaterialTheme.spacing.extraSmall,
     cornerRadius: Dp = MaterialTheme.cornerRadius.small,
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
