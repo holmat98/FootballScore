@@ -3,6 +3,8 @@ package com.mateuszholik.uicomponents.utils
 import com.mateuszholik.model.Duration
 import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.MatchScore
+import com.mateuszholik.model.Referee
+import com.mateuszholik.model.RefereeType
 import com.mateuszholik.model.Score
 import com.mateuszholik.model.Status
 import com.mateuszholik.model.Team
@@ -40,4 +42,10 @@ internal object PreviewConstants {
     )
     val SCHEDULED_MATCH_INFO = IN_PLAY_MATCH_INFO.copy(status = Status.SCHEDULED)
     val FINISHED_MATCH_INFO = IN_PLAY_MATCH_INFO.copy(status = Status.FINISHED)
+    val REFEREE = Referee(
+        id = 1,
+        name = "Name Surname",
+        nationality = "Poland",
+        type = RefereeType.REFEREE
+    )
 }
