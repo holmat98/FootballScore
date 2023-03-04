@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,6 +21,8 @@ import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Competition
 import com.mateuszholik.model.CompetitionType
 import com.mateuszholik.designsystem.R
+import com.mateuszholik.uicomponents.extensions.backgroundColorForCompetition
+import com.mateuszholik.uicomponents.extensions.textColorForCompetition
 import com.mateuszholik.uicomponents.images.RoundedImage
 
 
@@ -71,26 +72,6 @@ fun CompetitionHeader(
         }
     }
 }
-
-private val CompetitionType.backgroundColorForCompetition: Color
-    @Composable
-    @ReadOnlyComposable
-    get() = when (this) {
-        CompetitionType.CUP -> MaterialTheme.colorScheme.secondary
-        CompetitionType.LEAGUE -> MaterialTheme.colorScheme.secondaryContainer
-        CompetitionType.SUPER_CUP -> MaterialTheme.colorScheme.tertiary
-        CompetitionType.PLAYOFFS -> MaterialTheme.colorScheme.tertiaryContainer
-    }
-
-private val CompetitionType.textColorForCompetition: Color
-    @Composable
-    @ReadOnlyComposable
-    get() = when (this) {
-        CompetitionType.CUP -> MaterialTheme.colorScheme.onSecondary
-        CompetitionType.LEAGUE -> MaterialTheme.colorScheme.onSecondaryContainer
-        CompetitionType.SUPER_CUP -> MaterialTheme.colorScheme.onTertiary
-        CompetitionType.PLAYOFFS -> MaterialTheme.colorScheme.onTertiaryContainer
-    }
 
 @Preview
 @Composable

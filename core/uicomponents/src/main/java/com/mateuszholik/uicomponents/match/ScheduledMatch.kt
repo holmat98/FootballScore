@@ -16,6 +16,7 @@ import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Team
 import com.mateuszholik.designsystem.R
+import com.mateuszholik.uicomponents.team.Teams
 
 @Composable
 fun ScheduledMatch(

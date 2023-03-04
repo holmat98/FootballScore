@@ -17,6 +17,8 @@ import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Score
 import com.mateuszholik.model.Team
 import com.mateuszholik.designsystem.R
+import com.mateuszholik.uicomponents.score.Score
+import com.mateuszholik.uicomponents.team.Teams
 
 @Composable
 fun HalfTimeMatch(

@@ -6,7 +6,7 @@ import androidx.compose.ui.res.stringResource
 import com.mateuszholik.model.Match
 import com.mateuszholik.model.Status
 import com.mateuszholik.designsystem.R
-import com.mateuszholik.uicomponents.extensions.asString
+import com.mateuszholik.uicomponents.extensions.asHourString
 
 @Composable
 fun MatchItem(
@@ -43,7 +43,7 @@ fun MatchItem(
             modifier = modifier,
             homeTeam = match.homeTeam,
             awayTeam = match.awayTeam,
-            text = match.utcDate.asString()
+            text = match.utcDate.asHourString()
         )
         Status.CANCELLED -> ScheduledMatch(
             modifier = modifier,

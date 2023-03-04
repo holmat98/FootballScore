@@ -20,7 +20,7 @@ import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.cornerRadius
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
-import com.mateuszholik.uicomponents.extensions.asString
+import com.mateuszholik.uicomponents.extensions.asHourString
 import com.mateuszholik.uicomponents.extensions.toText
 import java.time.LocalDate
 
@@ -88,7 +88,7 @@ private fun Day(
                 start = MaterialTheme.spacing.extraSmall,
                 end = MaterialTheme.spacing.extraSmall,
             ),
-            text = day.asString(),
+            text = day.asHourString(),
             fontSize = MaterialTheme.textSizing.normal,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -124,7 +124,7 @@ private fun SelectedDay(
                 start = MaterialTheme.spacing.extraSmall,
                 end = MaterialTheme.spacing.extraSmall,
             ),
-            text = day.asString(),
+            text = day.asHourString(),
             fontSize = MaterialTheme.textSizing.normal,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onPrimaryContainer

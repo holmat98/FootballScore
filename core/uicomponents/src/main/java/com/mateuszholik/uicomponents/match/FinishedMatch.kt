@@ -9,6 +9,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.model.Score
 import com.mateuszholik.model.Team
+import com.mateuszholik.uicomponents.score.Score
+import com.mateuszholik.uicomponents.team.Teams
 
 @Composable
 fun FinishedMatch(
