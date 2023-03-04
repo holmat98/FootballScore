@@ -1,13 +1,12 @@
 package com.mateuszholik.uicomponents.team
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.model.Team
+import com.mateuszholik.uicomponents.utils.PreviewConstants
 
 @Composable
 internal fun Teams(
@@ -26,21 +25,9 @@ internal fun Teams(
 private fun Preview() {
     FootballScoreTheme {
         Teams(
-            modifier = Modifier.background(color = MaterialTheme.colorScheme.surface),
-            homeTeam = Team(
-                crest = "",
-                id = 1,
-                name = "Manchester United",
-                shortName = "ManU",
-                tla = "MU"
-            ),
-            awayTeam = Team(
-                crest = "",
-                id = 2,
-                name = "Manchester City",
-                shortName = "ManCity",
-                tla = "MC"
-            )
+            modifier = Modifier,
+            homeTeam = PreviewConstants.TEAM_1,
+            awayTeam = PreviewConstants.TEAM_2
         )
     }
 }
