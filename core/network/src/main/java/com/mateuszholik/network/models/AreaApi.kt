@@ -6,7 +6,7 @@ data class AreaApi(
     @SerializedName("code")
     val code: String,
     @SerializedName("flag")
-    val flag: String,
+    val flag: String? = null,
     @SerializedName("id")
     val id: Int,
     @SerializedName("name")
