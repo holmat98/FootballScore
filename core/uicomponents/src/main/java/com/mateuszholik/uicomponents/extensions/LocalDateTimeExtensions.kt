@@ -8,3 +8,9 @@ internal fun LocalDateTime.asHourString(): String {
 
     return this.format(dateTimeFormatter)
 }
+
+internal fun LocalDateTime.asFullDateTimeString(): String {
+    val dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
+
+    return this.format(dateTimeFormatter)
+}

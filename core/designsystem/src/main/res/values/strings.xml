@@ -23,6 +23,9 @@
     <string name="calendar_november">Nov</string>
     <string name="calendar_december">Dec</string>
     <string name="dialog_date_picker_title">Select date</string>
+    <string name="duration_regular">Regular</string>
+    <string name="duration_penalties">Penalties</string>
+    <string name="duration_extra_time">Extra time</string>
     <string name="error_client">An client error occurred</string>
     <string name="error_empty_data">No data was returned</string>
     <string name="error_no_internet">You have no internet connection</string>

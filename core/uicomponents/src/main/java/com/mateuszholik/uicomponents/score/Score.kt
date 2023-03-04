@@ -14,6 +14,7 @@ import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Score
+import com.mateuszholik.uicomponents.utils.PreviewConstants
 
 @Composable
 internal fun Score(

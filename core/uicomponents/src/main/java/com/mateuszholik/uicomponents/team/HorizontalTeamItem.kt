@@ -18,6 +18,7 @@ import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Team
 import com.mateuszholik.uicomponents.images.Image
+import com.mateuszholik.uicomponents.utils.PreviewConstants
 
 @Composable
 internal fun HorizontalTeamItem(team: Team) {
@@ -51,13 +52,7 @@ private fun Preview() {
     FootballScoreTheme {
         Surface(color = MaterialTheme.colorScheme.surface) {
             HorizontalTeamItem(
-                team = Team(
-                    crest = "",
-                    id = 1,
-                    name = "Manchester United",
-                    shortName = "ManU",
-                    tla = "MU"
-                )
+                team = PreviewConstants.TEAM_1
             )
         }
     }
