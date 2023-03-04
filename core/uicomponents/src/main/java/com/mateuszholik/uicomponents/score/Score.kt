@@ -29,7 +29,7 @@ internal fun Score(
                 horizontal = MaterialTheme.spacing.extraSmall,
             ),
             text = "${score.home}",
-            fontSize = MaterialTheme.textSizing.small,
+            fontSize = MaterialTheme.textSizing.normal,
             fontWeight = FontWeight.Bold,
             color = scoreColor
         )
@@ -39,7 +39,7 @@ internal fun Score(
                 horizontal = MaterialTheme.spacing.extraSmall,
             ),
             text = "${score.away}",
-            fontSize = MaterialTheme.textSizing.small,
+            fontSize = MaterialTheme.textSizing.normal,
             fontWeight = FontWeight.Bold,
             color = scoreColor
         )
