@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,7 +27,7 @@ fun SmallImageHeader(
     text: String,
     modifier: Modifier = Modifier,
     backgroundColor: Color = MaterialTheme.colorScheme.primaryContainer,
-    textColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
 ) {
     Row(
         modifier = modifier
@@ -37,13 +38,14 @@ fun SmallImageHeader(
         Image(
             modifier = Modifier.padding(MaterialTheme.spacing.extraSmall),
             painter = painterResource(imageRes),
-            contentDescription = null
+            contentDescription = null,
+            colorFilter = ColorFilter.tint(color = contentColor)
         )
         Text(
             text = text.uppercase(),
             fontSize = MaterialTheme.textSizing.small,
             fontWeight = FontWeight.Bold,
-            color = textColor
+            color = contentColor
         )
     }
 }
