@@ -35,6 +35,7 @@ internal object PreviewConstants {
         winner = Winner.N_A
     )
     val IN_PLAY_MATCH_INFO = MatchInfo(
+        id = 1,
         homeTeam = TEAM_1,
         awayTeam = TEAM_2,
         score = MATCH_SCORE,

@@ -27,7 +27,8 @@ internal fun DetailedScore(
         Status.PAUSED,
         Status.POSTPONED,
         Status.SUSPENDED,
-        Status.SCHEDULED -> {
+        Status.SCHEDULED,
+        Status.TIMED -> {
             Text(
                 modifier = modifier,
                 text = "-",
@@ -45,8 +46,7 @@ internal fun DetailedScore(
                 fontSize = MaterialTheme.textSizing.large
             )
         }
-        Status.IN_PLAY,
-        Status.TIMED -> {
+        Status.IN_PLAY -> {
             Column(
                 modifier = modifier,
                 horizontalAlignment = Alignment.CenterHorizontally

@@ -3,10 +3,13 @@ package com.mateuszholik.uicomponents.referee
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
@@ -16,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.mateuszholik.model.Referee
 import com.mateuszholik.designsystem.R
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
+import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.RefereeType
 import com.mateuszholik.uicomponents.utils.PreviewConstants
@@ -25,8 +29,12 @@ fun RefereeItem(
     referee: Referee,
     modifier: Modifier = Modifier,
 ) {
-    Row(modifier = modifier.fillMaxWidth()) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
         Image(
+            modifier = Modifier.padding(MaterialTheme.spacing.extraSmall),
             painter = painterResource(R.drawable.ic_referee),
             contentDescription = null,
             colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onSurface)

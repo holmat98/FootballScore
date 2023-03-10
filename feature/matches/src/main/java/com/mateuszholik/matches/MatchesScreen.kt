@@ -2,6 +2,7 @@ package com.mateuszholik.matches
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -42,6 +43,7 @@ import java.time.LocalDate
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MatchesScreen(
+    onMatchClicked: (matchId: Int) -> Unit,
     viewModel: MatchesViewModel = hiltViewModel(),
 ) {
     val topAppBarState = rememberTopAppBarState()
@@ -89,7 +91,8 @@ fun MatchesScreen(
                     days = days,
                     selectedDay = currentDay,
                     data = (matchesUiState as UiState.Success<Map<Competition, List<MatchInfo>>>).data,
-                    onDaySelected = { viewModel.updateCurrentDate(it) }
+                    onDaySelected = { viewModel.updateCurrentDate(it) },
+                    onMatchClicked = onMatchClicked
                 )
                 is UiState.Error ->
                     ErrorInfo((matchesUiState as UiState.Error<Map<Competition, List<MatchInfo>>>).errorType)
@@ -120,6 +123,7 @@ private fun Content(
     selectedDay: LocalDate,
     data: Map<Competition, List<MatchInfo>>,
     onDaySelected: (LocalDate) -> Unit,
+    onMatchClicked: (matchId: Int) -> Unit,
 ) {
     LazyColumn(modifier = modifier.fillMaxSize()) {
         item {
@@ -135,7 +139,10 @@ private fun Content(
                 CompetitionHeader(competition = competition)
             }
             itemsIndexed(items = matches) { index, matchInfo ->
-                MatchItem(matchInfo = matchInfo)
+                MatchItem(
+                    modifier = Modifier.clickable { onMatchClicked(matchInfo.id) },
+                    matchInfo = matchInfo,
+                )
                 if (index < matches.lastIndex) {
                     Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
                 }
