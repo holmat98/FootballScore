@@ -37,7 +37,7 @@ internal fun VerticalTeamInfo(
             cornerRadius = MaterialTheme.cornerRadius.large
         )
         Text(
-            text = team.name,
+            text = team.shortName,
             color = textColor,
             fontSize = MaterialTheme.textSizing.normal
         )

@@ -11,6 +11,7 @@ import com.mateuszholik.model.Referee
 import com.mateuszholik.model.RefereeType
 import com.mateuszholik.model.Score
 import com.mateuszholik.model.Season
+import com.mateuszholik.model.SeasonWinner
 import com.mateuszholik.model.Stage
 import com.mateuszholik.model.Status
 import com.mateuszholik.model.Team
@@ -27,6 +28,7 @@ import com.mateuszholik.network.models.ScoreApi
 import com.mateuszholik.network.models.SeasonApi
 import com.mateuszholik.network.models.TeamApi
 import com.mateuszholik.network.models.TeamH2HDataApi
+import com.mateuszholik.network.models.WinnerApi
 
 internal fun MatchesApi.toCommonModel(): List<Match> =
     matches.map { it.toCommonModel() }
@@ -98,14 +100,27 @@ internal fun SeasonApi.toCommonModel(): Season =
         endDate = endDate.toLocalDate(),
         id = id,
         startDate = startDate.toLocalDate(),
-        winner = winner.orEmpty(),
+        winner = winner?.toCommonModel(),
+    )
+
+internal fun WinnerApi.toCommonModel(): SeasonWinner =
+    SeasonWinner(
+        id = id,
+        name = name,
+        shortName = shortName,
+        tla = tla,
+        crest = crest,
+        address = address,
+        website = website,
+        founded = founded,
+        clubColors = clubColors
     )
 
 internal fun Head2HeadApi.toCommonModel(): Head2Head =
     Head2Head(
         awayTeam = aggregatedH2HData.awayTeam.toCommonModel(),
         homeTeam = aggregatedH2HData.homeTeam.toCommonModel(),
-        matches = matches.map { it.toCommonModel() },
+        matches = matches.map { it.toCommonModel() }.toListOfMatchInfo(),
         numberOfMatches = aggregatedH2HData.numberOfMatches,
         totalGoals = aggregatedH2HData.totalGoals
     )

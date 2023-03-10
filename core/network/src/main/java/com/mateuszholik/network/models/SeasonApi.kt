@@ -12,5 +12,5 @@ data class SeasonApi(
     @SerializedName("startDate")
     val startDate: String,
     @SerializedName("winner")
-    val winner: String? = null,
+    val winner: WinnerApi? = null,
 )

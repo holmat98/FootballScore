@@ -49,7 +49,7 @@ fun MatchScoreHeader(
             Text(
                 text = matchInfo.utcDate.asFullDateTimeString(),
                 color = MaterialTheme.colorScheme.onSurface,
-                fontSize = MaterialTheme.textSizing.extraSmall
+                fontSize = MaterialTheme.textSizing.small
             )
             DetailedScore(
                 modifier = Modifier.padding(top = MaterialTheme.spacing.extraSmall),
