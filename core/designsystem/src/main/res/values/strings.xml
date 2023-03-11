@@ -35,8 +35,11 @@
     <string name="match_postponed">Postponed</string>
     <string name="match_suspended">Suspended</string>
     <string name="match_half_time">Half time</string>
-    <string name="match_details_game_info">Informacje o meczu</string>
+    <string name="match_details_game_info">Informations about match</string>
     <string name="match_details_h2h">H2H</string>
+    <string name="match_details_h2h_num_of_goals">Goals scored: %1$d</string>
+    <string name="match_details_h2h_num_of_matches">Matches played: %1$d</string>
+    <string name="match_details_last_matches">Last matches</string>
     <string name="referee_main">Main referee</string>
     <string name="referee_assistant">Assistant referee</string>
     <string name="referee_technical">Technical referee</string>

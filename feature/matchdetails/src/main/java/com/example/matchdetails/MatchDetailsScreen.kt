@@ -1,5 +1,6 @@
 package com.example.matchdetails
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -29,6 +31,7 @@ import com.mateuszholik.designsystem.R
 import com.mateuszholik.model.CompetitionType
 import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.UiState
+import com.mateuszholik.uicomponents.head2head.TeamHead2HeadInfo
 import com.mateuszholik.uicomponents.headers.CompetitionHeader
 import com.mateuszholik.uicomponents.headers.MatchScoreHeader
 import com.mateuszholik.uicomponents.headers.SmallImageHeader
@@ -133,6 +136,49 @@ private fun Content(
 
         item { SmallTextHeader(text = stringResource(R.string.match_details_h2h)) }
 
+        item {
+            SmallImageHeader(
+                imageRes = R.drawable.ic_ball,
+                text = stringResource(
+                    R.string.match_details_h2h_num_of_matches,
+                    data.h2hData.numberOfMatches
+                ),
+                backgroundColor = MaterialTheme.colorScheme.surface,
+                contentColor = MaterialTheme.colorScheme.onSurface
+            )
+            Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+        }
+
+        item {
+            SmallImageHeader(
+                imageRes = R.drawable.ic_ball,
+                text = stringResource(
+                    R.string.match_details_h2h_num_of_goals,
+                    data.h2hData.totalGoals
+                ),
+                backgroundColor = MaterialTheme.colorScheme.surface,
+                contentColor = MaterialTheme.colorScheme.onSurface
+            )
+            Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+        }
+
+        item {
+            TeamHead2HeadInfo(
+                teamCrest = data.match.homeTeam.crest,
+                head2HeadTeam = data.h2hData.homeTeam
+            )
+            Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+        }
+
+        item {
+            TeamHead2HeadInfo(
+                teamCrest = data.match.awayTeam.crest,
+                head2HeadTeam = data.h2hData.awayTeam
+            )
+        }
+
+        item { SmallTextHeader(text = stringResource(R.string.match_details_last_matches)) }
+
         itemsIndexed(items = data.h2hData.matches) { index, matchInfo ->
             H2HMatch(
                 modifier = Modifier.clickable { onH2HMatchClicked(matchInfo.id) },
@@ -151,15 +197,17 @@ private fun MatchHeader(
     matchInfo: MatchInfo,
     shouldShowSmallHeader: Boolean,
 ) {
-    if (shouldShowSmallHeader) {
-        MatchScoreHeader(
-            competitionType = competitionType,
-            matchInfo = matchInfo
-        )
-    } else {
-        SmallMatchScoreHeader(
-            competitionType = competitionType,
-            matchInfo = matchInfo
-        )
+    Surface(modifier = Modifier.animateContentSize()) {
+        if (shouldShowSmallHeader) {
+            MatchScoreHeader(
+                competitionType = competitionType,
+                matchInfo = matchInfo
+            )
+        } else {
+            SmallMatchScoreHeader(
+                competitionType = competitionType,
+                matchInfo = matchInfo
+            )
+        }
     }
 }
