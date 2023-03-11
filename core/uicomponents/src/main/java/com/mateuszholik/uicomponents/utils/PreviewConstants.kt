@@ -8,6 +8,7 @@ import com.mateuszholik.model.RefereeType
 import com.mateuszholik.model.Score
 import com.mateuszholik.model.Status
 import com.mateuszholik.model.Team
+import com.mateuszholik.model.TeamH2HData
 import com.mateuszholik.model.Winner
 import java.time.LocalDateTime
 
@@ -47,5 +48,12 @@ internal object PreviewConstants {
         name = "Name Surname",
         nationality = "Poland",
         type = RefereeType.REFEREE
+    )
+    val TEAM_H2H_DATA = TeamH2HData(
+        draws = 5,
+        id = 1,
+        losses = 10,
+        name = "ManCity",
+        wins = 15
     )
 }

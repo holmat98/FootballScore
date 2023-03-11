@@ -31,10 +31,10 @@ internal fun VerticalTeamInfo(
         RoundedImage(
             imageUrl = team.crest,
             onErrorImageRes = R.drawable.ic_ball,
-            size = MaterialTheme.sizing.medium,
+            size = MaterialTheme.sizing.large,
             padding = MaterialTheme.spacing.none,
-            innerPadding = MaterialTheme.spacing.extraSmall,
-            cornerRadius = MaterialTheme.cornerRadius.medium
+            innerPadding = MaterialTheme.spacing.small,
+            cornerRadius = MaterialTheme.cornerRadius.large
         )
         Text(
             text = team.name,

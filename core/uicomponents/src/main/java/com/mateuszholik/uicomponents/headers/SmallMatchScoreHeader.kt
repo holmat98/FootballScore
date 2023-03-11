@@ -38,10 +38,10 @@ fun SmallMatchScoreHeader(
     ) {
         RoundedImage(
             imageUrl = matchInfo.homeTeam.crest,
-            size = MaterialTheme.sizing.small,
+            size = MaterialTheme.sizing.medium,
             padding = MaterialTheme.spacing.none,
             innerPadding = MaterialTheme.spacing.extraSmall,
-            cornerRadius = MaterialTheme.cornerRadius.small,
+            cornerRadius = MaterialTheme.cornerRadius.normal,
             onErrorImageRes = R.drawable.ic_ball
         )
         DetailedScore(
@@ -55,10 +55,10 @@ fun SmallMatchScoreHeader(
         )
         RoundedImage(
             imageUrl = matchInfo.awayTeam.crest,
-            size = MaterialTheme.sizing.small,
+            size = MaterialTheme.sizing.medium,
             padding = MaterialTheme.spacing.none,
             innerPadding = MaterialTheme.spacing.extraSmall,
-            cornerRadius = MaterialTheme.cornerRadius.small,
+            cornerRadius = MaterialTheme.cornerRadius.normal,
             onErrorImageRes = R.drawable.ic_ball
         )
     }
