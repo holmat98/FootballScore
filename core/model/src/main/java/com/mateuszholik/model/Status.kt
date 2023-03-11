@@ -1,9 +1,12 @@
 package com.mateuszholik.model
 
 enum class Status {
+    CANCELLED,
     FINISHED,
-    TIMED,
     IN_PLAY,
+    PAUSED,
     POSTPONED,
-    SCHEDULED;
+    SUSPENDED,
+    SCHEDULED,
+    TIMED;
 }

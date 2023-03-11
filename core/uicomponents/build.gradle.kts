@@ -55,4 +55,11 @@ dependencies {
     androidTestImplementation(Compose.TESTS)
     debugImplementation(Compose.UI_TOOLING)
     debugImplementation(Compose.TEST_MANIFEST)
+
+    // Coil
+    implementation(Coil.DEPENDENCY)
+    implementation(Coil.Svg.DEPENDENCY)
+
+    // Lottie
+    implementation(Lottie.DEPENDENCY)
 }

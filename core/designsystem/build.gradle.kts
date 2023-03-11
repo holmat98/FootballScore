@@ -50,4 +50,7 @@ dependencies {
     androidTestImplementation(Compose.TESTS)
     debugImplementation(Compose.UI_TOOLING)
     debugImplementation(Compose.TEST_MANIFEST)
+
+    // Material Design
+    implementation(MaterialDesign.DEPENDENCY)
 }

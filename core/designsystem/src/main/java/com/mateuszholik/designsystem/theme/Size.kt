@@ -9,20 +9,18 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Immutable
-data class Spacing(
-    val none: Dp = 0.dp,
-    val tiny: Dp = 2.dp,
-    val extraSmall: Dp = 4.dp,
-    val small: Dp = 8.dp,
-    val normal: Dp = 16.dp,
-    val medium: Dp = 24.dp,
-    val large: Dp = 32.dp,
-    val extraLarge: Dp = 64.dp,
+data class Sizing(
+    val tiny: Dp = 8.dp,
+    val extraSmall: Dp = 16.dp,
+    val small: Dp = 24.dp,
+    val medium: Dp = 36.dp,
+    val normal: Dp = 48.dp,
+    val large: Dp = 64.dp
 )
 
-val LocalSpacing = staticCompositionLocalOf { Spacing() }
+val LocalSizing = staticCompositionLocalOf { Sizing() }
 
-val MaterialTheme.spacing: Spacing
+val MaterialTheme.sizing: Sizing
     @Composable
     @ReadOnlyComposable
-    get() = LocalSpacing.current
+    get() = LocalSizing.current

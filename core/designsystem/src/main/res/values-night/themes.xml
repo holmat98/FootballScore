@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.CalendarView" parent="Theme.Material3.Dark.Dialog">
+        <item name="colorAccent">#A2D578</item>
+        <item name="colorOnPrimary">#193800</item>
+        <item name="colorSurface">#A2D578</item>
+    </style>
+</resources>

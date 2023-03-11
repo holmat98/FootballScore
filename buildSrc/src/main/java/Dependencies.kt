@@ -150,3 +150,19 @@ object Hilt {
         const val DEPENDENCY = "com.google.dagger:hilt-android-compiler:$version"
     }
 }
+
+object Coil {
+    private const val version = "2.2.2"
+
+    const val DEPENDENCY = "io.coil-kt:coil-compose:$version"
+
+    object Svg {
+        const val DEPENDENCY = "io.coil-kt:coil-svg:$version"
+    }
+}
+
+object Lottie {
+    private const val version = "6.0.0"
+
+    const val DEPENDENCY = "com.airbnb.android:lottie-compose:$version"
+}
