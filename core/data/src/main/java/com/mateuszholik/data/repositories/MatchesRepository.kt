@@ -1,9 +1,12 @@
 package com.mateuszholik.data.repositories
 
 import com.mateuszholik.data.extensions.toCommonModel
+import com.mateuszholik.data.extensions.toListOfMatchInfo
 import com.mateuszholik.data.extensions.toResult
+import com.mateuszholik.model.Competition
 import com.mateuszholik.model.Head2Head
 import com.mateuszholik.model.Match
+import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.Result
 import com.mateuszholik.network.repositories.MatchesApiRepository
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +15,7 @@ import java.time.LocalDate
 
 interface MatchesRepository {
 
-    fun getMatchesForDate(date: LocalDate): Flow<Result<List<Match>>>
+    fun getMatchesForDate(date: LocalDate): Flow<Result<Map<Competition, List<MatchInfo>>>>
 
     fun getMatch(id: Int): Flow<Result<Match>>
 
@@ -23,13 +26,15 @@ internal class MatchesRepositoryImpl(
     private val matchesApiRepository: MatchesApiRepository,
 ) : MatchesRepository {
 
-    override fun getMatchesForDate(date: LocalDate): Flow<Result<List<Match>>> =
+    override fun getMatchesForDate(date: LocalDate): Flow<Result<Map<Competition, List<MatchInfo>>>> =
         matchesApiRepository.getMatchesForDateRange(
             dateFrom = date,
             dateTo = date.plusDays(1)
         ).map { resultApi ->
             resultApi.toResult {
                 this.toCommonModel()
+                    .groupBy { it.competition }
+                    .mapValues { it.value.toListOfMatchInfo() }
             }
         }
 

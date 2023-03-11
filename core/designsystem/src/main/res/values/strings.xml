@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">FootballScore</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_ok">OK</string>
     <string name="calendar_monday">Mon</string>
     <string name="calendar_tuesday">Tues</string>
     <string name="calendar_wednesday">Wed</string>
@@ -20,6 +22,7 @@
     <string name="calendar_october">Oct</string>
     <string name="calendar_november">Nov</string>
     <string name="calendar_december">Dec</string>
+    <string name="dialog_date_picker_title">Select date</string>
     <string name="error_client">An client error occurred</string>
     <string name="error_empty_data">No data was returned</string>
     <string name="error_no_internet">You have no internet connection</string>

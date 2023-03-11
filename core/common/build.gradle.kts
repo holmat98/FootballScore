@@ -36,6 +36,9 @@ android {
 
 dependencies {
 
+    // Modules
+    implementation(project(":core:model"))
+
     // CoreKtx
     implementation(CoreKtx.DEPENDENCY)
 

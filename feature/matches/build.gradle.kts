@@ -43,6 +43,7 @@ android {
 dependencies {
 
     // Modules
+    implementation(project(":core:common"))
     implementation(project(":core:designsystem"))
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
@@ -73,5 +74,6 @@ dependencies {
 
     // Hilt
     implementation(Hilt.DEPENDENCY)
+    implementation(Hilt.Compose.DEPENDENCY)
     kapt(Hilt.Compiler.DEPENDENCY)
 }
