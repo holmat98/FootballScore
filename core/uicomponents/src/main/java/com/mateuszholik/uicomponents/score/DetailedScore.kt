@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.textSizing
@@ -31,6 +32,7 @@ internal fun DetailedScore(
                 modifier = modifier,
                 text = "-",
                 color = MaterialTheme.colorScheme.onSurface,
+                fontWeight = FontWeight.Bold,
                 fontSize = MaterialTheme.textSizing.large
             )
         }
@@ -39,6 +41,7 @@ internal fun DetailedScore(
                 modifier = modifier,
                 text = "${matchScore.fullTime.home} : ${matchScore.fullTime.away}",
                 color = MaterialTheme.colorScheme.onSurface,
+                fontWeight = FontWeight.Bold,
                 fontSize = MaterialTheme.textSizing.large
             )
         }
@@ -51,6 +54,7 @@ internal fun DetailedScore(
                 Text(
                     text = "${matchScore.fullTime.home} : ${matchScore.fullTime.away}",
                     color = MaterialTheme.colorScheme.error,
+                    fontWeight = FontWeight.Bold,
                     fontSize = MaterialTheme.textSizing.large
                 )
                 if (shouldShowDuration) {

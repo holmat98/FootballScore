@@ -88,3 +88,14 @@ private fun ScheduledMatchPreview() {
         )
     }
 }
+
+@Preview(device = Devices.PIXEL_4)
+@Composable
+private fun FinishedMatchPreview() {
+    FootballScoreTheme {
+        MatchScoreHeader(
+            competitionType = CompetitionType.PLAYOFFS,
+            matchInfo = PreviewConstants.FINISHED_MATCH_INFO,
+        )
+    }
+}
