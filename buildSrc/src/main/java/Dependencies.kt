@@ -80,6 +80,11 @@ object Lifecycle {
 
     const val VIEW_MODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     const val LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+
+    object Compose {
+        private const val version = "2.6.0-beta01"
+        const val DEPENDENCY = "androidx.lifecycle:lifecycle-runtime-compose:$version"
+    }
 }
 
 object Timber {
