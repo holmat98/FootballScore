@@ -44,4 +44,5 @@
     <string name="referee_assistant">Assistant referee</string>
     <string name="referee_technical">Technical referee</string>
     <string name="referee_var">VAR referee</string>
+    <string name="title_leaguedetails">League details</string>
 </resources>
