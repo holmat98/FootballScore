@@ -1,3 +1,10 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -16,3 +23,4 @@ include(":core:common")
 include(":core:uicomponents")
 include(":feature:matches")
 include(":feature:matchdetails")
+include(":feature:leaguedetails")
