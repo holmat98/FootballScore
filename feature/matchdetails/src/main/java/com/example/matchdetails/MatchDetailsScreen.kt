@@ -164,16 +164,10 @@ private fun Content(
 
         item {
             TeamHead2HeadInfo(
-                teamCrest = data.match.homeTeam.crest,
-                head2HeadTeam = data.h2hData.homeTeam
-            )
-            Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
-        }
-
-        item {
-            TeamHead2HeadInfo(
-                teamCrest = data.match.awayTeam.crest,
-                head2HeadTeam = data.h2hData.awayTeam
+                homeTeamCrest = data.match.homeTeam.crest,
+                awayTeamCrest = data.match.awayTeam.crest,
+                homeTeamH2hData = data.h2hData.homeTeam,
+                awayTeamH2HData = data.h2hData.awayTeam
             )
         }
 
