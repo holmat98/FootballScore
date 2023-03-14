@@ -32,23 +32,19 @@ fun TeamHead2HeadInfo(
 ) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceAround
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(
-            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.normal),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally,) {
             RoundedImage(
                 imageUrl = homeTeamCrest,
                 onErrorImageRes = R.drawable.ic_ball,
-                padding = MaterialTheme.spacing.small,
+                padding = MaterialTheme.spacing.extraSmall,
                 cornerRadius = MaterialTheme.cornerRadius.normal
             )
             RoundedImage(
                 imageUrl = awayTeamCrest,
                 onErrorImageRes = R.drawable.ic_ball,
-                padding = MaterialTheme.spacing.small,
+                padding = MaterialTheme.spacing.extraSmall,
                 cornerRadius = MaterialTheme.cornerRadius.normal
             )
         }
@@ -57,6 +53,7 @@ fun TeamHead2HeadInfo(
             bottomText = "${awayTeamH2HData.wins}"
         )
         RoundedColumnTextCard(
+            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
             topText = "${homeTeamH2hData.draws}",
             bottomText = "${awayTeamH2HData.draws}",
             backgroundColor = Color(0xFFDCEB78),

@@ -1,14 +1,9 @@
 package com.mateuszholik.uicomponents.cards
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -36,6 +31,7 @@ fun RoundedColumnTextCard(
     innerPadding: Dp = MaterialTheme.spacing.small,
 ) {
     ElevatedCard(
+        modifier = modifier,
         shape = RoundedCornerShape(cornerRadius),
         colors = CardDefaults.elevatedCardColors(
             containerColor = backgroundColor,
