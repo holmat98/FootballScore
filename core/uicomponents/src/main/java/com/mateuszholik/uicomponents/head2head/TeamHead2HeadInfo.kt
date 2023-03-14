@@ -1,6 +1,7 @@
 package com.mateuszholik.uicomponents.head2head
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -8,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.mateuszholik.designsystem.R
@@ -15,46 +17,57 @@ import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.cornerRadius
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.model.TeamH2HData
-import com.mateuszholik.uicomponents.cards.RoundedTextCard
+import com.mateuszholik.uicomponents.cards.RoundedColumnTextCard
 import com.mateuszholik.uicomponents.images.RoundedImage
 import com.mateuszholik.uicomponents.utils.PreviewConstants.TEAM_H2H_DATA
+import com.mateuszholik.uicomponents.utils.PreviewConstants.TEAM_H2H_DATA_2
 
 @Composable
 fun TeamHead2HeadInfo(
-    teamCrest: String,
-    head2HeadTeam: TeamH2HData,
+    homeTeamCrest: String,
+    awayTeamCrest: String,
+    homeTeamH2hData: TeamH2HData,
+    awayTeamH2HData: TeamH2HData,
     modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceAround
     ) {
-        RoundedImage(
-            imageUrl = teamCrest,
-            onErrorImageRes = R.drawable.ic_ball,
-            padding = MaterialTheme.spacing.small,
-            cornerRadius = MaterialTheme.cornerRadius.normal
-        )
-        Row {
-            RoundedTextCard(
-                text = "${head2HeadTeam.wins}",
-                backgroundColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
+        Column(
+            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.normal),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            RoundedImage(
+                imageUrl = homeTeamCrest,
+                onErrorImageRes = R.drawable.ic_ball,
+                padding = MaterialTheme.spacing.small,
+                cornerRadius = MaterialTheme.cornerRadius.normal
             )
-            RoundedTextCard(
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium),
-                text = "${head2HeadTeam.draws}",
-                backgroundColor = MaterialTheme.colorScheme.secondary,
-                contentColor = MaterialTheme.colorScheme.onSecondary,
-            )
-            RoundedTextCard(
-                modifier = Modifier.padding(end = MaterialTheme.spacing.medium),
-                text = "${head2HeadTeam.losses}",
-                backgroundColor = MaterialTheme.colorScheme.error,
-                contentColor = MaterialTheme.colorScheme.onError
+            RoundedImage(
+                imageUrl = awayTeamCrest,
+                onErrorImageRes = R.drawable.ic_ball,
+                padding = MaterialTheme.spacing.small,
+                cornerRadius = MaterialTheme.cornerRadius.normal
             )
         }
+        RoundedColumnTextCard(
+            topText = "${homeTeamH2hData.wins}",
+            bottomText = "${awayTeamH2HData.wins}"
+        )
+        RoundedColumnTextCard(
+            topText = "${homeTeamH2hData.draws}",
+            bottomText = "${awayTeamH2HData.draws}",
+            backgroundColor = Color(0xFFDCEB78),
+            contentColor = Color(0xFF1A1E00),
+        )
+        RoundedColumnTextCard(
+            topText = "${homeTeamH2hData.losses}",
+            bottomText = "${awayTeamH2HData.losses}",
+            backgroundColor = MaterialTheme.colorScheme.error,
+            contentColor = MaterialTheme.colorScheme.onError,
+        )
     }
 }
 
@@ -63,8 +76,10 @@ fun TeamHead2HeadInfo(
 private fun Preview() {
     FootballScoreTheme {
         TeamHead2HeadInfo(
-            teamCrest = "",
-            head2HeadTeam = TEAM_H2H_DATA
+            homeTeamCrest = "",
+            awayTeamCrest = "",
+            homeTeamH2hData = TEAM_H2H_DATA,
+            awayTeamH2HData = TEAM_H2H_DATA_2
         )
     }
 }
