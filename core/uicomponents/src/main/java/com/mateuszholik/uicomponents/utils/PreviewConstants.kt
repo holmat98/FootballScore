@@ -56,4 +56,11 @@ internal object PreviewConstants {
         name = "ManCity",
         wins = 15
     )
+    val TEAM_H2H_DATA_2 = TeamH2HData(
+        draws = 5,
+        id = 1,
+        losses = 15,
+        name = "ManUnited",
+        wins = 10
+    )
 }

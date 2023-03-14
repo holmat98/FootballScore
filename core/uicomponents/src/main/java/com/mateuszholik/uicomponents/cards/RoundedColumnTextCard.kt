@@ -1,12 +1,19 @@
 package com.mateuszholik.uicomponents.cards
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,8 +25,9 @@ import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 
 @Composable
-fun RoundedTextCard(
-    text: String,
+fun RoundedColumnTextCard(
+    topText: String,
+    bottomText: String,
     modifier: Modifier = Modifier,
     textSize: TextUnit = MaterialTheme.textSizing.normal,
     backgroundColor: Color = MaterialTheme.colorScheme.primaryContainer,
@@ -28,7 +36,6 @@ fun RoundedTextCard(
     innerPadding: Dp = MaterialTheme.spacing.small,
 ) {
     ElevatedCard(
-        modifier = modifier,
         shape = RoundedCornerShape(cornerRadius),
         colors = CardDefaults.elevatedCardColors(
             containerColor = backgroundColor,
@@ -36,11 +43,18 @@ fun RoundedTextCard(
         ),
         elevation = CardDefaults.elevatedCardElevation()
     ) {
-        Text(
-            modifier = Modifier.padding(innerPadding),
-            text = text,
-            fontSize = textSize
-        )
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                modifier = Modifier.padding(innerPadding),
+                text = topText,
+                fontSize = textSize
+            )
+            Text(
+                modifier = Modifier.padding(innerPadding),
+                text = bottomText,
+                fontSize = textSize
+            )
+        }
     }
 }
 
@@ -48,6 +62,10 @@ fun RoundedTextCard(
 @Composable
 private fun Preview() {
     FootballScoreTheme {
-        RoundedTextCard(modifier = Modifier, text = "45")
+        RoundedColumnTextCard(
+            modifier = Modifier,
+            topText = "10",
+            bottomText = "15"
+        )
     }
 }
