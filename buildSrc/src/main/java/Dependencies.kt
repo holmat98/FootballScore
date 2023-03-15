@@ -55,6 +55,12 @@ object Compose {
     const val TEST_MANIFEST = "androidx.compose.ui:ui-test-manifest:$composeVersion"
 }
 
+object ConstraintLayout {
+    private const val version = "1.0.1"
+
+    const val DEPENDENCY = "androidx.constraintlayout:constraintlayout-compose:$version"
+}
+
 object MaterialDesign {
     private const val version = "1.8.0"
 

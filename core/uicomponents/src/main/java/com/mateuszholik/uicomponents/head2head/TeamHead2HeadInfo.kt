@@ -1,9 +1,7 @@
 package com.mateuszholik.uicomponents.head2head
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -15,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.mateuszholik.designsystem.R
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.cornerRadius
+import com.mateuszholik.designsystem.theme.sizing
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.model.TeamH2HData
 import com.mateuszholik.uicomponents.cards.RoundedColumnTextCard
@@ -39,18 +38,22 @@ fun TeamHead2HeadInfo(
                 imageUrl = homeTeamCrest,
                 onErrorImageRes = R.drawable.ic_ball,
                 padding = MaterialTheme.spacing.extraSmall,
-                cornerRadius = MaterialTheme.cornerRadius.normal
+                cornerRadius = MaterialTheme.cornerRadius.normal,
+                size = MaterialTheme.sizing.large,
             )
             RoundedImage(
                 imageUrl = awayTeamCrest,
                 onErrorImageRes = R.drawable.ic_ball,
                 padding = MaterialTheme.spacing.extraSmall,
-                cornerRadius = MaterialTheme.cornerRadius.normal
+                cornerRadius = MaterialTheme.cornerRadius.normal,
+                size = MaterialTheme.sizing.large,
             )
         }
         RoundedColumnTextCard(
             topText = "${homeTeamH2hData.wins}",
-            bottomText = "${awayTeamH2HData.wins}"
+            bottomText = "${awayTeamH2HData.wins}",
+            innerPadding = MaterialTheme.spacing.normal,
+            cornerRadius = MaterialTheme.cornerRadius.large,
         )
         RoundedColumnTextCard(
             modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
@@ -58,12 +61,16 @@ fun TeamHead2HeadInfo(
             bottomText = "${awayTeamH2HData.draws}",
             backgroundColor = Color(0xFFDCEB78),
             contentColor = Color(0xFF1A1E00),
+            innerPadding = MaterialTheme.spacing.normal,
+            cornerRadius = MaterialTheme.cornerRadius.large,
         )
         RoundedColumnTextCard(
             topText = "${homeTeamH2hData.losses}",
             bottomText = "${awayTeamH2HData.losses}",
             backgroundColor = MaterialTheme.colorScheme.error,
             contentColor = MaterialTheme.colorScheme.onError,
+            innerPadding = MaterialTheme.spacing.normal,
+            cornerRadius = MaterialTheme.cornerRadius.large,
         )
     }
 }
