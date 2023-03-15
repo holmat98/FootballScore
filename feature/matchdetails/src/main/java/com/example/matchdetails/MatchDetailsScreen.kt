@@ -25,9 +25,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.matchdetails.model.MatchDetails
 import com.mateuszholik.designsystem.R
+import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.model.CompetitionType
 import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.UiState
@@ -41,6 +45,7 @@ import com.mateuszholik.uicomponents.info.ErrorInfo
 import com.mateuszholik.uicomponents.loading.Loading
 import com.mateuszholik.uicomponents.match.H2HMatch
 import com.mateuszholik.uicomponents.referee.RefereeItem
+import com.mateuszholik.uicomponents.utils.PreviewConstants
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -77,11 +82,11 @@ fun MatchDetailsScreen(
                         top = paddingValues.calculateTopPadding(),
                         bottom = paddingValues.calculateBottomPadding()
                     ),
-                    data = (matchDetails as UiState.Success<MatchDetailsViewModel.MatchDetails>).data,
+                    data = (matchDetails as UiState.Success<MatchDetails>).data,
                     onH2HMatchClicked = onH2HMatchClicked
                 )
                 is UiState.Error ->
-                    ErrorInfo((matchDetails as UiState.Error<MatchDetailsViewModel.MatchDetails>).errorType)
+                    ErrorInfo((matchDetails as UiState.Error<MatchDetails>).errorType)
             }
         }
     )
@@ -91,7 +96,7 @@ fun MatchDetailsScreen(
 @Composable
 private fun Content(
     modifier: Modifier,
-    data: MatchDetailsViewModel.MatchDetails,
+    data: MatchDetails,
     onH2HMatchClicked: (matchId: Int) -> Unit,
 ) {
     val state = rememberLazyListState()
@@ -201,6 +206,23 @@ private fun MatchHeader(
             SmallMatchScoreHeader(
                 competitionType = competitionType,
                 matchInfo = matchInfo
+            )
+        }
+    }
+}
+
+@Preview(device = Devices.PIXEL_4)
+@Composable
+private fun Preview() {
+    FootballScoreTheme {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            Content(
+                modifier = Modifier,
+                data = MatchDetails(
+                    match = PreviewConstants.MATCH,
+                    h2hData = PreviewConstants.H2H_DATA
+                ),
+                onH2HMatchClicked = {}
             )
         }
     }

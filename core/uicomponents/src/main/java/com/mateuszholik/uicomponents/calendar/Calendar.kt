@@ -22,6 +22,7 @@ import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.uicomponents.extensions.asHourString
 import com.mateuszholik.uicomponents.extensions.toText
+import com.mateuszholik.uicomponents.utils.PreviewConstants
 import java.time.LocalDate
 
 @Composable
@@ -137,20 +138,8 @@ private fun SelectedDay(
 private fun Preview() {
     FootballScoreTheme {
         Calendar(
-            days = listOf(
-                LocalDate.of(2023, 2, 18),
-                LocalDate.of(2023, 2, 19),
-                LocalDate.of(2023, 2, 20),
-                LocalDate.of(2023, 2, 21),
-                LocalDate.of(2023, 2, 22),
-                LocalDate.of(2023, 2, 23),
-                LocalDate.of(2023, 2, 24),
-                LocalDate.of(2023, 2, 25),
-                LocalDate.of(2023, 2, 26),
-                LocalDate.of(2023, 2, 27),
-                LocalDate.of(2023, 2, 28),
-            ),
-            selectedDay = LocalDate.of(2023, 2, 20),
+            days = PreviewConstants.DAYS,
+            selectedDay = PreviewConstants.SELECTED_DAY,
             onDaySelected = {}
         )
     }

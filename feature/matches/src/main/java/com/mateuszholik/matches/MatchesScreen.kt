@@ -12,6 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -26,9 +27,12 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mateuszholik.designsystem.R
+import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.model.Competition
 import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.UiState
@@ -38,6 +42,7 @@ import com.mateuszholik.uicomponents.headers.CompetitionHeader
 import com.mateuszholik.uicomponents.info.ErrorInfo
 import com.mateuszholik.uicomponents.loading.Loading
 import com.mateuszholik.uicomponents.match.MatchItem
+import com.mateuszholik.uicomponents.utils.PreviewConstants
 import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -147,6 +152,34 @@ private fun Content(
                     Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
                 }
             }
+        }
+    }
+}
+
+@Preview(device = Devices.PIXEL_4)
+@Composable
+private fun Preview() {
+    FootballScoreTheme {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            Content(
+                modifier = Modifier,
+                days = PreviewConstants.DAYS,
+                selectedDay = PreviewConstants.SELECTED_DAY,
+                data = mapOf(
+                    PreviewConstants.COMPETITION to listOf(
+                        PreviewConstants.IN_PLAY_MATCH_INFO,
+                        PreviewConstants.FINISHED_MATCH_INFO,
+                        PreviewConstants.SCHEDULED_MATCH_INFO
+                    ),
+                    PreviewConstants.COMPETITION_2 to listOf(
+                        PreviewConstants.IN_PLAY_MATCH_INFO,
+                        PreviewConstants.SCHEDULED_MATCH_INFO,
+                        PreviewConstants.FINISHED_MATCH_INFO
+                    ),
+                ),
+                onDaySelected = {},
+                onMatchClicked =  {}
+            )
         }
     }
 }

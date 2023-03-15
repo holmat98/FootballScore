@@ -3,6 +3,7 @@ package com.example.matchdetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.matchdetails.model.MatchDetails
 import com.mateuszholik.domain.usecases.GetHead2HeadUseCase
 import com.mateuszholik.domain.usecases.GetMatchUseCase
 import com.mateuszholik.model.ErrorType
@@ -52,9 +53,4 @@ class MatchDetailsViewModel @Inject constructor(
             head2HeadResult is Result.Error -> UiState.Error(head2HeadResult.errorType)
             else -> UiState.Error(ErrorType.UNKNOWN)
         }
-
-    data class MatchDetails(
-        val match: Match,
-        val h2hData: Head2Head,
-    )
 }
