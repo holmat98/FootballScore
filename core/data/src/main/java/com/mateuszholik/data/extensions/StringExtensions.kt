@@ -2,6 +2,7 @@ package com.mateuszholik.data.extensions
 
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
@@ -12,4 +13,6 @@ internal fun String.toLocalDate(): LocalDate {
 }
 
 internal fun String.toLocalDateTime(): LocalDateTime =
-    ZonedDateTime.parse(this).toLocalDateTime()
+    ZonedDateTime.parse(this)
+        .withZoneSameInstant(ZoneId.systemDefault())
+        .toLocalDateTime()
