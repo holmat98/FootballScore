@@ -2,21 +2,17 @@ package com.mateuszholik.footballscore.managers
 
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallRequest
+import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import com.mateuszholik.footballscore.managers.DynamicModuleInstallationManager.InstallationState
-import com.mateuszholik.footballscore.managers.DynamicModuleInstallationManager.InstallationListener
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flowOf
 
-internal interface DynamicModuleInstallationManager {
+interface DynamicModuleInstallationManager {
 
-    fun startModuleInstallation(
-        moduleName: String,
-        installationListener: InstallationListener,
-    )
-
-    interface InstallationListener {
-
-        fun onStatusChanged(installationState: InstallationState)
-    }
+    fun startInstallation(moduleName: String): Flow<InstallationState>
 
     enum class InstallationState {
         UNKNOWN,
@@ -36,25 +32,24 @@ internal class DynamicModuleInstallationManagerImpl(
     private val splitInstallManager: SplitInstallManager,
 ) : DynamicModuleInstallationManager {
 
-    override fun startModuleInstallation(
-        moduleName: String,
-        installationListener: InstallationListener,
-    ) {
+    override fun startInstallation(moduleName: String): Flow<InstallationState> {
         if (moduleName in splitInstallManager.installedModules) {
-            installationListener.onStatusChanged(InstallationState.INSTALLED)
-            return
+            return flowOf(InstallationState.INSTALLED)
         }
 
         val request = createRequest(moduleName)
-        val listener =
 
-        splitInstallManager.run {
-            registerListener {
-                installationListener.onStatusChanged(it.status().toInstallationState)
+        splitInstallManager.startInstall(request)
+
+        return callbackFlow {
+            val listener = SplitInstallStateUpdatedListener { splitInstallSessionState ->
+                trySend(splitInstallSessionState.status().toInstallationState)
             }
-            startInstall(request)
-        }
 
+            splitInstallManager.registerListener(listener)
+
+            awaitClose { splitInstallManager.unregisterListener(listener) }
+        }
     }
 
     private fun createRequest(moduleName: String): SplitInstallRequest =

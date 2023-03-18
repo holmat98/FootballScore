@@ -90,6 +90,7 @@ dependencies {
     // Lifecycle
     implementation(Lifecycle.LIFECYCLE_RUNTIME)
     implementation(Lifecycle.VIEW_MODEL)
+    implementation(Lifecycle.Compose.DEPENDENCY)
 
     // Timber
     implementation(Timber.DEPENDENCY)
@@ -105,6 +106,7 @@ dependencies {
 
     // Hilt
     implementation(Hilt.DEPENDENCY)
+    implementation(Hilt.Compose.DEPENDENCY)
     kapt(Hilt.Compiler.DEPENDENCY)
 
     // Play core
