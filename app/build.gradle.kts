@@ -111,6 +111,7 @@ dependencies {
 
     // Play core
     implementation(Google.PlayCore.DEPENDENCY)
+    implementation(Google.PlayCore.DEPENDENCY_KTX)
 }
 
 tasks.withType<Test> {

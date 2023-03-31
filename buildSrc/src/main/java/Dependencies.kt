@@ -108,10 +108,23 @@ object Google {
         const val DEPENDENCY = "com.google.gms:google-services:$version"
     }
 
-    object PlayCore {
-        private const val version = "1.10.3"
+    object AutoService {
+        private const val version = "1.0.1"
 
-        const val DEPENDENCY = "com.google.android.play:core:$version"
+        object Annotations {
+            const val DEPENDENCY = "com.google.auto.service:auto-service-annotations:$version"
+        }
+
+        object Processor {
+            const val DEPENDENCY = "com.google.auto.service:auto-service:$version"
+        }
+    }
+
+    object PlayCore {
+        private const val version = "2.0.1"
+
+        const val DEPENDENCY = "com.google.android.play:feature-delivery:$version"
+        const val DEPENDENCY_KTX = "com.google.android.play:feature-delivery-ktx:$version"
     }
 
     object Firebase {

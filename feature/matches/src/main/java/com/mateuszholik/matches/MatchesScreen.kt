@@ -48,7 +48,7 @@ import java.time.LocalDate
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MatchesScreen(
-    onCompetitionClicked: () -> Unit,
+    onCompetitionClicked: (competitionId: Int) -> Unit,
     onMatchClicked: (matchId: Int) -> Unit,
     viewModel: MatchesViewModel = hiltViewModel(),
 ) {
@@ -131,7 +131,7 @@ private fun Content(
     data: Map<Competition, List<MatchInfo>>,
     onDaySelected: (LocalDate) -> Unit,
     onMatchClicked: (matchId: Int) -> Unit,
-    onCompetitionClicked: () -> Unit,
+    onCompetitionClicked: (competitionId: Int) -> Unit,
 ) {
     LazyColumn(modifier = modifier.fillMaxSize()) {
         item {
@@ -145,7 +145,7 @@ private fun Content(
         data.forEach { (competition, matches) ->
             stickyHeader {
                 CompetitionHeader(
-                    modifier = Modifier.clickable { onCompetitionClicked() },
+                    modifier = Modifier.clickable { onCompetitionClicked(competition.id) },
                     competition = competition
                 )
             }

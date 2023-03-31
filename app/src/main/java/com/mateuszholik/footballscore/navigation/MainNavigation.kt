@@ -8,6 +8,7 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.mateuszholik.matchdetails.MatchDetailsScreen
 import com.mateuszholik.matchdetails.MatchDetailsViewModel.Companion.MATCH_ID_ARGUMENT
+import com.mateuszholik.footballscore.contract.LeagueDetailsContract
 import com.mateuszholik.footballscore.ui.installmodule.ModuleInstallationScreen
 import com.mateuszholik.footballscore.ui.installmodule.ModuleInstallationViewModel.Companion.MODULE_NAME_ARGUMENT
 import com.mateuszholik.matches.MatchesScreen
@@ -17,12 +18,16 @@ object MainNavigation {
     private const val MATCH_LIST = "$ROOT/MATCH_LIST"
     private const val MATCH_DETAILS = "$ROOT/MATCH_DETAILS"
     private const val MODULE_INSTALLATION = "$ROOT/MODULE_INSTALLATION"
+    private const val LEAGUE_DETAILS = "$ROOT/LEAGUE_DETAILS"
+
+    private const val LEAGUE_ID_ARGUMENT = "leagueId"
 
     fun NavGraphBuilder.mainNavigationGraph(navController: NavController): Unit =
         navigation(startDestination = MATCH_LIST, route = ROOT) {
             matchesList(navController)
             matchDetails(navController)
             moduleInstallation(navController)
+            leagueDetails()
         }
 
     private fun NavGraphBuilder.matchesList(navController: NavController): Unit =
@@ -30,7 +35,7 @@ object MainNavigation {
             MatchesScreen(
                 onMatchClicked = { navController.navigateToMatchDetails(it) },
                 onCompetitionClicked = {
-                    navController.navigateToModuleInstallation("leaguedetails")
+                    navController.navigateToModuleInstallation("leaguedetails", it)
                 }
             )
         }
@@ -50,19 +55,40 @@ object MainNavigation {
 
     private fun NavGraphBuilder.moduleInstallation(navController: NavController): Unit =
         composable(
-            route = "$MODULE_INSTALLATION/$MODULE_NAME_ARGUMENT={$MODULE_NAME_ARGUMENT}",
+            route = "$MODULE_INSTALLATION/$MODULE_NAME_ARGUMENT={$MODULE_NAME_ARGUMENT}/$LEAGUE_ID_ARGUMENT={$LEAGUE_ID_ARGUMENT}",
             arguments = listOf(
-                navArgument(MODULE_NAME_ARGUMENT) { type = NavType.StringType }
+                navArgument(MODULE_NAME_ARGUMENT) { type = NavType.StringType },
+                navArgument(LEAGUE_ID_ARGUMENT) { type = NavType.IntType }
             )
-        ) {
+        ) { backStackEntry ->
+            val leagueId = backStackEntry.arguments?.getInt(LEAGUE_ID_ARGUMENT) ?: 0
             ModuleInstallationScreen(
-                doOnInstallationSucceeded = { navController.navigateUp() }
+                doOnInstallationSucceeded = {
+                    navController.navigateToLeagueDetails(leagueId)
+                }
             )
+        }
+
+    private fun NavGraphBuilder.leagueDetails(): Unit =
+        composable(
+            route = "$LEAGUE_DETAILS/$LEAGUE_ID_ARGUMENT={$LEAGUE_ID_ARGUMENT}",
+            arguments = listOf(
+                navArgument(LEAGUE_ID_ARGUMENT) { type = NavType.IntType }
+            )
+        ) { navBackEntry ->
+            val leagueId = navBackEntry.arguments?.getInt(LEAGUE_ID_ARGUMENT) ?: 0
+
+            LeagueDetailsContract.create().DisplayLeagueDetails(leagueId = leagueId)
         }
 
     private fun NavController.navigateToMatchDetails(matchId: Int) =
         navigate("$MATCH_DETAILS/$MATCH_ID_ARGUMENT=$matchId")
 
-    private fun NavController.navigateToModuleInstallation(moduleName: String) =
-        navigate("$MODULE_INSTALLATION/$MODULE_NAME_ARGUMENT=$moduleName")
+    private fun NavController.navigateToModuleInstallation(moduleName: String, leagueId: Int) =
+        navigate("$MODULE_INSTALLATION/$MODULE_NAME_ARGUMENT=$moduleName/$LEAGUE_ID_ARGUMENT=$leagueId")
+
+    private fun NavController.navigateToLeagueDetails(leagueId: Int) =
+        navigate("$LEAGUE_DETAILS/$LEAGUE_ID_ARGUMENT=$leagueId") {
+            popUpTo(ROOT)
+        }
 }
