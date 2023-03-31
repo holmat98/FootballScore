@@ -17,7 +17,7 @@ class ModuleInstallationViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val moduleName: String = savedStateHandle["moduleName"] ?: ""
+    private val moduleName: String = savedStateHandle[MODULE_NAME_ARGUMENT] ?: ""
 
     val installationState: StateFlow<InstallationState> =
         dynamicModuleInstallationManager.startInstallation(moduleName)

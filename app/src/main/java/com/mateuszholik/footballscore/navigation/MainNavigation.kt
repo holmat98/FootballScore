@@ -26,7 +26,7 @@ object MainNavigation {
         navigation(startDestination = MATCH_LIST, route = ROOT) {
             matchesList(navController)
             matchDetails(navController)
-            moduleInstallation(navController)
+            leagueDetailsModuleInstallation(navController)
             leagueDetails()
         }
 
@@ -35,7 +35,7 @@ object MainNavigation {
             MatchesScreen(
                 onMatchClicked = { navController.navigateToMatchDetails(it) },
                 onCompetitionClicked = {
-                    navController.navigateToModuleInstallation("leaguedetails", it)
+                    navController.navigateToLeagueDetailsModuleInstallation(it)
                 }
             )
         }
@@ -53,7 +53,7 @@ object MainNavigation {
             )
         }
 
-    private fun NavGraphBuilder.moduleInstallation(navController: NavController): Unit =
+    private fun NavGraphBuilder.leagueDetailsModuleInstallation(navController: NavController): Unit =
         composable(
             route = "$MODULE_INSTALLATION/$MODULE_NAME_ARGUMENT={$MODULE_NAME_ARGUMENT}/$LEAGUE_ID_ARGUMENT={$LEAGUE_ID_ARGUMENT}",
             arguments = listOf(
@@ -78,17 +78,17 @@ object MainNavigation {
         ) { navBackEntry ->
             val leagueId = navBackEntry.arguments?.getInt(LEAGUE_ID_ARGUMENT) ?: 0
 
-            LeagueDetailsContract.create().DisplayLeagueDetails(leagueId = leagueId)
+            LeagueDetailsContract.getInstance().DisplayLeagueDetails(leagueId = leagueId)
         }
 
     private fun NavController.navigateToMatchDetails(matchId: Int) =
         navigate("$MATCH_DETAILS/$MATCH_ID_ARGUMENT=$matchId")
 
-    private fun NavController.navigateToModuleInstallation(moduleName: String, leagueId: Int) =
-        navigate("$MODULE_INSTALLATION/$MODULE_NAME_ARGUMENT=$moduleName/$LEAGUE_ID_ARGUMENT=$leagueId")
+    private fun NavController.navigateToLeagueDetailsModuleInstallation(leagueId: Int) =
+        navigate("$MODULE_INSTALLATION/$MODULE_NAME_ARGUMENT=leaguedetails/$LEAGUE_ID_ARGUMENT=$leagueId")
 
     private fun NavController.navigateToLeagueDetails(leagueId: Int) =
         navigate("$LEAGUE_DETAILS/$LEAGUE_ID_ARGUMENT=$leagueId") {
-            popUpTo(ROOT)
+            popUpTo(currentBackStackEntry?.destination?.route.orEmpty()) { inclusive = true }
         }
 }
