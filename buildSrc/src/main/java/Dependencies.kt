@@ -149,6 +149,12 @@ object Hilt {
     object Compiler {
         const val DEPENDENCY = "com.google.dagger:hilt-android-compiler:$version"
     }
+
+    object Compose {
+        private const val version = "1.0.0"
+
+        const val DEPENDENCY = "androidx.hilt:hilt-navigation-compose:$version"
+    }
 }
 
 object Coil {
