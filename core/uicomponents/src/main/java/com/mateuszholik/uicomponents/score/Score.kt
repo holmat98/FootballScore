@@ -15,6 +15,7 @@ import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Score
 import com.mateuszholik.uicomponents.utils.PreviewConstants
+import com.mateuszholik.uicomponents.utils.PreviewConstants.SCORE
 
 @Composable
 internal fun Score(
@@ -53,7 +54,7 @@ private fun Preview() {
         Surface(color = MaterialTheme.colorScheme.surface) {
             Score(
                 modifier = Modifier,
-                score = Score(1, 1)
+                score = SCORE
             )
         }
     }

@@ -6,6 +6,7 @@ import com.mateuszholik.model.MatchInfo
 internal fun List<Match>.toListOfMatchInfo(): List<MatchInfo> =
     map {
         MatchInfo(
+            id = it.id,
             awayTeam = it.awayTeam,
             homeTeam = it.homeTeam,
             score = it.score,
