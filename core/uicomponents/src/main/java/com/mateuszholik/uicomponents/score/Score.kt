@@ -14,6 +14,7 @@ import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Score
+import com.mateuszholik.uicomponents.utils.PreviewConstants
 
 @Composable
 internal fun Score(
@@ -28,7 +29,7 @@ internal fun Score(
                 horizontal = MaterialTheme.spacing.extraSmall,
             ),
             text = "${score.home}",
-            fontSize = MaterialTheme.textSizing.small,
+            fontSize = MaterialTheme.textSizing.normal,
             fontWeight = FontWeight.Bold,
             color = scoreColor
         )
@@ -38,7 +39,7 @@ internal fun Score(
                 horizontal = MaterialTheme.spacing.extraSmall,
             ),
             text = "${score.away}",
-            fontSize = MaterialTheme.textSizing.small,
+            fontSize = MaterialTheme.textSizing.normal,
             fontWeight = FontWeight.Bold,
             color = scoreColor
         )

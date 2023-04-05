@@ -62,4 +62,7 @@ dependencies {
 
     // Lottie
     implementation(Lottie.DEPENDENCY)
+
+    // Constraint Layout
+    implementation(ConstraintLayout.DEPENDENCY)
 }

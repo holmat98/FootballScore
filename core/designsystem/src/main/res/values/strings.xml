@@ -23,6 +23,9 @@
     <string name="calendar_november">Nov</string>
     <string name="calendar_december">Dec</string>
     <string name="dialog_date_picker_title">Select date</string>
+    <string name="duration_regular">Regular</string>
+    <string name="duration_penalties">Penalties</string>
+    <string name="duration_extra_time">Extra time</string>
     <string name="error_client">An client error occurred</string>
     <string name="error_empty_data">No data was returned</string>
     <string name="error_no_internet">You have no internet connection</string>
@@ -32,4 +35,8 @@
     <string name="match_postponed">Postponed</string>
     <string name="match_suspended">Suspended</string>
     <string name="match_half_time">Half time</string>
+    <string name="referee_main">Main referee</string>
+    <string name="referee_assistant">Assistant referee</string>
+    <string name="referee_technical">Technical referee</string>
+    <string name="referee_var">VAR referee</string>
 </resources>
