@@ -1,4 +1,4 @@
-package com.example.matchdetails.model
+package com.mateuszholik.matchdetails.model
 
 import com.mateuszholik.model.Head2Head
 import com.mateuszholik.model.Match

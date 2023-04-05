@@ -1,11 +1,11 @@
-package com.example.matchdetails
+package com.mateuszholik.matchdetails
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.matchdetails.model.MatchDetails
 import com.mateuszholik.domain.usecases.GetHead2HeadUseCase
 import com.mateuszholik.domain.usecases.GetMatchUseCase
+import com.mateuszholik.matchdetails.model.MatchDetails
 import com.mateuszholik.model.ErrorType
 import com.mateuszholik.model.Head2Head
 import com.mateuszholik.model.Match
@@ -25,7 +25,7 @@ class MatchDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val matchId: Int = savedStateHandle["matchId"] ?: 0
+    private val matchId: Int = savedStateHandle[MATCH_ID_ARGUMENT] ?: 0
 
     val matchDetails: StateFlow<UiState<MatchDetails>> =
         getMatchUseCase(matchId).combine(
@@ -53,4 +53,8 @@ class MatchDetailsViewModel @Inject constructor(
             head2HeadResult is Result.Error -> UiState.Error(head2HeadResult.errorType)
             else -> UiState.Error(ErrorType.UNKNOWN)
         }
+
+    companion object {
+        const val MATCH_ID_ARGUMENT = "matchId"
+    }
 }
