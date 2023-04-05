@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.matchdetails"
+    namespace = "com.mateuszholik.matchdetails"
     compileSdk = DefaultConfig.COMPILE_SDK
 
     defaultConfig {
