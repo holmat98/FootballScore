@@ -7,6 +7,7 @@ object Plugins {
     const val ANDROID_LIBRARY = "com.android.library"
     const val KAPT = "kapt"
     const val HILT = "com.google.dagger.hilt.android"
+    const val DYNAMIC_FEATURE = "com.android.dynamic-feature"
 }
 
 object GradlePlugins {
@@ -99,10 +100,32 @@ object Timber {
     const val DEPENDENCY = "com.jakewharton.timber:timber:$version"
 }
 
-object GoogleServices {
-    private const val version = "4.3.15"
+object Google {
 
-    const val DEPENDENCY = "com.google.gms:google-services:$version"
+    object Services {
+        private const val version = "4.3.15"
+
+        const val DEPENDENCY = "com.google.gms:google-services:$version"
+    }
+
+    object AutoService {
+        private const val version = "1.0.1"
+
+        object Annotations {
+            const val DEPENDENCY = "com.google.auto.service:auto-service-annotations:$version"
+        }
+
+        object Processor {
+            const val DEPENDENCY = "com.google.auto.service:auto-service:$version"
+        }
+    }
+
+    object PlayCore {
+        private const val version = "2.0.1"
+
+        const val DEPENDENCY = "com.google.android.play:feature-delivery:$version"
+        const val DEPENDENCY_KTX = "com.google.android.play:feature-delivery-ktx:$version"
+    }
 
     object Firebase {
         object Crashlytics {
@@ -112,6 +135,14 @@ object GoogleServices {
             const val GRADLE = "com.google.firebase:firebase-crashlytics-gradle:$gradleVersion"
             const val DEPENDENCY = "com.google.firebase:firebase-crashlytics:$version"
         }
+    }
+}
+
+object Android {
+
+    object DynamicFeature {
+        const val version = "7.4.0"
+        const val DEPENDENCY = "com.android.dynamic-feature"
     }
 }
 

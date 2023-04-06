@@ -51,6 +51,7 @@ android {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
+    dynamicFeatures += setOf(":feature:leaguedetails")
 }
 
 dependencies {
@@ -89,12 +90,13 @@ dependencies {
     // Lifecycle
     implementation(Lifecycle.LIFECYCLE_RUNTIME)
     implementation(Lifecycle.VIEW_MODEL)
+    implementation(Lifecycle.Compose.DEPENDENCY)
 
     // Timber
     implementation(Timber.DEPENDENCY)
 
     // Crashlytics
-    implementation(GoogleServices.Firebase.Crashlytics.DEPENDENCY)
+    implementation(Google.Firebase.Crashlytics.DEPENDENCY)
 
     // LeakCanary
     debugImplementation(LeakCanary.DEPENDENCY)
@@ -104,7 +106,12 @@ dependencies {
 
     // Hilt
     implementation(Hilt.DEPENDENCY)
+    implementation(Hilt.Compose.DEPENDENCY)
     kapt(Hilt.Compiler.DEPENDENCY)
+
+    // Play core
+    implementation(Google.PlayCore.DEPENDENCY)
+    implementation(Google.PlayCore.DEPENDENCY_KTX)
 }
 
 tasks.withType<Test> {
