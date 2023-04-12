@@ -63,9 +63,8 @@ object MainNavigation {
         ) { backStackEntry ->
             val leagueId = backStackEntry.arguments?.getInt(LEAGUE_ID_ARGUMENT) ?: 0
             ModuleInstallationScreen(
-                doOnInstallationSucceeded = {
-                    navController.navigateToLeagueDetails(leagueId)
-                }
+                doOnInstallationFailed = { navController.navigateUp() },
+                doOnInstallationSucceeded = { navController.navigateToLeagueDetails(leagueId) }
             )
         }
 

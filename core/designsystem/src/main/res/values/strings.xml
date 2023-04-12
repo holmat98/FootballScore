@@ -40,6 +40,14 @@
     <string name="match_details_h2h_num_of_goals">Goals scored: %1$d</string>
     <string name="match_details_h2h_num_of_matches">Matches played: %1$d</string>
     <string name="match_details_last_matches">Last matches</string>
+    <string name="module_installation_description">This app\'s feature needs to be downloaded</string>
+    <string name="module_installation_description_canceling">Cancelling</string>
+    <string name="module_installation_description_canceled">Cancelled</string>
+    <string name="module_installation_description_downloading">Downloading</string>
+    <string name="module_installation_description_failed">Installation failed</string>
+    <string name="module_installation_description_installing">Installing</string>
+    <string name="module_installation_description_installed">Installed</string>
+    <string name="module_installation_description_required_confirmation">You need to confirm</string>
     <string name="referee_main">Main referee</string>
     <string name="referee_assistant">Assistant referee</string>
     <string name="referee_technical">Technical referee</string>

@@ -59,6 +59,7 @@ dependencies {
     // Modules
     implementation(project(":core:designsystem"))
     implementation(project(":core:model"))
+    implementation(project(":core:uicomponents"))
     implementation(project(":feature:matches"))
     implementation(project(":feature:matchdetails"))
 
