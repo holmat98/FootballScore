@@ -96,7 +96,7 @@ internal fun ScoreApi.toCommonModel(): Score =
 
 internal fun SeasonApi.toCommonModel(): Season =
     Season(
-        currentMatchday = currentMatchday,
+        currentMatchday = currentMatchday ?: -1,
         endDate = endDate.toLocalDate(),
         id = id,
         startDate = startDate.toLocalDate(),

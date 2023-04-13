@@ -21,4 +21,8 @@ data class WinnerApi(
     val founded: Int,
     @SerializedName("clubColors")
     val clubColors: String,
+    @SerializedName("venue")
+    val venue: String,
+    @SerializedName("lastUpdated")
+    val lastUpdated: String,
 )

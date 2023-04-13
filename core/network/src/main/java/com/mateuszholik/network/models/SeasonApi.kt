@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class SeasonApi(
     @SerializedName("currentMatchday")
-    val currentMatchday: Int,
+    val currentMatchday: Int? = null,
     @SerializedName("endDate")
     val endDate: String,
     @SerializedName("id")
