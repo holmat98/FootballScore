@@ -12,5 +12,5 @@ data class TeamApi(
     @SerializedName("shortName")
     val shortName: String,
     @SerializedName("tla")
-    val tla: String,
+    val tla: String? = null,
 )
