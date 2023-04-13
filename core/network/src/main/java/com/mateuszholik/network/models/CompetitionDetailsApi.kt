@@ -15,5 +15,4 @@ data class CompetitionDetailsApi(
     val type: String,
     @SerializedName("emblem")
     val emblem: String,
-
 )

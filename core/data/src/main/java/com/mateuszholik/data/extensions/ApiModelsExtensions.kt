@@ -1,6 +1,8 @@
 package com.mateuszholik.data.extensions
 
+import com.mateuszholik.model.Area
 import com.mateuszholik.model.Competition
+import com.mateuszholik.model.CompetitionDetails
 import com.mateuszholik.model.CompetitionType
 import com.mateuszholik.model.Duration
 import com.mateuszholik.model.Group
@@ -19,6 +21,7 @@ import com.mateuszholik.model.TeamH2HData
 import com.mateuszholik.model.Winner
 import com.mateuszholik.network.models.AreaApi
 import com.mateuszholik.network.models.CompetitionApi
+import com.mateuszholik.network.models.CompetitionDetailsApi
 import com.mateuszholik.network.models.Head2HeadApi
 import com.mateuszholik.network.models.MatchApi
 import com.mateuszholik.network.models.MatchScoreApi
@@ -131,4 +134,22 @@ internal fun TeamH2HDataApi.toCommonModel(): TeamH2HData =
         losses = losses,
         name = name,
         wins = wins
+    )
+
+internal fun CompetitionDetailsApi.toCommonModel(): CompetitionDetails =
+    CompetitionDetails(
+        area = area.toCommonModel(),
+        id = id,
+        name = name,
+        code = code,
+        type = type,
+        emblem = emblem
+    )
+
+internal fun AreaApi.toCommonModel(): Area =
+    Area(
+        code = code,
+        flag = flag.orEmpty(),
+        id = id,
+        name = name
     )
