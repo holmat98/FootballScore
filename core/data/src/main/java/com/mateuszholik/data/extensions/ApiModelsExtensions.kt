@@ -22,7 +22,6 @@ import com.mateuszholik.network.models.CompetitionApi
 import com.mateuszholik.network.models.Head2HeadApi
 import com.mateuszholik.network.models.MatchApi
 import com.mateuszholik.network.models.MatchScoreApi
-import com.mateuszholik.network.models.MatchesApi
 import com.mateuszholik.network.models.RefereeApi
 import com.mateuszholik.network.models.ScoreApi
 import com.mateuszholik.network.models.SeasonApi
@@ -30,8 +29,8 @@ import com.mateuszholik.network.models.TeamApi
 import com.mateuszholik.network.models.TeamH2HDataApi
 import com.mateuszholik.network.models.WinnerApi
 
-internal fun MatchesApi.toCommonModel(): List<Match> =
-    matches.map { it.toCommonModel() }
+internal fun List<MatchApi>.toCommonModel(): List<Match> =
+    this.map { it.toCommonModel() }
 
 internal fun MatchApi.toCommonModel(): Match =
     Match(
