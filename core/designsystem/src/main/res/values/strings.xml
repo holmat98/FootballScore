@@ -46,7 +46,7 @@
     <string name="module_installation_description_downloading">Downloading</string>
     <string name="module_installation_description_failed">Installation failed</string>
     <string name="module_installation_description_installing">Installing</string>
-    <string name="module_installation_description_installed">Installed</string>
+    <string name="module_installation_description_installed">Successfully installed</string>
     <string name="module_installation_description_required_confirmation">You need to confirm</string>
     <string name="referee_main">Main referee</string>
     <string name="referee_assistant">Assistant referee</string>

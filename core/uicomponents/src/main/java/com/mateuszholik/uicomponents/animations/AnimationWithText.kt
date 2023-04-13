@@ -20,7 +20,7 @@ fun AnimationWithText(
     @RawRes animationResId: Int,
     text: String,
     modifier: Modifier = Modifier,
-    animationSize: Dp = MaterialTheme.sizing.large,
+    animationSize: Dp = MaterialTheme.sizing.extraLarge,
     iterateForever: Boolean = false,
     doOnAnimationEnd: (() -> Unit)? = null
 ) {

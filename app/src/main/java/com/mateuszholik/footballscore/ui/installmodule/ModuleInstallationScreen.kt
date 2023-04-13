@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,9 +16,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mateuszholik.designsystem.R
+import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.footballscore.managers.DynamicModuleInstallationManager.InstallationState
 import com.mateuszholik.uicomponents.animations.AnimationWithText
@@ -122,15 +126,15 @@ private fun ErrorContent(
 
 @Composable
 private fun DownloadingContent(
-    downloadedData: Long,
-    totalDataToDownload: Long,
+    downloadedData: Float,
+    totalDataToDownload: Float,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         LinearProgressIndicator(
             modifier = Modifier.fillMaxWidth(),
-            progress = (downloadedData / totalDataToDownload).toFloat(),
-            color = MaterialTheme.colorScheme.primaryContainer,
-            trackColor = MaterialTheme.colorScheme.onPrimaryContainer
+            progress = downloadedData / totalDataToDownload,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            trackColor = MaterialTheme.colorScheme.secondaryContainer
         )
         AnimationWithText(
             modifier = Modifier.fillMaxSize(),
@@ -138,5 +142,19 @@ private fun DownloadingContent(
             text = stringResource(R.string.module_installation_description_downloading),
             iterateForever = true
         )
+    }
+}
+
+@Preview(device = Devices.PIXEL_4)
+@Composable
+private fun Preview() {
+    FootballScoreTheme {
+        Surface {
+            Content(
+                installationState = InstallationState.Downloading(50f, 100f),
+                doOnInstallationFailed = {},
+                doOnInstallationSucceeded = {}
+            )
+        }
     }
 }

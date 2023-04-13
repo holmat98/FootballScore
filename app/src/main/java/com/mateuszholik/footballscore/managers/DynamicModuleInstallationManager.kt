@@ -22,7 +22,7 @@ interface DynamicModuleInstallationManager {
         object Unknown : InstallationState()
         object Pending : InstallationState()
         object RequiresUserConfirmation : InstallationState()
-        data class Downloading(val downloadedData: Long, val totalDataToDownload: Long) : InstallationState()
+        data class Downloading(val downloadedData: Float, val totalDataToDownload: Float) : InstallationState()
         object Installing : InstallationState()
         object Installed : InstallationState()
         object Failed : InstallationState()
@@ -83,10 +83,10 @@ internal class DynamicModuleInstallationManagerImpl(
             SplitInstallSessionStatus.PENDING -> InstallationState.Pending
             SplitInstallSessionStatus.REQUIRES_USER_CONFIRMATION -> InstallationState.RequiresUserConfirmation
             SplitInstallSessionStatus.DOWNLOADING -> InstallationState.Downloading(
-                downloadedData = bytesDownloaded(),
-                totalDataToDownload = totalBytesToDownload()
+                downloadedData = bytesDownloaded().toFloat(),
+                totalDataToDownload = totalBytesToDownload().toFloat()
             )
-            SplitInstallSessionStatus.DOWNLOADED -> InstallationState.Downloading(1, 1)
+            SplitInstallSessionStatus.DOWNLOADED -> InstallationState.Downloading(1f, 1f)
             SplitInstallSessionStatus.INSTALLING -> InstallationState.Installing
             SplitInstallSessionStatus.INSTALLED -> InstallationState.Installed
             SplitInstallSessionStatus.FAILED -> InstallationState.Failed
