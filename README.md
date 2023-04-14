@@ -80,5 +80,4 @@ Feature modules:
 <p align="center">
 <img src="images/list_of_games.png" alt="List of game screen">
 <img src="images/match_details.png" alt="Match details screen">
-<img src="images/module_installation_screen.mp4" alt="Module installation screen">
 </p>
