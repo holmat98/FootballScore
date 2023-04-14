@@ -57,7 +57,7 @@ internal fun TeamApi.toCommonModel(): Team =
         id = id,
         name = name,
         shortName = shortName,
-        tla = tla
+        tla = tla.orEmpty()
     )
 
 internal fun CompetitionApi.toCommonModel(areaApi: AreaApi): Competition =
