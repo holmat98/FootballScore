@@ -3,7 +3,7 @@ package com.mateuszholik.network.repositories
 import com.mateuszholik.network.extensions.toResultApi
 import com.mateuszholik.network.models.CompetitionDetailsApi
 import com.mateuszholik.network.models.ResultApi
-import com.mateuszholik.network.models.CompetitionStandingsDetails
+import com.mateuszholik.network.models.CompetitionStandingsDetailsApi
 import com.mateuszholik.network.models.ScorerApi
 import com.mateuszholik.network.services.CompetitionService
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +13,7 @@ interface CompetitionApiRepository {
 
     fun getCompetition(id: Int): Flow<ResultApi<CompetitionDetailsApi>>
 
-    fun getCompetitionStandings(id: Int): Flow<ResultApi<List<CompetitionStandingsDetails>>>
+    fun getCompetitionStandings(id: Int): Flow<ResultApi<List<CompetitionStandingsDetailsApi>>>
 
     fun getCompetitionTopScorers(id: Int): Flow<ResultApi<List<ScorerApi>>>
 }
@@ -27,7 +27,7 @@ internal class CompetitionApiRepositoryImpl(
             emit(competitionService.getCompetitionDetails(id).toResultApi())
         }
 
-    override fun getCompetitionStandings(id: Int): Flow<ResultApi<List<CompetitionStandingsDetails>>> =
+    override fun getCompetitionStandings(id: Int): Flow<ResultApi<List<CompetitionStandingsDetailsApi>>> =
         flow {
             emit(
                 competitionService.getStandingsOfCompetition(id)

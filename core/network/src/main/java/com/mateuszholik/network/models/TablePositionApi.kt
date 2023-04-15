@@ -2,7 +2,7 @@ package com.mateuszholik.network.models
 
 import com.google.gson.annotations.SerializedName
 
-data class CompetitionTablePositionApi(
+data class TablePositionApi(
     @SerializedName("position")
     val position: Int,
     @SerializedName("team")

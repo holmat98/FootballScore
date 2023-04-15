@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 internal data class StandingsApi(
     @SerializedName("standings")
-    val standingsDetails: List<CompetitionStandingsDetails>
+    val standingsDetails: List<CompetitionStandingsDetailsApi>
 )

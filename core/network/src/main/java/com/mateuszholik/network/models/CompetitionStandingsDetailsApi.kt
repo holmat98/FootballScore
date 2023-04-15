@@ -2,7 +2,7 @@ package com.mateuszholik.network.models
 
 import com.google.gson.annotations.SerializedName
 
-data class CompetitionStandingsDetails(
+data class CompetitionStandingsDetailsApi(
     @SerializedName("stage")
     val stage: String,
     @SerializedName("type")
@@ -10,5 +10,5 @@ data class CompetitionStandingsDetails(
     @SerializedName("group")
     val group: String? = null,
     @SerializedName("table")
-    val table: List<CompetitionTablePositionApi>,
+    val table: List<TablePositionApi>,
 )
