@@ -5,6 +5,6 @@ data class CompetitionDetails(
     val id: Int,
     val name: String,
     val code: String,
-    val type: String,
+    val type: CompetitionType,
     val emblem: String,
 )

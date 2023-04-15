@@ -41,9 +41,6 @@ import com.mateuszholik.network.models.TeamApi
 import com.mateuszholik.network.models.TeamH2HDataApi
 import com.mateuszholik.network.models.WinnerApi
 
-internal fun List<MatchApi>.toCommonModel(): List<Match> =
-    this.map { it.toCommonModel() }
-
 internal fun MatchApi.toCommonModel(): Match =
     Match(
         awayTeam = awayTeam.toCommonModel(),
@@ -151,7 +148,7 @@ internal fun CompetitionDetailsApi.toCommonModel(): CompetitionDetails =
         id = id,
         name = name,
         code = code,
-        type = type,
+        type = CompetitionType.valueOf(type),
         emblem = emblem
     )
 

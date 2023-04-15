@@ -5,7 +5,7 @@ data class CombinedCompetitionDetails(
     val id: Int,
     val name: String,
     val code: String,
-    val type: String,
+    val type: CompetitionType,
     val emblem: String,
     val standingsDetails: List<CompetitionStandingsDetails>,
     val topScorers: List<Scorer>,
