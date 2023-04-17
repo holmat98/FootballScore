@@ -8,9 +8,11 @@ import com.mateuszholik.model.Head2Head
 import com.mateuszholik.model.Match
 import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.MatchScore
+import com.mateuszholik.model.Player
 import com.mateuszholik.model.Referee
 import com.mateuszholik.model.RefereeType
 import com.mateuszholik.model.Score
+import com.mateuszholik.model.Scorer
 import com.mateuszholik.model.Season
 import com.mateuszholik.model.Stage
 import com.mateuszholik.model.Status
@@ -135,5 +137,23 @@ object PreviewConstants {
         matches = listOf(FINISHED_MATCH_INFO, SCHEDULED_MATCH_INFO),
         numberOfMatches = 2,
         totalGoals = 2
+    )
+    val PLAYER = Player(
+        id = 1,
+        name = "Mateusz Holik",
+        firstName = "Mateusz",
+        lastName = "Holik",
+        dateOfBirth = LocalDate.of(1998, 8, 2),
+        nationality = "Polish",
+        position = "Midfielder",
+        shirtNumber = 10,
+        lastUpdated = LocalDateTime.of(2023, 4, 17, 12, 0, 0)
+    )
+    val SCORER = Scorer(
+        player = PLAYER,
+        team = TEAM_1,
+        goals = 30,
+        assists = 20,
+        penalties = 5
     )
 }
