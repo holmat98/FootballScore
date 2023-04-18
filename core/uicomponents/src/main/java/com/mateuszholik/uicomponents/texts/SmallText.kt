@@ -16,6 +16,7 @@ fun SmallText(
     text: String,
     color: Color,
     modifier: Modifier = Modifier,
+    fontWeight: FontWeight = FontWeight.Bold,
     padding: Dp = MaterialTheme.spacing.extraSmall,
 ) {
     Text(
@@ -23,6 +24,6 @@ fun SmallText(
         text = text,
         color = color,
         fontSize = MaterialTheme.textSizing.small,
-        fontWeight = FontWeight.Bold,
+        fontWeight = fontWeight,
     )
 }

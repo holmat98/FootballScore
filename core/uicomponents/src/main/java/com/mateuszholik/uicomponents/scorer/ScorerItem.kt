@@ -3,23 +3,19 @@ package com.mateuszholik.uicomponents.scorer
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import com.mateuszholik.model.Scorer
 import com.mateuszholik.designsystem.R
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.cornerRadius
 import com.mateuszholik.designsystem.theme.sizing
 import com.mateuszholik.designsystem.theme.spacing
-import com.mateuszholik.designsystem.theme.textSizing
-import com.mateuszholik.uicomponents.images.Image
+import com.mateuszholik.model.Scorer
 import com.mateuszholik.uicomponents.images.RoundedImage
 import com.mateuszholik.uicomponents.texts.SmallText
 import com.mateuszholik.uicomponents.utils.PreviewConstants.SCORER
@@ -55,10 +51,11 @@ fun ScorerItem(
                 color = contentColor,
                 padding = MaterialTheme.spacing.none
             )
-            Text(
+            SmallText(
                 text = scorer.team.name.uppercase(),
                 color = contentColor,
-                fontSize = MaterialTheme.textSizing.small
+                fontWeight = FontWeight.Normal,
+                padding = MaterialTheme.spacing.none
             )
         }
 
