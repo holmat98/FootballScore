@@ -16,7 +16,11 @@ import com.mateuszholik.model.Scorer
 import com.mateuszholik.model.Season
 import com.mateuszholik.model.Stage
 import com.mateuszholik.model.Status
+import com.mateuszholik.model.TablePosition
 import com.mateuszholik.model.Team
+import com.mateuszholik.model.TeamForm.WIN
+import com.mateuszholik.model.TeamForm.DRAW
+import com.mateuszholik.model.TeamForm.LOSE
 import com.mateuszholik.model.TeamH2HData
 import com.mateuszholik.model.Winner
 import java.time.LocalDate
@@ -155,5 +159,18 @@ object PreviewConstants {
         goals = 30,
         assists = 20,
         penalties = 5
+    )
+    val TABLE_POSITION = TablePosition(
+        position = 1,
+        team = TEAM_1,
+        playedGames = 30,
+        form = listOf(WIN, WIN, DRAW, LOSE, WIN),
+        won = 20,
+        draw = 7,
+        lost = 3,
+        points = 67,
+        goalsScored = 61,
+        goalsConceded = 15,
+        goalsDifference = 46
     )
 }
