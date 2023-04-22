@@ -24,6 +24,7 @@
     <string name="calendar_december">Dec</string>
     <string name="competition_table_team_column_header">Team</string>
     <string name="competition_table_form_column_header">Form</string>
+    <string name="competition_winner_not_known">Winner not known</string>
     <string name="dialog_date_picker_title">Select date</string>
     <string name="duration_regular">Regular</string>
     <string name="duration_penalties">Penalties</string>

@@ -14,6 +14,7 @@ import com.mateuszholik.model.RefereeType
 import com.mateuszholik.model.Score
 import com.mateuszholik.model.Scorer
 import com.mateuszholik.model.Season
+import com.mateuszholik.model.SeasonWinner
 import com.mateuszholik.model.Stage
 import com.mateuszholik.model.Status
 import com.mateuszholik.model.TablePosition
@@ -172,5 +173,16 @@ object PreviewConstants {
         goalsScored = 61,
         goalsConceded = 15,
         goalsDifference = 46
+    )
+    val SEASON_WINNER = SeasonWinner(
+        id = 1,
+        name = "Team 1",
+        shortName = "1",
+        tla = "",
+        crest = "",
+        address = "Address",
+        website = "",
+        founded = 1899,
+        clubColors = "red/white/blue"
     )
 }
