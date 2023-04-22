@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -26,10 +27,11 @@ fun TextWithBackground(
     textColor: Color = MaterialTheme.colorScheme.primaryContainer,
     backgroundColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
     textPadding: Dp = MaterialTheme.spacing.extraSmall,
+    shape: Shape = CircleShape,
 ) {
     Box(
         modifier = modifier
-            .clip(CircleShape)
+            .clip(shape)
             .background(backgroundColor),
         contentAlignment = Alignment.Center,
     ) {
