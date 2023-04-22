@@ -15,4 +15,8 @@ data class CompetitionDetailsApi(
     val type: String,
     @SerializedName("emblem")
     val emblem: String,
+    @SerializedName("currentSeason")
+    val currentSeason: SeasonApi,
+    @SerializedName("seasons")
+    val seasons: List<SeasonApi>,
 )

@@ -149,7 +149,9 @@ internal fun CompetitionDetailsApi.toCommonModel(): CompetitionDetails =
         name = name,
         code = code,
         type = CompetitionType.valueOf(type),
-        emblem = emblem
+        emblem = emblem,
+        currentSeason = currentSeason.toCommonModel(),
+        seasons = seasons.map { it.toCommonModel() }
     )
 
 internal fun AreaApi.toCommonModel(): Area =

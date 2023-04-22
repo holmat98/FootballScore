@@ -56,6 +56,8 @@ internal class GetCombinedCompetitionDetailsUseCaseImpl(
                 code = competitionDetails.code,
                 type = competitionDetails.type,
                 emblem = competitionDetails.emblem,
+                currentSeason = competitionDetails.currentSeason,
+                seasons = competitionDetails.seasons,
                 standingsDetails = competitionStandingsDetails,
                 topScorers = scorers
             )

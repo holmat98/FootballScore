@@ -7,4 +7,6 @@ data class CompetitionDetails(
     val code: String,
     val type: CompetitionType,
     val emblem: String,
+    val currentSeason: Season,
+    val seasons: List<Season>,
 )
