@@ -8,7 +8,7 @@ data class PlayerApi(
     @SerializedName("name")
     val name: String,
     @SerializedName("firstName")
-    val firstName: String,
+    val firstName: String? = null,
     @SerializedName("lastName")
     val lastName: String? = null,
     @SerializedName("dateOfBirth")
