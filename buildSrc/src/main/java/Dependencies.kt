@@ -44,7 +44,7 @@ object Activity {
 }
 
 object Compose {
-    private const val composeVersion = "1.3.3"
+    private const val composeVersion = "1.4.2"
 
     const val KOTLIN_COMPILER_EXTENSION_VERSION = "1.4.0"
     const val UI = "androidx.compose.ui:ui:$composeVersion"

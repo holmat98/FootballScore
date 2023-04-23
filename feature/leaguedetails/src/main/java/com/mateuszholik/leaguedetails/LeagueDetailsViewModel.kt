@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,10 +19,6 @@ class LeagueDetailsViewModel @Inject constructor(
     getCombinedCompetitionDetailsUseCase: GetCombinedCompetitionDetailsUseCase,
     leagueId: Int
 ) : ViewModel() {
-
-    init {
-        Timber.d("Testowanie: LeagueDetailsViewModel.leagueId = $leagueId")
-    }
 
     val combinedCompetitionDetails: StateFlow<UiState<CombinedCompetitionDetails>> =
         getCombinedCompetitionDetailsUseCase(leagueId)

@@ -45,7 +45,6 @@ dependencies {
     implementation(Compose.UI)
     implementation(Compose.MATERIAL)
     implementation(Compose.PREVIEW)
-    implementation(Compose.NAVIGATION)
     androidTestImplementation(Compose.TESTS)
     debugImplementation(Compose.UI_TOOLING)
     debugImplementation(Compose.TEST_MANIFEST)
