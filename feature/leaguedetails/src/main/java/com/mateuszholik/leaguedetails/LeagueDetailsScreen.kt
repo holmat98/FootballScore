@@ -1,6 +1,7 @@
 package com.mateuszholik.leaguedetails
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -23,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.leaguedetails.models.Page
 import com.mateuszholik.model.CombinedCompetitionDetails
@@ -93,10 +95,15 @@ private fun Content(
                 countryName = area.name
             )
         }
-        LazyRow {
+        LazyRow(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            contentPadding = PaddingValues(vertical = MaterialTheme.spacing.extraSmall)
+        ) {
             items(items = Page.values().toList()) {
                 TextWithBackground(
-                    modifier = Modifier.clickable { currentPage = it },
+                    modifier = Modifier
+                        .clickable { currentPage = it }
+                        .padding(start = MaterialTheme.spacing.extraSmall),
                     text = stringResource(it.textResId),
                     backgroundColor = if (it == currentPage) {
                         MaterialTheme.colorScheme.primary
