@@ -2,9 +2,9 @@ package com.mateuszholik.leaguedetails
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -14,9 +14,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,8 +42,8 @@ fun LeagueDetailsScreen(
     onBackPressed: () -> Unit,
     viewModel: LeagueDetailsViewModel,
 ) {
-
     val combinedCompetitionDetailsUiState by viewModel.combinedCompetitionDetails.collectAsStateWithLifecycle()
+    var topAppBarText by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -51,7 +53,7 @@ fun LeagueDetailsScreen(
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "")
                     }
                 },
-                title = {},
+                title = { Text(text = topAppBarText) },
                 colors = TopAppBarDefaults.smallTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     scrolledContainerColor = MaterialTheme.colorScheme.onSurface,
@@ -68,11 +70,17 @@ fun LeagueDetailsScreen(
                         (combinedCompetitionDetailsUiState as UiState.Error<CombinedCompetitionDetails>).errorType
                     )
                 is UiState.Loading -> Loading()
-                is UiState.Success ->
+                is UiState.Success -> {
+                    val combinedCompetitionDetails =
+                        (combinedCompetitionDetailsUiState as UiState.Success<CombinedCompetitionDetails>).data
+                    LaunchedEffect(Unit) {
+                        topAppBarText = combinedCompetitionDetails.name
+                    }
                     Content(
                         paddingValues = it,
-                        combinedCompetitionDetails = (combinedCompetitionDetailsUiState as UiState.Success<CombinedCompetitionDetails>).data
+                        combinedCompetitionDetails = combinedCompetitionDetails
                     )
+                }
             }
         }
     )
@@ -85,44 +93,49 @@ private fun Content(
 ) {
     var currentPage by remember { mutableStateOf(Page.COMPETITION_TABLE) }
 
-    Column(modifier = Modifier.padding(paddingValues)) {
-        with(combinedCompetitionDetails) {
-            CompetitionHeader(
-                competitionType = type,
-                emblem = emblem,
-                name = name,
-                countryFlag = area.flag,
-                countryName = area.name
-            )
-        }
-        LazyRow(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            contentPadding = PaddingValues(vertical = MaterialTheme.spacing.extraSmall)
-        ) {
-            items(items = Page.values().toList()) {
-                TextWithBackground(
-                    modifier = Modifier
-                        .clickable { currentPage = it }
-                        .padding(start = MaterialTheme.spacing.extraSmall),
-                    text = stringResource(it.textResId),
-                    backgroundColor = if (it == currentPage) {
-                        MaterialTheme.colorScheme.primary
-                    } else {
-                        MaterialTheme.colorScheme.primaryContainer
-                    },
-                    textColor = if (it == currentPage) {
-                        MaterialTheme.colorScheme.onPrimary
-                    } else {
-                        MaterialTheme.colorScheme.onPrimaryContainer
-                    },
-                    textSize = MaterialTheme.textSizing.normal
+    LazyColumn(modifier = Modifier.padding(paddingValues)) {
+        item {
+            with(combinedCompetitionDetails) {
+                CompetitionHeader(
+                    competitionType = type,
+                    emblem = emblem,
+                    name = name,
+                    countryFlag = area.flag,
+                    countryName = area.name
                 )
             }
         }
+
+        item {
+            LazyRow(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                contentPadding = PaddingValues(vertical = MaterialTheme.spacing.extraSmall)
+            ) {
+                items(items = Page.values().toList()) {
+                    TextWithBackground(
+                        modifier = Modifier
+                            .clickable { currentPage = it }
+                            .padding(start = MaterialTheme.spacing.extraSmall),
+                        text = stringResource(it.textResId),
+                        backgroundColor = if (it == currentPage) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.primaryContainer
+                        },
+                        textColor = if (it == currentPage) {
+                            MaterialTheme.colorScheme.onPrimary
+                        } else {
+                            MaterialTheme.colorScheme.onPrimaryContainer
+                        },
+                        textSize = MaterialTheme.textSizing.normal
+                    )
+                }
+            }
+        }
         when (currentPage) {
-            Page.COMPETITION_TABLE -> LeagueTable(tables = combinedCompetitionDetails.standingsDetails)
-            Page.TOP_SCORERS -> TopScorers(topScorers = combinedCompetitionDetails.topScorers)
-            Page.WINNERS -> Winners(seasons = combinedCompetitionDetails.seasons)
+            Page.COMPETITION_TABLE -> leagueTable(tables = combinedCompetitionDetails.standingsDetails)
+            Page.TOP_SCORERS -> topScorers(topScorers = combinedCompetitionDetails.topScorers)
+            Page.WINNERS -> winners(seasons = combinedCompetitionDetails.seasons)
         }
     }
 }
