@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import com.mateuszholik.designsystem.R
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.sizing
@@ -27,6 +29,8 @@ internal fun HorizontalTeamItem(
     team: Team,
     modifier: Modifier = Modifier,
     textColor: Color = MaterialTheme.colorScheme.onSurface,
+    imageSize: Dp = MaterialTheme.sizing.small,
+    textSize: TextUnit = MaterialTheme.textSizing.small,
     paddingValues: PaddingValues = PaddingValues(
         top = MaterialTheme.spacing.tiny,
         bottom = MaterialTheme.spacing.tiny,
@@ -39,7 +43,7 @@ internal fun HorizontalTeamItem(
     ) {
         Image(
             modifier = Modifier
-                .size(MaterialTheme.sizing.small)
+                .size(imageSize)
                 .padding(MaterialTheme.spacing.extraSmall),
             url = team.crest,
             onErrorImageRes = R.drawable.ic_ball
@@ -47,7 +51,7 @@ internal fun HorizontalTeamItem(
         Text(
             text = team.name.uppercase(),
             color = textColor,
-            fontSize = MaterialTheme.textSizing.small,
+            fontSize = textSize,
             fontWeight = FontWeight.Bold
         )
     }

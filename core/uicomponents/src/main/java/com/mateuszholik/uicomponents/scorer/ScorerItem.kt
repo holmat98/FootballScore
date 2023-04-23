@@ -3,6 +3,8 @@ package com.mateuszholik.uicomponents.scorer
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -10,15 +12,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.mateuszholik.designsystem.R
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.cornerRadius
 import com.mateuszholik.designsystem.theme.sizing
 import com.mateuszholik.designsystem.theme.spacing
+import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Scorer
 import com.mateuszholik.uicomponents.images.RoundedImage
 import com.mateuszholik.uicomponents.texts.SmallText
+import com.mateuszholik.uicomponents.texts.TextWithBackground
 import com.mateuszholik.uicomponents.utils.PreviewConstants.SCORER
+
+private val TEXT_WITH_BACKGROUND_HEIGHT = 37.5.dp
 
 @Composable
 fun ScorerItem(
@@ -32,9 +39,14 @@ fun ScorerItem(
         modifier = modifier.background(color = backgroundColor),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        SmallText(
+        TextWithBackground(
+            modifier = Modifier
+                .size(TEXT_WITH_BACKGROUND_HEIGHT)
+                .padding(MaterialTheme.spacing.extraSmall),
+            textSize = MaterialTheme.textSizing.small,
             text = "$position.",
-            color = contentColor
+            backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
+            textColor = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
         RoundedImage(
