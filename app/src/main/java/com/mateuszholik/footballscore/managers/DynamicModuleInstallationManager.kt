@@ -16,17 +16,18 @@ interface DynamicModuleInstallationManager {
 
     fun startInstallation(moduleName: String): Flow<InstallationState>
 
-    enum class InstallationState {
-        UNKNOWN,
-        PENDING,
-        REQUIRES_USER_CONFIRMATION,
-        DOWNLOADING,
-        DOWNLOADED,
-        INSTALLING,
-        INSTALLED,
-        FAILED,
-        CANCELING,
-        CANCELED
+    sealed class InstallationState {
+
+        object AlreadyInstalled : InstallationState()
+        object Unknown : InstallationState()
+        object Pending : InstallationState()
+        object RequiresUserConfirmation : InstallationState()
+        data class Downloading(val downloadedData: Float, val totalDataToDownload: Float) : InstallationState()
+        object Installing : InstallationState()
+        object Installed : InstallationState()
+        object Failed : InstallationState()
+        object Canceling : InstallationState()
+        object Canceled : InstallationState()
     }
 }
 
@@ -37,7 +38,7 @@ internal class DynamicModuleInstallationManagerImpl(
 
     override fun startInstallation(moduleName: String): Flow<InstallationState> {
         if (moduleName in splitInstallManager.installedModules) {
-            return flowOf(InstallationState.INSTALLED)
+            return flowOf(InstallationState.AlreadyInstalled)
         }
 
         val request = createRequest(moduleName)
@@ -46,9 +47,9 @@ internal class DynamicModuleInstallationManagerImpl(
 
         return callbackFlow {
             val listener = SplitInstallStateUpdatedListener { splitInstallSessionState ->
-                val installationState = splitInstallSessionState.status().toInstallationState
+                val installationState = splitInstallSessionState.toInstallationState
 
-                if (installationState == InstallationState.REQUIRES_USER_CONFIRMATION) {
+                if (installationState is InstallationState.RequiresUserConfirmation) {
                     showUserConfirmationDialog(splitInstallSessionState)
                 }
 
@@ -77,17 +78,20 @@ internal class DynamicModuleInstallationManagerImpl(
             .addModule(moduleName)
             .build()
 
-    private val Int.toInstallationState: InstallationState
-        get() = when (this) {
-            SplitInstallSessionStatus.PENDING -> InstallationState.PENDING
-            SplitInstallSessionStatus.REQUIRES_USER_CONFIRMATION -> InstallationState.REQUIRES_USER_CONFIRMATION
-            SplitInstallSessionStatus.DOWNLOADING -> InstallationState.DOWNLOADING
-            SplitInstallSessionStatus.DOWNLOADED -> InstallationState.DOWNLOADED
-            SplitInstallSessionStatus.INSTALLING -> InstallationState.INSTALLING
-            SplitInstallSessionStatus.INSTALLED -> InstallationState.INSTALLED
-            SplitInstallSessionStatus.FAILED -> InstallationState.FAILED
-            SplitInstallSessionStatus.CANCELING -> InstallationState.CANCELING
-            SplitInstallSessionStatus.CANCELED -> InstallationState.CANCELED
-            else -> InstallationState.UNKNOWN
+    private val SplitInstallSessionState.toInstallationState: InstallationState
+        get() = when (status()) {
+            SplitInstallSessionStatus.PENDING -> InstallationState.Pending
+            SplitInstallSessionStatus.REQUIRES_USER_CONFIRMATION -> InstallationState.RequiresUserConfirmation
+            SplitInstallSessionStatus.DOWNLOADING -> InstallationState.Downloading(
+                downloadedData = bytesDownloaded().toFloat(),
+                totalDataToDownload = totalBytesToDownload().toFloat()
+            )
+            SplitInstallSessionStatus.DOWNLOADED -> InstallationState.Downloading(1f, 1f)
+            SplitInstallSessionStatus.INSTALLING -> InstallationState.Installing
+            SplitInstallSessionStatus.INSTALLED -> InstallationState.Installed
+            SplitInstallSessionStatus.FAILED -> InstallationState.Failed
+            SplitInstallSessionStatus.CANCELING -> InstallationState.Canceling
+            SplitInstallSessionStatus.CANCELED -> InstallationState.Canceled
+            else -> InstallationState.Unknown
         }
 }

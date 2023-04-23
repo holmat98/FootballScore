@@ -8,7 +8,9 @@ import com.mateuszholik.footballscore.managers.DynamicModuleInstallationManager.
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,10 +23,11 @@ class ModuleInstallationViewModel @Inject constructor(
 
     val installationState: StateFlow<InstallationState> =
         dynamicModuleInstallationManager.startInstallation(moduleName)
+            .onEach { Timber.i("InstallationStatus: $it") }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(),
-                initialValue = InstallationState.PENDING
+                initialValue = InstallationState.Pending
             )
 
     companion object {
