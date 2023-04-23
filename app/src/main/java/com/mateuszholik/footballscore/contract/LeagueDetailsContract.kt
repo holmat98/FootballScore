@@ -5,7 +5,10 @@ import androidx.compose.runtime.Composable
 interface LeagueDetailsContract {
 
     @Composable
-    fun DisplayLeagueDetails(leagueId: Int)
+    fun DisplayLeagueDetails(
+        leagueId: Int,
+        onBackPressed: () -> Unit,
+    )
 
     companion object {
         private const val CONTRACT_IMPL_NAME =

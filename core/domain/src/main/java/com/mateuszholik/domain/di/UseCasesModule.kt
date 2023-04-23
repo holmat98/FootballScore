@@ -15,6 +15,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -49,6 +50,11 @@ internal object UseCasesModule {
             matchesRepository = matchesRepository,
             dispatchersProvider = dispatchersProvider
         )
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+internal object UseCasesSingletonComponentModule{
 
     @Provides
     fun providesGetCombinedCompetitionDetailsUseCase(

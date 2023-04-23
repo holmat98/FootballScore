@@ -20,14 +20,14 @@ object MainNavigation {
     private const val MODULE_INSTALLATION = "$ROOT/MODULE_INSTALLATION"
     private const val LEAGUE_DETAILS = "$ROOT/LEAGUE_DETAILS"
 
-    private const val LEAGUE_ID_ARGUMENT = "leagueId"
+    const val LEAGUE_ID_ARGUMENT = "leagueId"
 
     fun NavGraphBuilder.mainNavigationGraph(navController: NavController): Unit =
         navigation(startDestination = MATCH_LIST, route = ROOT) {
             matchesList(navController)
             matchDetails(navController)
             leagueDetailsModuleInstallation(navController)
-            leagueDetails()
+            leagueDetails(navController)
         }
 
     private fun NavGraphBuilder.matchesList(navController: NavController): Unit =
@@ -68,7 +68,7 @@ object MainNavigation {
             )
         }
 
-    private fun NavGraphBuilder.leagueDetails(): Unit =
+    private fun NavGraphBuilder.leagueDetails(navController: NavController): Unit =
         composable(
             route = "$LEAGUE_DETAILS/$LEAGUE_ID_ARGUMENT={$LEAGUE_ID_ARGUMENT}",
             arguments = listOf(
@@ -77,7 +77,10 @@ object MainNavigation {
         ) { navBackEntry ->
             val leagueId = navBackEntry.arguments?.getInt(LEAGUE_ID_ARGUMENT) ?: 0
 
-            LeagueDetailsContract.getInstance().DisplayLeagueDetails(leagueId = leagueId)
+            LeagueDetailsContract.getInstance().DisplayLeagueDetails(
+                leagueId = leagueId,
+                onBackPressed = { navController.navigateUp() }
+            )
         }
 
     private fun NavController.navigateToMatchDetails(matchId: Int) =
