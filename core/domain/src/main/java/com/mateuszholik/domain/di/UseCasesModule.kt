@@ -1,7 +1,10 @@
 package com.mateuszholik.domain.di
 
 import com.mateuszholik.common.providers.DispatchersProvider
+import com.mateuszholik.data.repositories.CompetitionRepository
 import com.mateuszholik.data.repositories.MatchesRepository
+import com.mateuszholik.domain.usecases.GetCombinedCompetitionDetailsUseCase
+import com.mateuszholik.domain.usecases.GetCombinedCompetitionDetailsUseCaseImpl
 import com.mateuszholik.domain.usecases.GetHead2HeadUseCase
 import com.mateuszholik.domain.usecases.GetHead2HeadUseCaseImpl
 import com.mateuszholik.domain.usecases.GetMatchUseCase
@@ -45,5 +48,13 @@ internal object UseCasesModule {
         GetHead2HeadUseCaseImpl(
             matchesRepository = matchesRepository,
             dispatchersProvider = dispatchersProvider
+        )
+
+    @Provides
+    fun providesGetCombinedCompetitionDetailsUseCase(
+        competitionRepository: CompetitionRepository,
+    ): GetCombinedCompetitionDetailsUseCase =
+        GetCombinedCompetitionDetailsUseCaseImpl(
+            competitionRepository = competitionRepository
         )
 }

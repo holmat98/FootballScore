@@ -32,7 +32,7 @@ internal class MatchesRepositoryImpl(
             dateTo = date.plusDays(1)
         ).map { resultApi ->
             resultApi.toResult {
-                this.toCommonModel()
+                this.map { it.toCommonModel() }
                     .groupBy { it.competition }
                     .mapValues { it.value.toListOfMatchInfo() }
             }

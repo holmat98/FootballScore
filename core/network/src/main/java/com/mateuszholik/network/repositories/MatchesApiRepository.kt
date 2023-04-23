@@ -4,7 +4,6 @@ import com.mateuszholik.network.extensions.asString
 import com.mateuszholik.network.extensions.toResultApi
 import com.mateuszholik.network.models.Head2HeadApi
 import com.mateuszholik.network.models.MatchApi
-import com.mateuszholik.network.models.MatchesApi
 import com.mateuszholik.network.models.ResultApi
 import com.mateuszholik.network.services.MatchesService
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +12,10 @@ import java.time.LocalDate
 
 interface MatchesApiRepository {
 
-    fun getMatchesForDateRange(dateFrom: LocalDate, dateTo: LocalDate): Flow<ResultApi<MatchesApi>>
+    fun getMatchesForDateRange(
+        dateFrom: LocalDate,
+        dateTo: LocalDate,
+    ): Flow<ResultApi<List<MatchApi>>>
 
     fun getMatch(id: Int): Flow<ResultApi<MatchApi>>
 
@@ -27,13 +29,13 @@ internal class MatchesApiRepositoryImpl(
     override fun getMatchesForDateRange(
         dateFrom: LocalDate,
         dateTo: LocalDate,
-    ): Flow<ResultApi<MatchesApi>> =
+    ): Flow<ResultApi<List<MatchApi>>> =
         flow {
             emit(
                 matchesService.getMatchesForDateRange(
                     dateFrom = dateFrom.asString(),
                     dateTo = dateTo.asString()
-                ).toResultApi()
+                ).toResultApi { this.matches }
             )
         }
 

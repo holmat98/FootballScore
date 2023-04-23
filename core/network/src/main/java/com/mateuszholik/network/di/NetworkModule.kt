@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 import com.mateuszholik.network.BuildConfig
 import com.mateuszholik.network.interceptors.AuthorizationInterceptor
+import com.mateuszholik.network.services.CompetitionService
 import com.mateuszholik.network.services.MatchesService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -65,6 +66,11 @@ internal object NetworkModule {
     @Provides
     @Singleton
     fun providesMatchesService(retrofit: Retrofit): MatchesService =
+        provideService(retrofit)
+
+    @Provides
+    @Singleton
+    fun providesCompetitionService(retrofit: Retrofit): CompetitionService =
         provideService(retrofit)
 }
 
