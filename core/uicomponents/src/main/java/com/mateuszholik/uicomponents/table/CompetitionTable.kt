@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -36,7 +37,7 @@ import com.mateuszholik.uicomponents.texts.SmallText
 import com.mateuszholik.uicomponents.texts.TextWithBackground
 import com.mateuszholik.uicomponents.utils.PreviewConstants.TABLE_POSITION
 
-private val COLUMN_ITEM_HEIGHT = 75.dp
+private val COLUMN_ITEM_HEIGHT = 50.dp
 private val TEXT_WITH_BACKGROUND_HEIGHT = 37.5.dp
 
 @Composable
@@ -131,13 +132,13 @@ private fun LazyListScope.teamsColumn(
         ColumnHeaderText(text = stringResource(R.string.competition_table_team_column_header))
 
         tableStandings.forEach {
-            Box(
+            Row(
                 modifier = Modifier.height(COLUMN_ITEM_HEIGHT),
-                contentAlignment = Alignment.Center
+                verticalAlignment = CenterVertically
             ) {
                 HorizontalTeamItem(
                     team = it.team,
-                    imageSize = MaterialTheme.sizing.normal,
+                    imageSize = MaterialTheme.sizing.small,
                     textColor = contentColor,
                     paddingValues = PaddingValues(MaterialTheme.spacing.extraSmall)
                 )
@@ -181,7 +182,7 @@ private fun LazyListScope.teamFormColumn(tableStandings: List<TablePosition>): U
         tableStandings.forEach { standing ->
             Row(
                 modifier = Modifier.height(COLUMN_ITEM_HEIGHT),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = CenterVertically
             ) {
                 standing.form.forEach {
                     TextWithBackground(
