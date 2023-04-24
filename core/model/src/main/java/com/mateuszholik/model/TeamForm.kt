@@ -4,5 +4,5 @@ enum class TeamForm(val type: String) {
     WIN("W"),
     DRAW("D"),
     LOSE("L"),
-    N_A("")
+    N_A("?")
 }

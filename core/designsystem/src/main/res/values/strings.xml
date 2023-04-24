@@ -32,6 +32,7 @@
     <string name="competition_table_column_header_goals_difference">+/-</string>
     <string name="competition_table_team_column_header">Team</string>
     <string name="competition_table_form_column_header">Form</string>
+    <string name="comprtition_table_header">Competition standings</string>
     <string name="competition_winner_not_known">Winner not known</string>
     <string name="competition_details_page_table">Table</string>
     <string name="competition_details_page_scorers">Top Scorers</string>

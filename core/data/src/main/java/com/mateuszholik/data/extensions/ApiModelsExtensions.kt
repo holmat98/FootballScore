@@ -22,6 +22,7 @@ import com.mateuszholik.model.Status
 import com.mateuszholik.model.TablePosition
 import com.mateuszholik.model.Team
 import com.mateuszholik.model.TeamForm
+import com.mateuszholik.model.TeamForm.N_A
 import com.mateuszholik.model.TeamH2HData
 import com.mateuszholik.model.Winner
 import com.mateuszholik.network.models.AreaApi
@@ -185,10 +186,17 @@ internal fun TablePositionApi.toCommonModel(): TablePosition =
         goalsDifference = goalsDifference
     )
 
-internal fun String?.toListOfTeamForm(): List<TeamForm> =
-    this?.map { teamFormType ->
-        TeamForm.values().firstOrNull { it.type == "$teamFormType" }
-    }?.filterNotNull() ?: listOf(TeamForm.N_A)
+internal fun String?.toListOfTeamForm(): List<TeamForm> {
+    val listOfForm = this?.split(',')?.filterNot { it.isEmpty() }
+
+    return if (listOfForm.isNullOrEmpty()) {
+        listOf(N_A, N_A, N_A, N_A, N_A)
+    } else {
+        listOfForm.map { teamFormType ->
+            TeamForm.values().firstOrNull { it.type == teamFormType } ?: N_A
+        }
+    }
+}
 
 internal fun ScorerApi.toCommonModel(): Scorer =
     Scorer(

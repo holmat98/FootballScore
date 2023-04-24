@@ -1,6 +1,5 @@
 package com.mateuszholik.leaguedetails
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -27,14 +26,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mateuszholik.designsystem.theme.spacing
-import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.leaguedetails.models.Page
 import com.mateuszholik.model.CombinedCompetitionDetails
 import com.mateuszholik.model.UiState
 import com.mateuszholik.uicomponents.headers.CompetitionHeader
 import com.mateuszholik.uicomponents.info.ErrorInfo
 import com.mateuszholik.uicomponents.loading.Loading
-import com.mateuszholik.uicomponents.texts.TextWithBackground
+import com.mateuszholik.uicomponents.selectable.SelectableButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -92,6 +90,7 @@ private fun Content(
     paddingValues: PaddingValues,
 ) {
     var currentPage by remember { mutableStateOf(Page.COMPETITION_TABLE) }
+    var currentTable by remember { mutableStateOf(0) }
 
     LazyColumn(modifier = Modifier.padding(paddingValues)) {
         item {
@@ -112,28 +111,20 @@ private fun Content(
                 contentPadding = PaddingValues(vertical = MaterialTheme.spacing.extraSmall)
             ) {
                 items(items = Page.values().toList()) {
-                    TextWithBackground(
-                        modifier = Modifier
-                            .clickable { currentPage = it }
-                            .padding(start = MaterialTheme.spacing.extraSmall),
+                    SelectableButton(
                         text = stringResource(it.textResId),
-                        backgroundColor = if (it == currentPage) {
-                            MaterialTheme.colorScheme.primary
-                        } else {
-                            MaterialTheme.colorScheme.primaryContainer
-                        },
-                        textColor = if (it == currentPage) {
-                            MaterialTheme.colorScheme.onPrimary
-                        } else {
-                            MaterialTheme.colorScheme.onPrimaryContainer
-                        },
-                        textSize = MaterialTheme.textSizing.normal
+                        isSelected = it == currentPage,
+                        onClick = { currentPage = it }
                     )
                 }
             }
         }
         when (currentPage) {
-            Page.COMPETITION_TABLE -> leagueTable(tables = combinedCompetitionDetails.standingsDetails)
+            Page.COMPETITION_TABLE -> leagueTable(
+                tables = combinedCompetitionDetails.standingsDetails,
+                currentTable = currentTable,
+                onTableTypeClicked = { currentTable = it }
+            )
             Page.TOP_SCORERS -> topScorers(topScorers = combinedCompetitionDetails.topScorers)
             Page.WINNERS -> winners(seasons = combinedCompetitionDetails.seasons)
         }
