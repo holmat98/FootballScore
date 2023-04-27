@@ -16,4 +16,5 @@ plugins {
     id(Hilt.PLUGIN) version Hilt.version apply false
     id(GradlePlugins.KOTLIN_JVM) version GradlePlugins.kotlinVersion apply false
     id(Android.DynamicFeature.DEPENDENCY) version Android.DynamicFeature.version apply false
+    id(AndroidGitVersion.PLUGIN) version AndroidGitVersion.VERSION apply false
 }
