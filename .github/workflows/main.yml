@@ -1,0 +1,40 @@
+name: FootballScore CI/CD
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3.11.0
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - name: Create google-services.json
+        run: cat /home/runner/work/FootballScore/FootballScore/app/google-services.json | base64
+      - name: Put data to google-services.json
+        env:
+          DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: echo $DATA > /home/runner/work/FootballScore/FootballScore/app/google-services.json
+      - name: Restore gradle.properties
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          mkdir -p ~/.gradle/
+          echo "::set-env name=GRADLE_USER_HOME::$HOME/.gradle"
+          echo API_KEY=${API_KEY} > ~/.gradle/gradle.properties
+      - name: Build App Bundle
+        run: ./gradlew :app:bundleDebug
+      - run: npm install -g appcenter-cli
+      - name: Upload to App Center
+        run: appcenter distribute release --app ${{secrets.APP_NAME}} --file app/build/outputs/bundle/debug/app-debug.aab --group Pr --token ${{secrets.APP_CENTER_TOKEN}}

@@ -5,6 +5,13 @@ plugins {
     id (Plugins.FIREBASE_CRASHLYTICS)
     kotlin (Plugins.KAPT)
     id (Plugins.HILT)
+    id(AndroidGitVersion.PLUGIN)
+}
+
+androidGitVersion {
+    format = "%tag%%-commit%%-dirty%"
+    parts = 4
+    multiplier = 100
 }
 
 android {
@@ -15,8 +22,8 @@ android {
         applicationId = DefaultConfig.APPLICATION_ID
         minSdk = DefaultConfig.MIN_SDK
         targetSdk = DefaultConfig.TARGET_SDK
-        versionCode = DefaultConfig.VERSION_CODE
-        versionName = DefaultConfig.VERSION_NAME
+        versionCode = androidGitVersion.code()
+        versionName = androidGitVersion.name()
 
         testInstrumentationRunner = DefaultConfig.TEST_INSTRUMENTATION_RUNNER
         vectorDrawables {
