@@ -4,6 +4,7 @@ import com.mateuszholik.model.Area
 import com.mateuszholik.model.Competition
 import com.mateuszholik.model.CompetitionDetails
 import com.mateuszholik.model.CompetitionStandingsDetails
+import com.mateuszholik.model.CompetitionTableType
 import com.mateuszholik.model.CompetitionType
 import com.mateuszholik.model.Duration
 import com.mateuszholik.model.Group
@@ -165,8 +166,8 @@ internal fun AreaApi.toCommonModel(): Area =
 
 internal fun CompetitionStandingsDetailsApi.toCommonModel(): CompetitionStandingsDetails =
     CompetitionStandingsDetails(
-        stage = stage,
-        type = type,
+        stage = Stage.valueOf(stage),
+        type = CompetitionTableType.valueOf(type),
         group = Group.values().firstOrNull { it.name == group } ?: Group.N_A,
         table = table.map { it.toCommonModel() }
     )

@@ -2,6 +2,7 @@ package com.mateuszholik.leaguedetails
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -29,10 +30,10 @@ import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.leaguedetails.models.Page
 import com.mateuszholik.model.CombinedCompetitionDetails
 import com.mateuszholik.model.UiState
+import com.mateuszholik.uicomponents.buttons.SelectableButton
 import com.mateuszholik.uicomponents.headers.CompetitionHeader
 import com.mateuszholik.uicomponents.info.ErrorInfo
 import com.mateuszholik.uicomponents.loading.Loading
-import com.mateuszholik.uicomponents.selectable.SelectableButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -107,8 +108,8 @@ private fun Content(
 
         item {
             LazyRow(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                contentPadding = PaddingValues(vertical = MaterialTheme.spacing.extraSmall)
+                modifier = Modifier.fillMaxWidth(),
+                contentPadding = PaddingValues(vertical = MaterialTheme.spacing.small)
             ) {
                 items(items = Page.values().toList()) {
                     SelectableButton(
