@@ -8,17 +8,14 @@ import com.mateuszholik.domain.usecases.GetCombinedCompetitionDetailsUseCase
 import com.mateuszholik.model.CombinedCompetitionDetails
 import com.mateuszholik.model.ErrorType
 import com.mateuszholik.model.UiState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import timber.log.Timber
-import javax.inject.Inject
 
-@HiltViewModel
-class LeagueDetailsViewModel @Inject constructor(
+class LeagueDetailsViewModel(
     getCombinedCompetitionDetailsUseCase: GetCombinedCompetitionDetailsUseCase,
     leagueId: Int
 ) : ViewModel() {
@@ -38,7 +35,7 @@ class LeagueDetailsViewModel @Inject constructor(
 }
 
 @Suppress("UNCHECKED_CAST")
-class LeagueDetailsViewModelFactory @Inject constructor(
+class LeagueDetailsViewModelFactory(
     private val getCombinedCompetitionDetailsUseCase: GetCombinedCompetitionDetailsUseCase,
     private val leagueId: Int,
 ) : ViewModelProvider.Factory {
