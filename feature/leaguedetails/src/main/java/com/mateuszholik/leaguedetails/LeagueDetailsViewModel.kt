@@ -6,12 +6,15 @@ import androidx.lifecycle.viewModelScope
 import com.mateuszholik.common.extensions.toUiState
 import com.mateuszholik.domain.usecases.GetCombinedCompetitionDetailsUseCase
 import com.mateuszholik.model.CombinedCompetitionDetails
+import com.mateuszholik.model.ErrorType
 import com.mateuszholik.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +26,10 @@ class LeagueDetailsViewModel @Inject constructor(
     val combinedCompetitionDetails: StateFlow<UiState<CombinedCompetitionDetails>> =
         getCombinedCompetitionDetailsUseCase(leagueId)
             .map { it.toUiState() }
+            .catch {
+                Timber.e(it, "Error while getting combined Competition details")
+                emit(UiState.Error(ErrorType.UNKNOWN))
+            }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(),
