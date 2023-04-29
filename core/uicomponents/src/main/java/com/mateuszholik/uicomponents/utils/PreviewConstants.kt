@@ -185,4 +185,10 @@ object PreviewConstants {
         founded = 1899,
         clubColors = "red/white/blue"
     )
+    val TABLE = listOf(
+        TABLE_POSITION,
+        TABLE_POSITION.copy(position = 2, points = 64, won = 19, lost = 4),
+        TABLE_POSITION.copy(position = 3, points = 59, won = 17, draw = 8, lost = 5),
+        TABLE_POSITION.copy(position = 10, points = 40, won = 10, draw = 10, lost = 10)
+    )
 }

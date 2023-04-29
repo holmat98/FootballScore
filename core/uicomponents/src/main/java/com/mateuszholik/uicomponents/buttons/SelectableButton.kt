@@ -26,7 +26,7 @@ fun SelectableButton(
 ) {
     Box(
         modifier = modifier
-            .padding(horizontal = MaterialTheme.spacing.small)
+            .padding(start = MaterialTheme.spacing.small)
             .clip(CircleShape)
             .background(
                 if (isSelected) {

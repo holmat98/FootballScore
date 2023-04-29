@@ -22,6 +22,14 @@
     <string name="calendar_october">Oct</string>
     <string name="calendar_november">Nov</string>
     <string name="calendar_december">Dec</string>
+    <string name="competition_table_column_header_team">Team</string>
+    <string name="competition_table_column_header_form">Form</string>
+    <string name="competition_table_column_header_points">Pts</string>
+    <string name="competition_table_column_header_games_played">Gp</string>
+    <string name="competition_table_column_header_games_won">W</string>
+    <string name="competition_table_column_header_games_drown">D</string>
+    <string name="competition_table_column_header_games_lost">L</string>
+    <string name="competition_table_column_header_goals_difference">+/-</string>
     <string name="competition_table_team_column_header">Team</string>
     <string name="competition_table_form_column_header">Form</string>
     <string name="competition_winner_not_known">Winner not known</string>

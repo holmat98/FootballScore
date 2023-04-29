@@ -43,27 +43,18 @@ fun SeasonWinnerItem(
             fontSize = MaterialTheme.textSizing.small,
             fontWeight = FontWeight.Bold
         )
-        winner?.let {
-            Image(
-                modifier = Modifier
-                    .size(MaterialTheme.sizing.medium)
-                    .padding(MaterialTheme.spacing.extraSmall),
-                url = it.crest,
-                onErrorImageRes = R.drawable.ic_ball
-            )
-            Text(
-                text = it.name.uppercase(),
-                color = contentColor,
-                fontSize = MaterialTheme.textSizing.small
-            )
-        } ?: run {
-            Text(
-                modifier = Modifier.padding(start = MaterialTheme.spacing.small),
-                text = stringResource(R.string.competition_winner_not_known).uppercase(),
-                color = contentColor,
-                fontSize = MaterialTheme.textSizing.small,
-            )
-        }
+        Image(
+            modifier = Modifier
+                .size(MaterialTheme.sizing.medium)
+                .padding(MaterialTheme.spacing.extraSmall),
+            url = winner?.crest.orEmpty(),
+            onErrorImageRes = R.drawable.ic_ball
+        )
+        Text(
+            text = winner?.name?.uppercase() ?: stringResource(R.string.competition_winner_not_known),
+            color = contentColor,
+            fontSize = MaterialTheme.textSizing.small
+        )
     }
 }
 
@@ -75,7 +66,9 @@ private fun Preview() {
             seasonStartDate = LocalDate.of(2022, 8, 1),
             seasonEndDate = LocalDate.of(2023, 5, 31),
             winner = SEASON_WINNER,
-            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.surface)
         )
     }
 }
@@ -88,7 +81,9 @@ private fun PreviewWinnerNotKnown() {
             seasonStartDate = LocalDate.of(2022, 8, 1),
             seasonEndDate = LocalDate.of(2023, 5, 31),
             winner = null,
-            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.surface)
         )
     }
 }

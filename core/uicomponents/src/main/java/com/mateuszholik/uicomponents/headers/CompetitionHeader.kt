@@ -25,20 +25,40 @@ import com.mateuszholik.uicomponents.extensions.backgroundColorForCompetition
 import com.mateuszholik.uicomponents.extensions.textColorForCompetition
 import com.mateuszholik.uicomponents.images.RoundedImage
 
-
 @Composable
 fun CompetitionHeader(
     competition: Competition,
     modifier: Modifier = Modifier,
 ) {
+    with(competition) {
+        CompetitionHeader(
+            competitionType = type,
+            emblem = emblem,
+            name = name,
+            countryFlag = countryFlag,
+            countryName = countryName,
+            modifier = modifier
+        )
+    }
+}
+
+@Composable
+fun CompetitionHeader(
+    competitionType: CompetitionType,
+    emblem: String,
+    name: String,
+    countryFlag: String,
+    countryName: String,
+    modifier: Modifier = Modifier,
+) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(competition.type.backgroundColorForCompetition),
+            .background(competitionType.backgroundColorForCompetition),
         verticalAlignment = Alignment.CenterVertically
     ) {
         RoundedImage(
-            imageUrl = competition.emblem,
+            imageUrl = emblem,
             cornerRadius = MaterialTheme.cornerRadius.medium,
             padding = MaterialTheme.spacing.small,
             size = MaterialTheme.sizing.normal,
@@ -47,14 +67,14 @@ fun CompetitionHeader(
         Column {
             Text(
                 modifier = Modifier.padding(MaterialTheme.spacing.tiny),
-                text = competition.name.uppercase(),
-                color = competition.type.textColorForCompetition,
+                text = name.uppercase(),
+                color = competitionType.textColorForCompetition,
                 fontSize = MaterialTheme.textSizing.small,
                 fontWeight = FontWeight.Bold
             )
             Row {
                 RoundedImage(
-                    imageUrl = competition.countryFlag,
+                    imageUrl = countryFlag,
                     padding = MaterialTheme.spacing.tiny,
                     innerPadding = MaterialTheme.spacing.none,
                     cornerRadius = MaterialTheme.cornerRadius.none,
@@ -64,8 +84,8 @@ fun CompetitionHeader(
                 )
                 Text(
                     modifier = Modifier.padding(MaterialTheme.spacing.tiny),
-                    text = competition.countryName.uppercase(),
-                    color = competition.type.textColorForCompetition,
+                    text = countryName.uppercase(),
+                    color = competitionType.textColorForCompetition,
                     fontSize = MaterialTheme.textSizing.extraSmall,
                 )
             }

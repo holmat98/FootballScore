@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -35,9 +34,9 @@ import com.mateuszholik.model.TeamForm
 import com.mateuszholik.uicomponents.team.HorizontalTeamItem
 import com.mateuszholik.uicomponents.texts.SmallText
 import com.mateuszholik.uicomponents.texts.TextWithBackground
-import com.mateuszholik.uicomponents.utils.PreviewConstants.TABLE_POSITION
+import com.mateuszholik.uicomponents.utils.PreviewConstants.TABLE
 
-private val COLUMN_ITEM_HEIGHT = 50.dp
+private val COLUMN_ITEM_HEIGHT = 45.dp
 private val TEXT_WITH_BACKGROUND_HEIGHT = 37.5.dp
 
 @Composable
@@ -51,52 +50,74 @@ fun CompetitionTable(
         modifier = modifier.background(color = backgroundColor),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        positionsColumn(tableStandings = tableStandings)
-        teamsColumn(
-            tableStandings = tableStandings,
-            contentColor = contentColor
-        )
-        textColumn(
-            columnHeaderText = "Pts",
-            tableStandings = tableStandings,
-            contentColor = contentColor,
-            dataModifier = { it.points }
-        )
-        textColumn(
-            columnHeaderText = "GP",
-            tableStandings = tableStandings,
-            contentColor = contentColor,
-            dataModifier = { it.playedGames }
-        )
-        textColumn(
-            columnHeaderText = "W",
-            tableStandings = tableStandings,
-            contentColor = contentColor,
-            dataModifier = { it.won }
-        )
-        textColumn(
-            columnHeaderText = "D",
-            tableStandings = tableStandings,
-            contentColor = contentColor,
-            dataModifier = { it.draw }
-        )
-        textColumn(
-            columnHeaderText = "L",
-            tableStandings = tableStandings,
-            contentColor = contentColor,
-            dataModifier = { it.lost }
-        )
-        textColumn(
-            columnHeaderText = "G",
-            tableStandings = tableStandings,
-            contentColor = contentColor,
-            dataModifier = { "${it.goalsScored}:${it.goalsConceded}" }
-        )
-        teamFormColumn(tableStandings = tableStandings)
+        item { PositionsColumn(tableStandings = tableStandings) }
+
+        item {
+            TeamsColumn(
+                tableStandings = tableStandings,
+                contentColor = contentColor
+            )
+        }
+        item {
+            TextColumn(
+                columnHeaderText = stringResource(R.string.competition_table_column_header_points),
+                tableStandings = tableStandings,
+                contentColor = contentColor,
+                dataModifier = { it.points }
+            )
+        }
+
+        item {
+            TextColumn(
+                columnHeaderText = stringResource(R.string.competition_table_column_header_games_played),
+                tableStandings = tableStandings,
+                contentColor = contentColor,
+                dataModifier = { it.playedGames }
+            )
+        }
+
+        item {
+            TextColumn(
+                columnHeaderText = stringResource(R.string.competition_table_column_header_games_won),
+                tableStandings = tableStandings,
+                contentColor = contentColor,
+                dataModifier = { it.won }
+            )
+        }
+
+        item {
+            TextColumn(
+                columnHeaderText = stringResource(R.string.competition_table_column_header_games_drown),
+                tableStandings = tableStandings,
+                contentColor = contentColor,
+                dataModifier = { it.draw }
+            )
+        }
+
+        item {
+            TextColumn(
+                columnHeaderText = stringResource(R.string.competition_table_column_header_games_lost),
+                tableStandings = tableStandings,
+                contentColor = contentColor,
+                dataModifier = { it.lost }
+            )
+        }
+
+        item {
+            TextColumn(
+                columnHeaderText = stringResource(R.string.competition_table_column_header_goals_difference),
+                tableStandings = tableStandings,
+                contentColor = contentColor,
+                dataModifier = { "${it.goalsScored}:${it.goalsConceded}" }
+            )
+        }
+
+        item { TeamFormColumn(tableStandings = tableStandings) }
     }
 }
 
-private fun LazyListScope.positionsColumn(tableStandings: List<TablePosition>): Unit = item {
+@Composable
+private fun PositionsColumn(tableStandings: List<TablePosition>) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -122,14 +143,13 @@ private fun LazyListScope.positionsColumn(tableStandings: List<TablePosition>): 
     }
 }
 
-private fun LazyListScope.teamsColumn(
+@Composable
+private fun TeamsColumn(
     tableStandings: List<TablePosition>,
     contentColor: Color,
-): Unit = item {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        ColumnHeaderText(text = stringResource(R.string.competition_table_team_column_header))
+) {
+    Column {
+        ColumnHeaderText(text = stringResource(R.string.competition_table_column_header_team))
 
         tableStandings.forEach {
             Row(
@@ -147,12 +167,13 @@ private fun LazyListScope.teamsColumn(
     }
 }
 
-private fun <T> LazyListScope.textColumn(
+@Composable
+private fun <T> TextColumn(
     columnHeaderText: String,
     tableStandings: List<TablePosition>,
     contentColor: Color,
     dataModifier: (TablePosition) -> T,
-): Unit = item {
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -173,11 +194,12 @@ private fun <T> LazyListScope.textColumn(
     }
 }
 
-private fun LazyListScope.teamFormColumn(tableStandings: List<TablePosition>): Unit = item {
+@Composable
+private fun TeamFormColumn(tableStandings: List<TablePosition>) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        ColumnHeaderText(text = stringResource(R.string.competition_table_form_column_header))
+        ColumnHeaderText(text = stringResource(R.string.competition_table_column_header_form))
 
         tableStandings.forEach { standing ->
             Row(
@@ -217,7 +239,7 @@ private val TeamForm.toBackgroundColor: Color
         TeamForm.WIN -> MaterialTheme.colorScheme.primary
         TeamForm.DRAW -> Color(0xFFDCEB78)
         TeamForm.LOSE -> MaterialTheme.colorScheme.error
-        TeamForm.N_A -> MaterialTheme.colorScheme.primary
+        TeamForm.N_A -> MaterialTheme.colorScheme.surfaceVariant
     }
 
 private val TeamForm.toContentColor: Color
@@ -227,7 +249,7 @@ private val TeamForm.toContentColor: Color
         TeamForm.WIN -> MaterialTheme.colorScheme.onPrimary
         TeamForm.DRAW -> Color(0xFF1A1E00)
         TeamForm.LOSE -> MaterialTheme.colorScheme.onError
-        TeamForm.N_A -> MaterialTheme.colorScheme.onPrimary
+        TeamForm.N_A -> MaterialTheme.colorScheme.onSurfaceVariant
     }
 
 @Composable
@@ -254,12 +276,7 @@ private fun Preview() {
     FootballScoreTheme {
         CompetitionTable(
             modifier = Modifier.fillMaxWidth(),
-            tableStandings = listOf(
-                TABLE_POSITION,
-                TABLE_POSITION.copy(position = 2, points = 64, won = 19, lost = 4),
-                TABLE_POSITION.copy(position = 3, points = 59, won = 17, draw = 8, lost = 5),
-                TABLE_POSITION.copy(position = 10, points = 40, won = 10, draw = 10, lost = 10)
-            )
+            tableStandings = TABLE
         )
     }
 }
