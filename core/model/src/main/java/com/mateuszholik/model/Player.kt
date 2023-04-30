@@ -6,11 +6,11 @@ import java.time.LocalDateTime
 data class Player(
     val id: Int,
     val name: String,
-    val firstName: String? = null,
-    val lastName: String? = null,
-    val dateOfBirth: LocalDate,
-    val nationality: String,
-    val position: String,
+    val firstName: String?,
+    val lastName: String?,
+    val dateOfBirth: LocalDate?,
+    val nationality: String?,
+    val position: String?,
     val shirtNumber: Int,
     val lastUpdated: LocalDateTime,
 )

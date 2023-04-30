@@ -14,13 +14,13 @@ data class WinnerApi(
     @SerializedName("crest")
     val crest: String,
     @SerializedName("address")
-    val address: String,
+    val address: String? = null,
     @SerializedName("website")
     val website: String,
     @SerializedName("founded")
     val founded: Int,
     @SerializedName("clubColors")
-    val clubColors: String,
+    val clubColors: String? = null,
     @SerializedName("venue")
     val venue: String,
     @SerializedName("lastUpdated")
