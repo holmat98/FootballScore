@@ -214,3 +214,11 @@ object AndroidGitVersion {
     const val VERSION = "0.4.14"
     const val PLUGIN = "com.gladed.androidgitversion"
 }
+
+object Room {
+    private const val version = "2.5.1"
+
+    const val DEPENDENCY = "androidx.room:room-runtime:$version"
+    const val COMPILER = "androidx.room:room-compiler:$version"
+    const val KTX = "androidx.room:room-ktx:$version"
+}
