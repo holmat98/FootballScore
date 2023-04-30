@@ -6,8 +6,8 @@ data class SeasonWinner(
     val shortName: String,
     val tla: String,
     val crest: String,
-    val address: String,
+    val address: String?,
     val website: String,
     val founded: Int,
-    val clubColors: String,
+    val clubColors: String?,
 )

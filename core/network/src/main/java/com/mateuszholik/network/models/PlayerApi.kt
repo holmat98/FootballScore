@@ -12,11 +12,11 @@ data class PlayerApi(
     @SerializedName("lastName")
     val lastName: String? = null,
     @SerializedName("dateOfBirth")
-    val dateOfBirth: String,
+    val dateOfBirth: String?,
     @SerializedName("nationality")
-    val nationality: String,
+    val nationality: String? = null,
     @SerializedName("position")
-    val position: String,
+    val position: String? = null,
     @SerializedName("shirtNumber")
     val shirtNumber: Int? = null,
     @SerializedName("lastUpdated")
