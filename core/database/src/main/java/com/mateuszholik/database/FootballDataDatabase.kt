@@ -2,20 +2,23 @@ package com.mateuszholik.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.mateuszholik.database.daos.CompetitionDBDao
+import androidx.room.TypeConverters
+import com.mateuszholik.database.converters.LocalDateTimeConverter
+import com.mateuszholik.database.daos.CompetitionDao
 import com.mateuszholik.database.daos.MatchInfoDao
-import com.mateuszholik.database.daos.TeamDBDao
-import com.mateuszholik.database.models.CompetitionDB
-import com.mateuszholik.database.models.MatchInfoDB
-import com.mateuszholik.database.models.TeamDB
+import com.mateuszholik.database.daos.TeamDao
+import com.mateuszholik.database.models.CompetitionEntity
+import com.mateuszholik.database.models.MatchInfoEntity
+import com.mateuszholik.database.models.TeamEntity
 
 @Database(
-    entities = [CompetitionDB::class, TeamDB::class, MatchInfoDB::class],
+    entities = [CompetitionEntity::class, TeamEntity::class, MatchInfoEntity::class],
     version = 1
 )
+@TypeConverters(LocalDateTimeConverter::class)
 internal abstract class FootballDataDatabase : RoomDatabase() {
 
-    abstract fun competitionDBDao(): CompetitionDBDao
-    abstract fun teamDBDao(): TeamDBDao
+    abstract fun competitionDao(): CompetitionDao
+    abstract fun teamDao(): TeamDao
     abstract fun matchInfoDao(): MatchInfoDao
 }
