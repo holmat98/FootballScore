@@ -1,9 +1,9 @@
-package com.mateuszholik.database.models
+package com.mateuszholik.database.models.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.mateuszholik.database.models.CompetitionEntity.Companion.TABLE_NAME
+import com.mateuszholik.database.models.entities.CompetitionEntity.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)
 internal data class CompetitionEntity(

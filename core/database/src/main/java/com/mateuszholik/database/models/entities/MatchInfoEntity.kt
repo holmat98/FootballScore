@@ -1,13 +1,13 @@
-package com.mateuszholik.database.models
+package com.mateuszholik.database.models.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.mateuszholik.database.models.MatchInfoEntity.Companion.AWAY_TEAM_ID_COLUMN_NAME
-import com.mateuszholik.database.models.MatchInfoEntity.Companion.COMPETITION_ID_COLUMN_NAME
-import com.mateuszholik.database.models.MatchInfoEntity.Companion.HOME_TEAM_ID_COLUMN_NAME
-import com.mateuszholik.database.models.MatchInfoEntity.Companion.TABLE_NAME
+import com.mateuszholik.database.models.entities.MatchInfoEntity.Companion.AWAY_TEAM_ID_COLUMN_NAME
+import com.mateuszholik.database.models.entities.MatchInfoEntity.Companion.COMPETITION_ID_COLUMN_NAME
+import com.mateuszholik.database.models.entities.MatchInfoEntity.Companion.HOME_TEAM_ID_COLUMN_NAME
+import com.mateuszholik.database.models.entities.MatchInfoEntity.Companion.TABLE_NAME
 import java.time.LocalDateTime
 
 @Entity(

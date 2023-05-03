@@ -37,7 +37,7 @@ internal fun MergedMatchInfo.toMatchInfoDB(): MatchInfoDB =
         score = MatchScoreDB(
             duration = duration,
             fullTime = ScoreDB(
-                away = awayFullTImeScore,
+                away = awayFullTimeScore,
                 home = homeFullTimeScore
             ),
             winner = winner

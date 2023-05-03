@@ -7,9 +7,9 @@ import com.mateuszholik.database.converters.LocalDateTimeConverter
 import com.mateuszholik.database.daos.CompetitionDao
 import com.mateuszholik.database.daos.MatchInfoDao
 import com.mateuszholik.database.daos.TeamDao
-import com.mateuszholik.database.models.CompetitionEntity
-import com.mateuszholik.database.models.MatchInfoEntity
-import com.mateuszholik.database.models.TeamEntity
+import com.mateuszholik.database.models.entities.CompetitionEntity
+import com.mateuszholik.database.models.entities.MatchInfoEntity
+import com.mateuszholik.database.models.entities.TeamEntity
 
 @Database(
     entities = [CompetitionEntity::class, TeamEntity::class, MatchInfoEntity::class],

@@ -4,14 +4,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.mateuszholik.database.models.MatchInfoEntity
+import com.mateuszholik.database.models.entities.MatchInfoEntity
 import com.mateuszholik.database.models.MergedMatchInfo
 import java.time.LocalDateTime
 
 @Dao
 internal interface MatchInfoDao {
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(matchInfoEntity: MatchInfoEntity)
 
     @Query(
@@ -22,9 +22,9 @@ internal interface MatchInfoDao {
                    competition.country_name as competitionCountryName,
                    competition.country_code as competitionCountryCode,
                    competition.country_flag as competitionCountryFlag,
-                   competition.emblem as emblem,
-                   competition.name as name,
-                   competition.type as type,
+                   competition.emblem as competitionEmblem,
+                   competition.name as competitionName,
+                   competition.type as competitionType,
                    home_team.id as homeTeamId,
                    home_team.crest as homeTeamCrest,
                    home_team.name as homeTeamName,

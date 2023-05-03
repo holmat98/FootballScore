@@ -1,11 +1,11 @@
 package com.mateuszholik.database.extensions
 
 import com.mateuszholik.database.models.CompetitionDB
-import com.mateuszholik.database.models.CompetitionEntity
+import com.mateuszholik.database.models.entities.CompetitionEntity
 import com.mateuszholik.database.models.MatchInfoDB
-import com.mateuszholik.database.models.MatchInfoEntity
+import com.mateuszholik.database.models.entities.MatchInfoEntity
 import com.mateuszholik.database.models.TeamDB
-import com.mateuszholik.database.models.TeamEntity
+import com.mateuszholik.database.models.entities.TeamEntity
 
 internal fun CompetitionDB.toEntityModel(): CompetitionEntity =
     CompetitionEntity(

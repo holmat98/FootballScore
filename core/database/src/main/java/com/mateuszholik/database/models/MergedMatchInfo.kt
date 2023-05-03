@@ -24,7 +24,7 @@ internal data class MergedMatchInfo(
     val awayTeamTla: String,
     val duration: String,
     val homeFullTimeScore: Int?,
-    val awayFullTImeScore: Int?,
+    val awayFullTimeScore: Int?,
     val winner: String,
     val status: String,
     val utcDate: LocalDateTime,
