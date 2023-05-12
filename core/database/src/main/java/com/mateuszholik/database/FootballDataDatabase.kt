@@ -13,7 +13,8 @@ import com.mateuszholik.database.models.entities.TeamEntity
 
 @Database(
     entities = [CompetitionEntity::class, TeamEntity::class, MatchInfoEntity::class],
-    version = 1
+    version = 1,
+    exportSchema = true
 )
 @TypeConverters(LocalDateTimeConverter::class)
 internal abstract class FootballDataDatabase : RoomDatabase() {
