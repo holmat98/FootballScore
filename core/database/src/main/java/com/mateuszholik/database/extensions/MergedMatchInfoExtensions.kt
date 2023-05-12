@@ -3,7 +3,7 @@ package com.mateuszholik.database.extensions
 import com.mateuszholik.database.models.CompetitionDB
 import com.mateuszholik.database.models.MatchInfoDB
 import com.mateuszholik.database.models.MatchScoreDB
-import com.mateuszholik.database.models.MergedMatchInfo
+import com.mateuszholik.database.models.views.MergedMatchInfo
 import com.mateuszholik.database.models.ScoreDB
 import com.mateuszholik.database.models.TeamDB
 

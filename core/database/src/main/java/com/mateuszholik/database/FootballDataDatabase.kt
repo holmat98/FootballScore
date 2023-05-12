@@ -1,5 +1,6 @@
 package com.mateuszholik.database
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -10,10 +11,13 @@ import com.mateuszholik.database.daos.TeamDao
 import com.mateuszholik.database.models.entities.CompetitionEntity
 import com.mateuszholik.database.models.entities.MatchInfoEntity
 import com.mateuszholik.database.models.entities.TeamEntity
+import com.mateuszholik.database.models.views.MergedMatchInfo
 
 @Database(
     entities = [CompetitionEntity::class, TeamEntity::class, MatchInfoEntity::class],
-    version = 1,
+    views = [MergedMatchInfo::class],
+    autoMigrations = [AutoMigration(from = 1, to = 2)],
+    version = 2,
     exportSchema = true
 )
 @TypeConverters(LocalDateTimeConverter::class)
