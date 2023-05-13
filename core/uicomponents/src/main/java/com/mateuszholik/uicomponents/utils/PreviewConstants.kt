@@ -8,13 +8,20 @@ import com.mateuszholik.model.Head2Head
 import com.mateuszholik.model.Match
 import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.MatchScore
+import com.mateuszholik.model.Player
 import com.mateuszholik.model.Referee
 import com.mateuszholik.model.RefereeType
 import com.mateuszholik.model.Score
+import com.mateuszholik.model.Scorer
 import com.mateuszholik.model.Season
+import com.mateuszholik.model.SeasonWinner
 import com.mateuszholik.model.Stage
 import com.mateuszholik.model.Status
+import com.mateuszholik.model.TablePosition
 import com.mateuszholik.model.Team
+import com.mateuszholik.model.TeamForm.WIN
+import com.mateuszholik.model.TeamForm.DRAW
+import com.mateuszholik.model.TeamForm.LOSE
 import com.mateuszholik.model.TeamH2HData
 import com.mateuszholik.model.Winner
 import java.time.LocalDate
@@ -135,5 +142,53 @@ object PreviewConstants {
         matches = listOf(FINISHED_MATCH_INFO, SCHEDULED_MATCH_INFO),
         numberOfMatches = 2,
         totalGoals = 2
+    )
+    val PLAYER = Player(
+        id = 1,
+        name = "Mateusz Holik",
+        firstName = "Mateusz",
+        lastName = "Holik",
+        dateOfBirth = LocalDate.of(1998, 8, 2),
+        nationality = "Polish",
+        position = "Midfielder",
+        shirtNumber = 10,
+        lastUpdated = LocalDateTime.of(2023, 4, 17, 12, 0, 0)
+    )
+    val SCORER = Scorer(
+        player = PLAYER,
+        team = TEAM_1,
+        goals = 30,
+        assists = 20,
+        penalties = 5
+    )
+    val TABLE_POSITION = TablePosition(
+        position = 1,
+        team = TEAM_1,
+        playedGames = 30,
+        form = listOf(WIN, WIN, DRAW, LOSE, WIN),
+        won = 20,
+        draw = 7,
+        lost = 3,
+        points = 67,
+        goalsScored = 61,
+        goalsConceded = 15,
+        goalsDifference = 46
+    )
+    val SEASON_WINNER = SeasonWinner(
+        id = 1,
+        name = "Team 1",
+        shortName = "1",
+        tla = "",
+        crest = "",
+        address = "Address",
+        website = "",
+        founded = 1899,
+        clubColors = "red/white/blue"
+    )
+    val TABLE = listOf(
+        TABLE_POSITION,
+        TABLE_POSITION.copy(position = 2, points = 64, won = 19, lost = 4),
+        TABLE_POSITION.copy(position = 3, points = 59, won = 17, draw = 8, lost = 5),
+        TABLE_POSITION.copy(position = 10, points = 40, won = 10, draw = 10, lost = 10)
     )
 }

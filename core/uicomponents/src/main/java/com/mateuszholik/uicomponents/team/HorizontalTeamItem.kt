@@ -1,5 +1,6 @@
 package com.mateuszholik.uicomponents.team
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -9,8 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import com.mateuszholik.designsystem.R
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.theme.sizing
@@ -21,26 +25,33 @@ import com.mateuszholik.uicomponents.images.Image
 import com.mateuszholik.uicomponents.utils.PreviewConstants
 
 @Composable
-internal fun HorizontalTeamItem(team: Team) {
+internal fun HorizontalTeamItem(
+    team: Team,
+    modifier: Modifier = Modifier,
+    textColor: Color = MaterialTheme.colorScheme.onSurface,
+    imageSize: Dp = MaterialTheme.sizing.small,
+    textSize: TextUnit = MaterialTheme.textSizing.small,
+    paddingValues: PaddingValues = PaddingValues(
+        top = MaterialTheme.spacing.tiny,
+        bottom = MaterialTheme.spacing.tiny,
+        start = MaterialTheme.spacing.small
+    ),
+) {
     Row(
-        modifier = Modifier.padding(
-            top = MaterialTheme.spacing.tiny,
-            bottom = MaterialTheme.spacing.tiny,
-            start = MaterialTheme.spacing.small
-        ),
+        modifier = modifier.padding(paddingValues),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
             modifier = Modifier
-                .size(MaterialTheme.sizing.small)
+                .size(imageSize)
                 .padding(MaterialTheme.spacing.extraSmall),
             url = team.crest,
             onErrorImageRes = R.drawable.ic_ball
         )
         Text(
             text = team.name.uppercase(),
-            color = MaterialTheme.colorScheme.onSurface,
-            fontSize = MaterialTheme.textSizing.small,
+            color = textColor,
+            fontSize = textSize,
             fontWeight = FontWeight.Bold
         )
     }
