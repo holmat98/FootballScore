@@ -14,8 +14,10 @@ import com.mateuszholik.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,6 +34,9 @@ class MatchDetailsViewModel @Inject constructor(
             getMatchHead2HeadUseCase(matchId)
         ) { matchResult, head2HeadResult ->
             combineMatchDetailsResult(matchResult, head2HeadResult)
+        }.catch {
+            Timber.e(it, "Error while getting match details")
+            emit(UiState.Error(ErrorType.UNKNOWN))
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),

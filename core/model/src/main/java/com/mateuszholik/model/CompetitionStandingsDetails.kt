@@ -1,8 +1,8 @@
 package com.mateuszholik.model
 
 data class CompetitionStandingsDetails(
-    val stage: String,
-    val type: String,
+    val stage: Stage,
+    val type: CompetitionTableType,
     val group: Group,
     val table: List<TablePosition>,
 )

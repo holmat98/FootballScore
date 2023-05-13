@@ -38,6 +38,7 @@ import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.UiState
 import com.mateuszholik.uicomponents.calendar.Calendar
 import com.mateuszholik.uicomponents.dialogs.DatePickerDialog
+import com.mateuszholik.uicomponents.divider.CustomDivider
 import com.mateuszholik.uicomponents.headers.CompetitionHeader
 import com.mateuszholik.uicomponents.info.ErrorInfo
 import com.mateuszholik.uicomponents.loading.Loading
@@ -155,7 +156,7 @@ private fun Content(
                     matchInfo = matchInfo,
                 )
                 if (index < matches.lastIndex) {
-                    Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+                    CustomDivider()
                 }
             }
         }

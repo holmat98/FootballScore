@@ -4,6 +4,7 @@ import com.mateuszholik.model.Area
 import com.mateuszholik.model.Competition
 import com.mateuszholik.model.CompetitionDetails
 import com.mateuszholik.model.CompetitionStandingsDetails
+import com.mateuszholik.model.CompetitionTableType
 import com.mateuszholik.model.CompetitionType
 import com.mateuszholik.model.Duration
 import com.mateuszholik.model.Group
@@ -22,6 +23,7 @@ import com.mateuszholik.model.Status
 import com.mateuszholik.model.TablePosition
 import com.mateuszholik.model.Team
 import com.mateuszholik.model.TeamForm
+import com.mateuszholik.model.TeamForm.N_A
 import com.mateuszholik.model.TeamH2HData
 import com.mateuszholik.model.Winner
 import com.mateuszholik.network.models.AreaApi
@@ -164,8 +166,8 @@ internal fun AreaApi.toCommonModel(): Area =
 
 internal fun CompetitionStandingsDetailsApi.toCommonModel(): CompetitionStandingsDetails =
     CompetitionStandingsDetails(
-        stage = stage,
-        type = type,
+        stage = Stage.valueOf(stage),
+        type = CompetitionTableType.valueOf(type),
         group = Group.values().firstOrNull { it.name == group } ?: Group.N_A,
         table = table.map { it.toCommonModel() }
     )
@@ -185,10 +187,17 @@ internal fun TablePositionApi.toCommonModel(): TablePosition =
         goalsDifference = goalsDifference
     )
 
-internal fun String?.toListOfTeamForm(): List<TeamForm> =
-    this?.map { teamFormType ->
-        TeamForm.values().firstOrNull { it.type == "$teamFormType" }
-    }?.filterNotNull() ?: listOf(TeamForm.N_A)
+internal fun String?.toListOfTeamForm(): List<TeamForm> {
+    val listOfForm = this?.split(',')?.filterNot { it.isEmpty() }
+
+    return if (listOfForm.isNullOrEmpty()) {
+        listOf(N_A, N_A, N_A, N_A, N_A)
+    } else {
+        listOfForm.map { teamFormType ->
+            TeamForm.values().firstOrNull { it.type == teamFormType } ?: N_A
+        }
+    }
+}
 
 internal fun ScorerApi.toCommonModel(): Scorer =
     Scorer(

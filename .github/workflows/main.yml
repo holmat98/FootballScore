@@ -1,8 +1,6 @@
 name: FootballScore CI/CD
 
-on:
-  pull_request:
-    branches: [ main ]
+on: [pull_request]
 
 jobs:
   build:

@@ -1,6 +1,9 @@
 package com.mateuszholik.uicomponents.utils
 
+import com.mateuszholik.model.Area
 import com.mateuszholik.model.Competition
+import com.mateuszholik.model.CompetitionStandingsDetails
+import com.mateuszholik.model.CompetitionTableType
 import com.mateuszholik.model.CompetitionType
 import com.mateuszholik.model.Duration
 import com.mateuszholik.model.Group
@@ -42,6 +45,12 @@ object PreviewConstants {
         LocalDate.of(2023, 2, 28),
     )
     val SELECTED_DAY = LocalDate.of(2023, 2, 20)
+    val AREA = Area(
+        code = "",
+        flag = "",
+        id = 1,
+        name = "Poland"
+    )
     val COMPETITION = Competition(
         code = "code",
         countryName = "England",
@@ -190,5 +199,11 @@ object PreviewConstants {
         TABLE_POSITION.copy(position = 2, points = 64, won = 19, lost = 4),
         TABLE_POSITION.copy(position = 3, points = 59, won = 17, draw = 8, lost = 5),
         TABLE_POSITION.copy(position = 10, points = 40, won = 10, draw = 10, lost = 10)
+    )
+    val COMPETITION_STANDINGS_DETAILS = CompetitionStandingsDetails(
+        stage = Stage.REGULAR_SEASON,
+        type = CompetitionTableType.HOME,
+        group = Group.N_A,
+        table = TABLE
     )
 }
