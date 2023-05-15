@@ -6,6 +6,7 @@ import com.mateuszholik.database.FootballDataDatabase
 import com.mateuszholik.database.daos.CompetitionDao
 import com.mateuszholik.database.daos.MatchInfoDao
 import com.mateuszholik.database.daos.TeamDao
+import com.mateuszholik.database.daos.WatchedGameDao
 import com.mateuszholik.database.utils.DatabaseUtils.FOOTBALL_DATA_DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -43,4 +44,9 @@ internal object DatabaseModule {
     @Provides
     fun providesTeamDao(footballDataDatabase: FootballDataDatabase): TeamDao =
         footballDataDatabase.teamDao()
+
+    @Singleton
+    @Provides
+    fun providesWatchedGameDao(footballDataDatabase: FootballDataDatabase): WatchedGameDao =
+        footballDataDatabase.watchedGameDao()
 }

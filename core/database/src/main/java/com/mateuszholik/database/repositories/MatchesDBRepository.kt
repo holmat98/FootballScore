@@ -3,6 +3,7 @@ package com.mateuszholik.database.repositories
 import com.mateuszholik.database.daos.CompetitionDao
 import com.mateuszholik.database.daos.MatchInfoDao
 import com.mateuszholik.database.daos.TeamDao
+import com.mateuszholik.database.daos.WatchedGameDao
 import com.mateuszholik.database.extensions.toEntityModel
 import com.mateuszholik.database.extensions.toMatchInfoDB
 import com.mateuszholik.database.models.MatchInfoDB
@@ -15,12 +16,15 @@ interface MatchesDBRepository {
     suspend fun saveMatchesInfo(matchesInfoDB: List<MatchInfoDB>)
 
     suspend fun getMatchesInfoFor(date: LocalDate): ResultDB<List<MatchInfoDB>>
+
+    suspend fun getWatchedGames(): ResultDB<List<Int>>
 }
 
 internal class MatchesDBRepositoryImpl @Inject constructor(
     private val competitionDao: CompetitionDao,
     private val teamDao: TeamDao,
     private val matchInfoDao: MatchInfoDao,
+    private val watchedGameDao: WatchedGameDao,
 ) : MatchesDBRepository {
 
     override suspend fun saveMatchesInfo(matchesInfoDB: List<MatchInfoDB>) =
@@ -46,4 +50,7 @@ internal class MatchesDBRepositoryImpl @Inject constructor(
             ResultDB.Success(matchesInfoDB)
         }
     }
+
+    override suspend fun getWatchedGames(): ResultDB<List<Int>> =
+        ResultDB.Success(watchedGameDao.getAllWatchedGames())
 }
