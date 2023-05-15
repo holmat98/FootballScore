@@ -8,6 +8,7 @@ import com.mateuszholik.database.extensions.toEntityModel
 import com.mateuszholik.database.extensions.toMatchInfoDB
 import com.mateuszholik.database.models.MatchInfoDB
 import com.mateuszholik.database.models.ResultDB
+import com.mateuszholik.database.models.entities.WatchedGameEntity
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -18,6 +19,10 @@ interface MatchesDBRepository {
     suspend fun getMatchesInfoFor(date: LocalDate): ResultDB<List<MatchInfoDB>>
 
     suspend fun getWatchedGames(): ResultDB<List<Int>>
+
+    suspend fun insertWatchedGame(id: Int)
+
+    suspend fun deleteWatchedGame(id: Int)
 }
 
 internal class MatchesDBRepositoryImpl @Inject constructor(
@@ -51,6 +56,19 @@ internal class MatchesDBRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getWatchedGames(): ResultDB<List<Int>> =
-        ResultDB.Success(watchedGameDao.getAllWatchedGames())
+    override suspend fun getWatchedGames(): ResultDB<List<Int>> {
+        val watchedGames = watchedGameDao.getAllWatchedGames()
+
+        return if (watchedGames.isEmpty()) {
+            ResultDB.EmptyBody()
+        } else {
+            ResultDB.Success(watchedGames)
+        }
+    }
+
+    override suspend fun insertWatchedGame(id: Int) =
+        watchedGameDao.insert(WatchedGameEntity(id))
+
+    override suspend fun deleteWatchedGame(id: Int) =
+        watchedGameDao.delete(WatchedGameEntity(id))
 }
