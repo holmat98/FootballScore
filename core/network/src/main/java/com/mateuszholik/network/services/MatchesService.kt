@@ -21,4 +21,7 @@ internal interface MatchesService {
 
     @GET("v4/matches/{id}/head2head")
     suspend fun getHead2HeadForMatch(@Path("id") id: Int): Response<Head2HeadApi>
+
+    @GET("v4/matches")
+    suspend fun getMatchesForIds(@Query("ids") ids: String): Response<MatchesApi>
 }
