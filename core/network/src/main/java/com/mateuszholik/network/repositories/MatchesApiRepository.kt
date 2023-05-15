@@ -18,6 +18,8 @@ interface MatchesApiRepository {
     suspend fun getMatch(id: Int): ResultApi<MatchApi>
 
     suspend fun getHead2HeadForMatch(id: Int): ResultApi<Head2HeadApi>
+
+    suspend fun getMatchesForIds(ids: List<Int>): ResultApi<List<MatchApi>>
 }
 
 internal class MatchesApiRepositoryImpl(
@@ -38,4 +40,7 @@ internal class MatchesApiRepositoryImpl(
 
     override suspend fun getHead2HeadForMatch(id: Int): ResultApi<Head2HeadApi> =
         matchesService.getHead2HeadForMatch(id).toResultApi()
+
+    override suspend fun getMatchesForIds(ids: List<Int>): ResultApi<List<MatchApi>> =
+        matchesService.getMatchesForIds(ids = ids.joinToString(",")).toResultApi { this.matches }
 }
