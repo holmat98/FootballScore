@@ -31,7 +31,9 @@ interface MatchesRepository {
 
     fun getMatchH2H(id: Int): Flow<Result<Head2Head>>
 
-    fun getMatchesForIds(): Flow<Result<Map<Competition, List<MatchInfo>>>>
+    fun getWatchedMatches(): Flow<Result<Map<Competition, List<MatchInfo>>>>
+
+    fun getWatchedMatchesId(): Flow<Result<List<Int>>>
 
     suspend fun insertWatchedGame(id: Int)
 
@@ -80,7 +82,7 @@ internal class MatchesRepositoryImpl(
             }
         }
 
-    override fun getMatchesForIds(): Flow<Result<Map<Competition, List<MatchInfo>>>> =
+    override fun getWatchedMatches(): Flow<Result<Map<Competition, List<MatchInfo>>>> =
         flow {
             emit(matchesDBRepository.getWatchedGames())
         }.flatMapConcat { result ->
@@ -97,6 +99,11 @@ internal class MatchesRepositoryImpl(
                     .groupBy { it.competition }
                     .mapValues { it.value.toListOfMatchInfo() }
             }
+        }
+
+    override fun getWatchedMatchesId(): Flow<Result<List<Int>>> =
+        flow {
+            emit(matchesDBRepository.getWatchedGames().toResult())
         }
 
     override suspend fun insertWatchedGame(id: Int) =
