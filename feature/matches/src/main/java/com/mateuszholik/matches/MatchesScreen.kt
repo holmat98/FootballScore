@@ -32,8 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mateuszholik.designsystem.R
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
-import com.mateuszholik.model.Competition
-import com.mateuszholik.model.MatchInfo
+import com.mateuszholik.matches.model.CombinedMatchesInfo
 import com.mateuszholik.model.UiState
 import com.mateuszholik.uicomponents.calendar.Calendar
 import com.mateuszholik.uicomponents.dialogs.DatePickerDialog
@@ -58,7 +57,7 @@ fun MatchesScreen(
     var shouldShowDatePicker by remember { mutableStateOf(false) }
     val days = remember { viewModel.days }
     val currentDay by viewModel.currentDay.collectAsStateWithLifecycle()
-    val matchesUiState by viewModel.matches.collectAsStateWithLifecycle()
+    val combinedMatchesUiState by viewModel.matches.collectAsStateWithLifecycle()
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -87,7 +86,7 @@ fun MatchesScreen(
             )
         },
         content = { paddingValues ->
-            when (matchesUiState) {
+            when (combinedMatchesUiState) {
                 is UiState.Loading -> Loading()
                 is UiState.Success -> Content(
                     modifier = Modifier.padding(
@@ -96,13 +95,20 @@ fun MatchesScreen(
                     ),
                     days = days,
                     selectedDay = currentDay,
-                    data = (matchesUiState as UiState.Success<Map<Competition, List<MatchInfo>>>).data,
+                    data = (combinedMatchesUiState as UiState.Success<CombinedMatchesInfo>).data,
                     onDaySelected = { viewModel.updateCurrentDate(it) },
                     onMatchClicked = onMatchClicked,
-                    onCompetitionClicked = onCompetitionClicked
+                    onCompetitionClicked = onCompetitionClicked,
+                    onFavoriteButtonClicked = { isChecked, matchId ->
+                        if (isChecked) {
+                            viewModel.addToWatchedMatches(matchId)
+                        } else {
+                            viewModel.deleteFromWatchedMatches(matchId)
+                        }
+                    }
                 )
                 is UiState.Error ->
-                    ErrorInfo((matchesUiState as UiState.Error<Map<Competition, List<MatchInfo>>>).errorType)
+                    ErrorInfo((combinedMatchesUiState as UiState.Error<CombinedMatchesInfo>).errorType)
             }
 
             if (shouldShowDatePicker) {
@@ -128,11 +134,15 @@ private fun Content(
     modifier: Modifier,
     days: List<LocalDate>,
     selectedDay: LocalDate,
-    data: Map<Competition, List<MatchInfo>>,
+    data: CombinedMatchesInfo,
     onDaySelected: (LocalDate) -> Unit,
     onMatchClicked: (matchId: Int) -> Unit,
     onCompetitionClicked: (competitionId: Int) -> Unit,
+    onFavoriteButtonClicked: (isChecked: Boolean, matchId: Int) -> Unit,
 ) {
+    val matches = data.matches
+    val watchedMatchesIds = data.watchedMatchesIds
+
     LazyColumn(modifier = modifier.fillMaxSize()) {
         item {
             Calendar(
@@ -142,19 +152,22 @@ private fun Content(
             )
         }
 
-        data.forEach { (competition, matches) ->
+        matches.forEach { (competition, matches) ->
             stickyHeader {
                 CompetitionHeader(
                     modifier = Modifier.clickable { onCompetitionClicked(competition.id) },
                     competition = competition
                 )
             }
-            itemsIndexed(items = matches) { index, matchInfo ->
+            itemsIndexed(
+                items = matches,
+                key = { _, item -> item.id }
+            ) { index, matchInfo ->
                 MatchItem(
                     modifier = Modifier.clickable { onMatchClicked(matchInfo.id) },
                     matchInfo = matchInfo,
-                    onFavoriteButtonClicked = {},
-                    isAddedToFavorites = false
+                    onFavoriteButtonClicked = { onFavoriteButtonClicked(it, matchInfo.id) },
+                    isAddedToFavorites = matchInfo.id in watchedMatchesIds
                 )
                 if (index < matches.lastIndex) {
                     CustomDivider()
@@ -173,21 +186,25 @@ private fun Preview() {
                 modifier = Modifier,
                 days = PreviewConstants.DAYS,
                 selectedDay = PreviewConstants.SELECTED_DAY,
-                data = mapOf(
-                    PreviewConstants.COMPETITION to listOf(
-                        PreviewConstants.IN_PLAY_MATCH_INFO,
-                        PreviewConstants.FINISHED_MATCH_INFO,
-                        PreviewConstants.SCHEDULED_MATCH_INFO
+                data = CombinedMatchesInfo(
+                    mapOf(
+                        PreviewConstants.COMPETITION to listOf(
+                            PreviewConstants.IN_PLAY_MATCH_INFO,
+                            PreviewConstants.FINISHED_MATCH_INFO,
+                            PreviewConstants.SCHEDULED_MATCH_INFO
+                        ),
+                        PreviewConstants.COMPETITION_2 to listOf(
+                            PreviewConstants.IN_PLAY_MATCH_INFO,
+                            PreviewConstants.SCHEDULED_MATCH_INFO,
+                            PreviewConstants.FINISHED_MATCH_INFO
+                        ),
                     ),
-                    PreviewConstants.COMPETITION_2 to listOf(
-                        PreviewConstants.IN_PLAY_MATCH_INFO,
-                        PreviewConstants.SCHEDULED_MATCH_INFO,
-                        PreviewConstants.FINISHED_MATCH_INFO
-                    ),
+                    listOf(1)
                 ),
                 onDaySelected = {},
-                onMatchClicked =  {},
-                onCompetitionClicked = {}
+                onMatchClicked = {},
+                onCompetitionClicked = {},
+                onFavoriteButtonClicked = { _, _ -> }
             )
         }
     }
