@@ -2,17 +2,17 @@ package com.mateuszholik.data.repositories
 
 import com.mateuszholik.common.providers.CurrentDateProvider
 import com.mateuszholik.data.extensions.toCommonModel
-import com.mateuszholik.data.extensions.toListOfMatchInfo
 import com.mateuszholik.data.extensions.toListOfMatchInfoDB
+import com.mateuszholik.data.extensions.toMatchInfoMap
 import com.mateuszholik.data.extensions.toResult
 import com.mateuszholik.database.models.ResultDB
 import com.mateuszholik.database.repositories.MatchesDBRepository
 import com.mateuszholik.model.Competition
+import com.mateuszholik.model.ErrorType
 import com.mateuszholik.model.Head2Head
 import com.mateuszholik.model.Match
 import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.Result
-import com.mateuszholik.network.models.ResultApi
 import com.mateuszholik.network.repositories.MatchesApiRepository
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -83,23 +83,7 @@ internal class MatchesRepositoryImpl(
         }
 
     override fun getWatchedMatches(): Flow<Result<Map<Competition, List<MatchInfo>>>> =
-        flow {
-            emit(matchesDBRepository.getWatchedGames())
-        }.flatMapConcat { result ->
-            if (result is ResultDB.Success) {
-                flow {
-                    emit(matchesApiRepository.getMatchesForIds(result.data))
-                }
-            } else {
-                flowOf(ResultApi.EmptyBody())
-            }
-        }.map { resultApi ->
-            resultApi.toResult {
-                this.map { it.toCommonModel() }
-                    .groupBy { it.competition }
-                    .mapValues { it.value.toListOfMatchInfo() }
-            }
-        }
+        flow { emit(getMatchesInfoByIds()) }
 
     override fun getWatchedMatchesId(): Flow<Result<List<Int>>> =
         flow {
@@ -139,14 +123,22 @@ internal class MatchesRepositoryImpl(
                 )
             )
         }.map { resultApi ->
-            resultApi.toResult {
-                this.map { it.toCommonModel() }
-                    .groupBy { it.competition }
-                    .mapValues { it.value.toListOfMatchInfo() }
-            }
+            resultApi.toResult { this.toMatchInfoMap() }
         }.onEach {
             if (shouldSaveToDatabase && it is Result.Success) {
                 matchesDBRepository.saveMatchesInfo(it.data.toListOfMatchInfoDB())
             }
         }
+
+    private suspend fun getMatchesInfoByIds(): Result<Map<Competition, List<MatchInfo>>> {
+        val matchesIdsResult = matchesDBRepository.getWatchedGames()
+
+        return if (matchesIdsResult is ResultDB.Success) {
+            val matchesApiResult = matchesApiRepository.getMatchesForIds(matchesIdsResult.data)
+
+            matchesApiResult.toResult { this.toMatchInfoMap() }
+        } else {
+            Result.Error(ErrorType.EMPTY_DATA)
+        }
+    }
 }
