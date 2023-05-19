@@ -2,6 +2,7 @@ package com.mateuszholik.leaguedetails.contract
 
 import android.app.Activity
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mateuszholik.domain.di.FeatureModuleDependencies
@@ -25,6 +26,7 @@ class LeagueDetailsContractImpl : LeagueDetailsContract {
 
     @Composable
     override fun DisplayLeagueDetails(
+        modifier: Modifier,
         leagueId: Int,
         onBackPressed: () -> Unit,
     ) {
@@ -32,6 +34,7 @@ class LeagueDetailsContractImpl : LeagueDetailsContract {
         initCoreDependencies(activity)
 
         LeagueDetailsScreen(
+            modifier = modifier,
             onBackPressed = onBackPressed,
             viewModel = viewModel(
                 factory = LeagueDetailsViewModelFactory(

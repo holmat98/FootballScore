@@ -50,6 +50,7 @@ import java.time.LocalDate
 fun MatchesScreen(
     onCompetitionClicked: (competitionId: Int) -> Unit,
     onMatchClicked: (matchId: Int) -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: MatchesViewModel = hiltViewModel(),
 ) {
     val topAppBarState = rememberTopAppBarState()
@@ -62,7 +63,7 @@ fun MatchesScreen(
     val watchedMatchesIds by viewModel.watchedMatches.collectAsStateWithLifecycle()
 
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
                 title = {

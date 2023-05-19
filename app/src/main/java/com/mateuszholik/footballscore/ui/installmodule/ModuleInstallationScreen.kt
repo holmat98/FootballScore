@@ -30,6 +30,7 @@ import com.mateuszholik.uicomponents.animations.AnimationWithText
 fun ModuleInstallationScreen(
     doOnInstallationSucceeded: () -> Unit,
     doOnInstallationFailed: () -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: ModuleInstallationViewModel = hiltViewModel(),
 ) {
     val installationState by viewModel.installationState.collectAsStateWithLifecycle()
@@ -37,7 +38,8 @@ fun ModuleInstallationScreen(
     Content(
         installationState = installationState,
         doOnInstallationFailed = doOnInstallationFailed,
-        doOnInstallationSucceeded = doOnInstallationSucceeded
+        doOnInstallationSucceeded = doOnInstallationSucceeded,
+        modifier = modifier
     )
 }
 
@@ -46,6 +48,7 @@ private fun Content(
     installationState: InstallationState,
     doOnInstallationFailed: () -> Unit,
     doOnInstallationSucceeded: () -> Unit,
+    modifier: Modifier,
 ) {
     val text = installationState.toText
 
@@ -56,12 +59,14 @@ private fun Content(
             }
         }
         is InstallationState.Downloading -> DownloadingContent(
+                modifier = modifier,
                 downloadedData = installationState.downloadedData,
                 totalDataToDownload = installationState.totalDataToDownload
             )
         is InstallationState.Canceled,
         is InstallationState.Canceling,
         is InstallationState.Failed -> ErrorContent(
+            modifier = modifier,
             text = text,
             doOnInstallationFailed = doOnInstallationFailed
         )
@@ -69,13 +74,13 @@ private fun Content(
         InstallationState.Pending,
         InstallationState.Unknown,
         InstallationState.Installing -> AnimationWithText(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             animationResId = R.raw.infinity_loading_anim,
             text = text,
             iterateForever = true
         )
         InstallationState.Installed -> AnimationWithText(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             animationResId = R.raw.downloaded_anim,
             text = text,
             doOnAnimationEnd = doOnInstallationSucceeded
@@ -101,11 +106,12 @@ private val InstallationState.toText
 
 @Composable
 private fun ErrorContent(
+    modifier: Modifier,
     text: String,
     doOnInstallationFailed: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AnimationWithText(
@@ -126,10 +132,11 @@ private fun ErrorContent(
 
 @Composable
 private fun DownloadingContent(
+    modifier: Modifier,
     downloadedData: Float,
     totalDataToDownload: Float,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = modifier.fillMaxSize()) {
         LinearProgressIndicator(
             modifier = Modifier.fillMaxWidth(),
             progress = downloadedData / totalDataToDownload,
@@ -151,6 +158,7 @@ private fun Preview() {
     FootballScoreTheme {
         Surface {
             Content(
+                modifier = Modifier,
                 installationState = InstallationState.Downloading(50f, 100f),
                 doOnInstallationFailed = {},
                 doOnInstallationSucceeded = {}

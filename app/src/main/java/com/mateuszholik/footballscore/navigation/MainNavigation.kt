@@ -1,5 +1,12 @@
 package com.mateuszholik.footballscore.navigation
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -19,20 +26,32 @@ object MainNavigation {
     private const val MATCH_DETAILS = "$ROOT/MATCH_DETAILS"
     private const val MODULE_INSTALLATION = "$ROOT/MODULE_INSTALLATION"
     private const val LEAGUE_DETAILS = "$ROOT/LEAGUE_DETAILS"
+    private const val WATCHED_MATCHES = "$ROOT/WATCHED_MATCHES"
 
-    const val LEAGUE_ID_ARGUMENT = "leagueId"
+    internal const val BOTTOM_NAV_HOME = MATCH_LIST
+    internal const val BOTTOM_NAV_FAVORITE = WATCHED_MATCHES
 
-    fun NavGraphBuilder.mainNavigationGraph(navController: NavController): Unit =
+    private const val LEAGUE_ID_ARGUMENT = "leagueId"
+
+    fun NavGraphBuilder.mainNavigationGraph(
+        navController: NavController,
+        paddingValues: PaddingValues,
+    ): Unit =
         navigation(startDestination = MATCH_LIST, route = ROOT) {
-            matchesList(navController)
-            matchDetails(navController)
-            leagueDetailsModuleInstallation(navController)
-            leagueDetails(navController)
+            matchesList(navController, paddingValues)
+            matchDetails(navController, paddingValues)
+            leagueDetailsModuleInstallation(navController, paddingValues)
+            leagueDetails(navController, paddingValues)
+            watchedMatches(navController, paddingValues)
         }
 
-    private fun NavGraphBuilder.matchesList(navController: NavController): Unit =
+    private fun NavGraphBuilder.matchesList(
+        navController: NavController,
+        paddingValues: PaddingValues,
+    ): Unit =
         composable(MATCH_LIST) {
             MatchesScreen(
+                modifier = Modifier.padding(paddingValues),
                 onMatchClicked = { navController.navigateToMatchDetails(it) },
                 onCompetitionClicked = {
                     navController.navigateToLeagueDetailsModuleInstallation(it)
@@ -40,7 +59,10 @@ object MainNavigation {
             )
         }
 
-    private fun NavGraphBuilder.matchDetails(navController: NavController): Unit =
+    private fun NavGraphBuilder.matchDetails(
+        navController: NavController,
+        paddingValues: PaddingValues,
+    ): Unit =
         composable(
             route = "$MATCH_DETAILS/$MATCH_ID_ARGUMENT={$MATCH_ID_ARGUMENT}",
             arguments = listOf(
@@ -48,12 +70,16 @@ object MainNavigation {
             )
         ) {
             MatchDetailsScreen(
+                modifier = Modifier.padding(paddingValues),
                 onBackPressed = { navController.navigateUp() },
                 onH2HMatchClicked = { navController.navigateToMatchDetails(it) }
             )
         }
 
-    private fun NavGraphBuilder.leagueDetailsModuleInstallation(navController: NavController): Unit =
+    private fun NavGraphBuilder.leagueDetailsModuleInstallation(
+        navController: NavController,
+        paddingValues: PaddingValues,
+    ): Unit =
         composable(
             route = "$MODULE_INSTALLATION/$MODULE_NAME_ARGUMENT={$MODULE_NAME_ARGUMENT}/$LEAGUE_ID_ARGUMENT={$LEAGUE_ID_ARGUMENT}",
             arguments = listOf(
@@ -62,13 +88,18 @@ object MainNavigation {
             )
         ) { backStackEntry ->
             val leagueId = backStackEntry.arguments?.getInt(LEAGUE_ID_ARGUMENT) ?: 0
+
             ModuleInstallationScreen(
+                modifier = Modifier.padding(paddingValues),
                 doOnInstallationFailed = { navController.navigateUp() },
                 doOnInstallationSucceeded = { navController.navigateToLeagueDetails(leagueId) }
             )
         }
 
-    private fun NavGraphBuilder.leagueDetails(navController: NavController): Unit =
+    private fun NavGraphBuilder.leagueDetails(
+        navController: NavController,
+        paddingValues: PaddingValues,
+    ): Unit =
         composable(
             route = "$LEAGUE_DETAILS/$LEAGUE_ID_ARGUMENT={$LEAGUE_ID_ARGUMENT}",
             arguments = listOf(
@@ -78,9 +109,28 @@ object MainNavigation {
             val leagueId = navBackEntry.arguments?.getInt(LEAGUE_ID_ARGUMENT) ?: 0
 
             LeagueDetailsContract.getInstance().DisplayLeagueDetails(
+                modifier = Modifier.padding(paddingValues),
                 leagueId = leagueId,
                 onBackPressed = { navController.navigateUp() }
             )
+        }
+
+    private fun NavGraphBuilder.watchedMatches(
+        navController: NavController,
+        paddingValues: PaddingValues,
+    ): Unit =
+        composable(
+            route = WATCHED_MATCHES
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+                contentAlignment = Alignment.Center
+            ) {
+
+                Text(text = "Watched Matches")
+            }
         }
 
     private fun NavController.navigateToMatchDetails(matchId: Int) =
