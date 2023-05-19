@@ -1,6 +1,5 @@
 package com.mateuszholik.footballscore.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,12 +17,14 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.footballscore.navigation.MainNavigation
 import com.mateuszholik.footballscore.navigation.MainNavigation.mainNavigationGraph
+import com.mateuszholik.footballscore.navigation.bottomnav.BottomNavItem
+import com.mateuszholik.footballscore.navigation.bottomnav.toBottomNavItems
+import com.mateuszholik.uicomponents.bottomnavigation.BottomNavigation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -41,12 +42,22 @@ class MainActivity : ComponentActivity() {
                     darkIcons = !isSystemInDarkTheme()
                 )
 
-                Scaffold(modifier = Modifier.fillMaxSize()) {
-                    NavHost(
-                        navController = navController,
-                        startDestination = MainNavigation.ROOT
-                    ) { mainNavigationGraph(navController) }
-                }
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    content = {
+                        NavHost(
+                            navController = navController,
+                            startDestination = MainNavigation.ROOT
+                        ) { mainNavigationGraph(navController, it) }
+                    },
+                    bottomBar = {
+                        BottomNavigation(
+                            items = BottomNavItem.values().toBottomNavItems(),
+                            onItemClick = { navController.navigate(it) },
+                            currentRoute = navController.currentDestination?.route
+                        )
+                    }
+                )
             }
         }
     }
