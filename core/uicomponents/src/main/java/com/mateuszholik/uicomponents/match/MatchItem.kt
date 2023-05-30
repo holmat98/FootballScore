@@ -35,7 +35,7 @@ fun MatchItem(
         if (matchInfo.status != Status.FINISHED) {
             FavoriteButton(
                 modifier = Modifier.padding(start = MaterialTheme.spacing.small),
-                initialState = isAddedToFavorites,
+                isChecked = isAddedToFavorites,
                 onClick = onFavoriteButtonClicked,
                 tint = MaterialTheme.colorScheme.onSurface
             )
