@@ -8,6 +8,7 @@ import androidx.room.Query
 import com.mateuszholik.database.models.entities.WatchedGameEntity
 import com.mateuszholik.database.models.entities.WatchedGameEntity.Companion.ID_COLUMN_NAME
 import com.mateuszholik.database.models.entities.WatchedGameEntity.Companion.TABLE_NAME
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 internal interface WatchedGameDao {
@@ -19,5 +20,5 @@ internal interface WatchedGameDao {
     suspend fun delete(watchedGameEntity: WatchedGameEntity)
 
     @Query("SELECT $ID_COLUMN_NAME FROM $TABLE_NAME")
-    suspend fun getAllWatchedGames(): List<Int>
+    fun getAllWatchedGames(): Flow<List<Int>>
 }

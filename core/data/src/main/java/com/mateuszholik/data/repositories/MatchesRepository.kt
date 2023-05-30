@@ -5,10 +5,8 @@ import com.mateuszholik.data.extensions.toCommonModel
 import com.mateuszholik.data.extensions.toListOfMatchInfoDB
 import com.mateuszholik.data.extensions.toMatchInfoMap
 import com.mateuszholik.data.extensions.toResult
-import com.mateuszholik.database.models.ResultDB
 import com.mateuszholik.database.repositories.MatchesDBRepository
 import com.mateuszholik.model.Competition
-import com.mateuszholik.model.ErrorType
 import com.mateuszholik.model.Head2Head
 import com.mateuszholik.model.Match
 import com.mateuszholik.model.MatchInfo
@@ -83,12 +81,15 @@ internal class MatchesRepositoryImpl(
         }
 
     override fun getWatchedMatches(): Flow<Result<Map<Competition, List<MatchInfo>>>> =
-        flow { emit(getMatchesInfoByIds()) }
+        getWatchedMatchesId().flatMapConcat {
+            when (it) {
+                is Result.Success -> getMatchesInfoByIds(it.data)
+                is Result.Error -> flowOf(Result.Error(it.errorType))
+            }
+        }
 
     override fun getWatchedMatchesId(): Flow<Result<List<Int>>> =
-        flow {
-            emit(matchesDBRepository.getWatchedGames().toResult())
-        }
+        matchesDBRepository.getWatchedGames().map { it.toResult() }
 
     override suspend fun insertWatchedGame(id: Int) =
         matchesDBRepository.insertWatchedGame(id)
@@ -130,15 +131,12 @@ internal class MatchesRepositoryImpl(
             }
         }
 
-    private suspend fun getMatchesInfoByIds(): Result<Map<Competition, List<MatchInfo>>> {
-        val matchesIdsResult = matchesDBRepository.getWatchedGames()
-
-        return if (matchesIdsResult is ResultDB.Success) {
-            val matchesApiResult = matchesApiRepository.getMatchesForIds(matchesIdsResult.data)
-
-            matchesApiResult.toResult { this.toMatchInfoMap() }
-        } else {
-            Result.Error(ErrorType.EMPTY_DATA)
+    private fun getMatchesInfoByIds(
+        ids: List<Int>,
+    ): Flow<Result<Map<Competition, List<MatchInfo>>>> =
+        flow {
+            emit(matchesApiRepository.getMatchesForIds(ids))
+        }.map { resultApi ->
+            resultApi.toResult { this.toMatchInfoMap() }
         }
-    }
 }

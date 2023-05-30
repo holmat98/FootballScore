@@ -9,6 +9,8 @@ import com.mateuszholik.database.extensions.toMatchInfoDB
 import com.mateuszholik.database.models.MatchInfoDB
 import com.mateuszholik.database.models.ResultDB
 import com.mateuszholik.database.models.entities.WatchedGameEntity
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -18,7 +20,7 @@ interface MatchesDBRepository {
 
     suspend fun getMatchesInfoFor(date: LocalDate): ResultDB<List<MatchInfoDB>>
 
-    suspend fun getWatchedGames(): ResultDB<List<Int>>
+    fun getWatchedGames(): Flow<ResultDB<List<Int>>>
 
     suspend fun insertWatchedGame(id: Int)
 
@@ -56,15 +58,15 @@ internal class MatchesDBRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getWatchedGames(): ResultDB<List<Int>> {
-        val watchedGames = watchedGameDao.getAllWatchedGames()
-
-        return if (watchedGames.isEmpty()) {
-            ResultDB.EmptyBody()
-        } else {
-            ResultDB.Success(watchedGames)
-        }
-    }
+    override fun getWatchedGames(): Flow<ResultDB<List<Int>>> =
+        watchedGameDao.getAllWatchedGames()
+            .map {
+                if (it.isEmpty()) {
+                    ResultDB.EmptyBody()
+                } else {
+                    ResultDB.Success(it)
+                }
+            }
 
     override suspend fun insertWatchedGame(id: Int) =
         watchedGameDao.insert(WatchedGameEntity(id))

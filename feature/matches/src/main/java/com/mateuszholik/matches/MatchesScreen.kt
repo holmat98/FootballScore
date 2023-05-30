@@ -32,7 +32,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mateuszholik.designsystem.R
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
-import com.mateuszholik.matches.model.CombinedMatchesInfo
+import com.mateuszholik.model.Competition
+import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.UiState
 import com.mateuszholik.uicomponents.calendar.Calendar
 import com.mateuszholik.uicomponents.dialogs.DatePickerDialog
@@ -57,7 +58,8 @@ fun MatchesScreen(
     var shouldShowDatePicker by remember { mutableStateOf(false) }
     val days = remember { viewModel.days }
     val currentDay by viewModel.currentDay.collectAsStateWithLifecycle()
-    val combinedMatchesUiState by viewModel.matches.collectAsStateWithLifecycle()
+    val matchesUiState by viewModel.matches.collectAsStateWithLifecycle()
+    val watchedMatchesIds by viewModel.watchedMatches.collectAsStateWithLifecycle()
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -86,7 +88,7 @@ fun MatchesScreen(
             )
         },
         content = { paddingValues ->
-            when (combinedMatchesUiState) {
+            when (matchesUiState) {
                 is UiState.Loading -> Loading()
                 is UiState.Success -> Content(
                     modifier = Modifier.padding(
@@ -95,7 +97,8 @@ fun MatchesScreen(
                     ),
                     days = days,
                     selectedDay = currentDay,
-                    data = (combinedMatchesUiState as UiState.Success<CombinedMatchesInfo>).data,
+                    data = (matchesUiState as UiState.Success<Map<Competition, List<MatchInfo>>>).data,
+                    watchedMatchesIds = watchedMatchesIds,
                     onDaySelected = { viewModel.updateCurrentDate(it) },
                     onMatchClicked = onMatchClicked,
                     onCompetitionClicked = onCompetitionClicked,
@@ -108,7 +111,7 @@ fun MatchesScreen(
                     }
                 )
                 is UiState.Error ->
-                    ErrorInfo((combinedMatchesUiState as UiState.Error<CombinedMatchesInfo>).errorType)
+                    ErrorInfo((matchesUiState as UiState.Error<Map<Competition, List<MatchInfo>>>).errorType)
             }
 
             if (shouldShowDatePicker) {
@@ -134,15 +137,13 @@ private fun Content(
     modifier: Modifier,
     days: List<LocalDate>,
     selectedDay: LocalDate,
-    data: CombinedMatchesInfo,
+    data: Map<Competition, List<MatchInfo>>,
+    watchedMatchesIds: List<Int>,
     onDaySelected: (LocalDate) -> Unit,
     onMatchClicked: (matchId: Int) -> Unit,
     onCompetitionClicked: (competitionId: Int) -> Unit,
     onFavoriteButtonClicked: (isChecked: Boolean, matchId: Int) -> Unit,
 ) {
-    val matches = data.matches
-    val watchedMatchesIds = data.watchedMatchesIds
-
     LazyColumn(modifier = modifier.fillMaxSize()) {
         item {
             Calendar(
@@ -152,7 +153,7 @@ private fun Content(
             )
         }
 
-        matches.forEach { (competition, matches) ->
+        data.forEach { (competition, matches) ->
             stickyHeader {
                 CompetitionHeader(
                     modifier = Modifier.clickable { onCompetitionClicked(competition.id) },
@@ -186,21 +187,19 @@ private fun Preview() {
                 modifier = Modifier,
                 days = PreviewConstants.DAYS,
                 selectedDay = PreviewConstants.SELECTED_DAY,
-                data = CombinedMatchesInfo(
-                    mapOf(
-                        PreviewConstants.COMPETITION to listOf(
-                            PreviewConstants.IN_PLAY_MATCH_INFO,
-                            PreviewConstants.FINISHED_MATCH_INFO,
-                            PreviewConstants.SCHEDULED_MATCH_INFO
-                        ),
-                        PreviewConstants.COMPETITION_2 to listOf(
-                            PreviewConstants.IN_PLAY_MATCH_INFO,
-                            PreviewConstants.SCHEDULED_MATCH_INFO,
-                            PreviewConstants.FINISHED_MATCH_INFO
-                        ),
+                data = mapOf(
+                    PreviewConstants.COMPETITION to listOf(
+                        PreviewConstants.IN_PLAY_MATCH_INFO,
+                        PreviewConstants.FINISHED_MATCH_INFO,
+                        PreviewConstants.SCHEDULED_MATCH_INFO
                     ),
-                    listOf(1)
+                    PreviewConstants.COMPETITION_2 to listOf(
+                        PreviewConstants.IN_PLAY_MATCH_INFO,
+                        PreviewConstants.SCHEDULED_MATCH_INFO,
+                        PreviewConstants.FINISHED_MATCH_INFO
+                    ),
                 ),
+                watchedMatchesIds = listOf(1),
                 onDaySelected = {},
                 onMatchClicked = {},
                 onCompetitionClicked = {},
