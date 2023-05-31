@@ -9,9 +9,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.surfaceColorAtElevation
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
@@ -31,6 +33,7 @@ class MainActivity : ComponentActivity() {
             FootballScoreTheme(dynamicColors = false) {
                 val systemUiController = rememberSystemUiController()
                 val navController = rememberNavController()
+                val currentBackStackState by navController.currentBackStackEntryAsState()
 
                 systemUiController.setStatusBarColor(
                     color = MaterialTheme.colorScheme.surface,
@@ -54,7 +57,7 @@ class MainActivity : ComponentActivity() {
                         BottomNavigation(
                             items = BottomNavItem.values().toBottomNavItems(),
                             onItemClick = { navController.navigate(it) },
-                            currentRoute = navController.currentDestination?.route
+                            currentRoute = currentBackStackState?.destination?.route
                         )
                     }
                 )

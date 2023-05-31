@@ -7,7 +7,7 @@ interface LeagueDetailsContract {
 
     @Composable
     fun DisplayLeagueDetails(
-        modifier: Modifier = Modifier,
+        modifier: Modifier,
         leagueId: Int,
         onBackPressed: () -> Unit,
     )
