@@ -1,6 +1,5 @@
 package com.mateuszholik.database
 
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -16,9 +15,7 @@ import com.mateuszholik.database.models.views.MergedMatchInfo
 @Database(
     entities = [CompetitionEntity::class, TeamEntity::class, MatchInfoEntity::class],
     views = [MergedMatchInfo::class],
-    autoMigrations = [AutoMigration(from = 1, to = 2)],
-    version = 2,
-    exportSchema = true
+    version = 1,
 )
 @TypeConverters(LocalDateTimeConverter::class)
 internal abstract class FootballDataDatabase : RoomDatabase() {
