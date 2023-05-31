@@ -1,5 +1,6 @@
 package com.mateuszholik.domain.usecases
 
+import com.mateuszholik.common.providers.DispatchersProvider
 import com.mateuszholik.data.repositories.CompetitionRepository
 import com.mateuszholik.domain.usecases.base.ParameterizedFlowUseCase
 import com.mateuszholik.model.CombinedCompetitionDetails
@@ -10,12 +11,15 @@ import com.mateuszholik.model.Result
 import com.mateuszholik.model.Scorer
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
 interface GetCombinedCompetitionDetailsUseCase :
     ParameterizedFlowUseCase<Int, CombinedCompetitionDetails>
 
-internal class GetCombinedCompetitionDetailsUseCaseImpl(
+internal class GetCombinedCompetitionDetailsUseCaseImpl @Inject constructor(
     private val competitionRepository: CompetitionRepository,
+    private val dispatchersProvider: DispatchersProvider,
 ) : GetCombinedCompetitionDetailsUseCase {
 
     override fun invoke(param: Int): Flow<Result<CombinedCompetitionDetails>> =
@@ -41,7 +45,7 @@ internal class GetCombinedCompetitionDetailsUseCaseImpl(
                 topScorersResult is Result.Error -> Result.Error(topScorersResult.errorType)
                 else -> Result.Error(ErrorType.UNKNOWN)
             }
-        }
+        }.flowOn(dispatchersProvider.io)
 
     private fun createCombinedCompetitionDetailsResult(
         competitionDetails: CompetitionDetails,
