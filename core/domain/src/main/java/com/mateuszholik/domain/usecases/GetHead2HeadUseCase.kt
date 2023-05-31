@@ -7,10 +7,11 @@ import com.mateuszholik.model.Head2Head
 import com.mateuszholik.model.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
 interface GetHead2HeadUseCase : ParameterizedFlowUseCase<Int, Head2Head>
 
-internal class GetHead2HeadUseCaseImpl(
+internal class GetHead2HeadUseCaseImpl @Inject constructor(
     private val matchesRepository: MatchesRepository,
     private val dispatchersProvider: DispatchersProvider,
 ) : GetHead2HeadUseCase {

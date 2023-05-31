@@ -2,7 +2,6 @@ package com.mateuszholik.domain.di
 
 import com.mateuszholik.common.providers.DispatchersProvider
 import com.mateuszholik.data.repositories.CompetitionRepository
-import com.mateuszholik.data.repositories.MatchesRepository
 import com.mateuszholik.domain.usecases.GetCombinedCompetitionDetailsUseCase
 import com.mateuszholik.domain.usecases.GetCombinedCompetitionDetailsUseCaseImpl
 import com.mateuszholik.domain.usecases.GetHead2HeadUseCase
@@ -11,6 +10,7 @@ import com.mateuszholik.domain.usecases.GetMatchUseCase
 import com.mateuszholik.domain.usecases.GetMatchUseCaseImpl
 import com.mateuszholik.domain.usecases.GetMatchesForDateUseCase
 import com.mateuszholik.domain.usecases.GetMatchesForDateUseCaseImpl
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,37 +19,22 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal object UseCasesModule {
+internal abstract class UseCasesModule {
 
-    @Provides
-    fun providesGetMatchesForDateUseCase(
-        matchesRepository: MatchesRepository,
-        dispatchersProvider: DispatchersProvider,
-    ): GetMatchesForDateUseCase =
-        GetMatchesForDateUseCaseImpl(
-            matchesRepository = matchesRepository,
-            dispatchersProvider = dispatchersProvider
-        )
+    @Binds
+    abstract fun bindsGetMatchesForDateUseCase(
+        getMatchesForDateUseCaseImpl: GetMatchesForDateUseCaseImpl
+    ): GetMatchesForDateUseCase
 
-    @Provides
-    fun providesMatchUseCase(
-        matchesRepository: MatchesRepository,
-        dispatchersProvider: DispatchersProvider,
-    ): GetMatchUseCase =
-        GetMatchUseCaseImpl(
-            matchesRepository = matchesRepository,
-            dispatchersProvider = dispatchersProvider
-        )
+    @Binds
+    abstract fun bindsMatchUseCase(
+        getMatchUseCaseImpl: GetMatchUseCaseImpl
+    ): GetMatchUseCase
 
-    @Provides
-    fun providesHead2HeadUseCase(
-        matchesRepository: MatchesRepository,
-        dispatchersProvider: DispatchersProvider,
-    ): GetHead2HeadUseCase =
-        GetHead2HeadUseCaseImpl(
-            matchesRepository = matchesRepository,
-            dispatchersProvider = dispatchersProvider
-        )
+    @Binds
+    abstract fun bindsHead2HeadUseCase(
+        getHead2HeadUseCaseImpl: GetHead2HeadUseCaseImpl
+    ): GetHead2HeadUseCase
 }
 
 @Module
@@ -59,8 +44,10 @@ internal object UseCasesSingletonComponentModule{
     @Provides
     fun providesGetCombinedCompetitionDetailsUseCase(
         competitionRepository: CompetitionRepository,
+        dispatchersProvider: DispatchersProvider,
     ): GetCombinedCompetitionDetailsUseCase =
         GetCombinedCompetitionDetailsUseCaseImpl(
-            competitionRepository = competitionRepository
+            competitionRepository = competitionRepository,
+            dispatchersProvider = dispatchersProvider
         )
 }
