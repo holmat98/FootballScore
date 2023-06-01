@@ -18,9 +18,9 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.footballscore.navigation.MainNavigation
+import com.mateuszholik.footballscore.navigation.MainNavigation.BOTTOM_NAV_ITEMS
 import com.mateuszholik.footballscore.navigation.MainNavigation.mainNavigationGraph
-import com.mateuszholik.footballscore.navigation.bottomnav.BottomNavItem
-import com.mateuszholik.footballscore.navigation.bottomnav.toBottomNavItems
+import com.mateuszholik.footballscore.navigation.MainNavigation.navigateToBottomNavItem
 import com.mateuszholik.uicomponents.bottomnavigation.BottomNavigation
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -55,8 +55,8 @@ class MainActivity : ComponentActivity() {
                     },
                     bottomBar = {
                         BottomNavigation(
-                            items = BottomNavItem.values().toBottomNavItems(),
-                            onItemClick = { navController.navigate(it) },
+                            items = BOTTOM_NAV_ITEMS,
+                            onItemClick = { navController.navigateToBottomNavItem(it) },
                             currentRoute = currentBackStackState?.destination?.route
                         )
                     }

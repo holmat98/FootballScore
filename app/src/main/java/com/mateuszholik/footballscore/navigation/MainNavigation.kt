@@ -1,11 +1,10 @@
 package com.mateuszholik.footballscore.navigation
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
-import androidx.compose.ui.Alignment
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -13,12 +12,15 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import com.mateuszholik.designsystem.R
 import com.mateuszholik.matchdetails.MatchDetailsScreen
 import com.mateuszholik.matchdetails.MatchDetailsViewModel.Companion.MATCH_ID_ARGUMENT
 import com.mateuszholik.footballscore.contract.LeagueDetailsContract
 import com.mateuszholik.footballscore.ui.installmodule.ModuleInstallationScreen
 import com.mateuszholik.footballscore.ui.installmodule.ModuleInstallationViewModel.Companion.MODULE_NAME_ARGUMENT
 import com.mateuszholik.matches.MatchesScreen
+import com.mateuszholik.uicomponents.bottomnavigation.model.BottomNavItem
+import com.mateuszholik.watchedmatches.WatchedMatchesScreen
 
 object MainNavigation {
     const val ROOT = "Main"
@@ -28,10 +30,20 @@ object MainNavigation {
     private const val LEAGUE_DETAILS = "$ROOT/LEAGUE_DETAILS"
     private const val WATCHED_MATCHES = "$ROOT/WATCHED_MATCHES"
 
-    internal const val BOTTOM_NAV_HOME = MATCH_LIST
-    internal const val BOTTOM_NAV_FAVORITE = WATCHED_MATCHES
-
     private const val LEAGUE_ID_ARGUMENT = "leagueId"
+
+    internal val BOTTOM_NAV_ITEMS = listOf(
+        BottomNavItem(
+            route = MATCH_LIST,
+            text = R.string.bottom_nav_home,
+            icon = Icons.Filled.Home
+        ),
+        BottomNavItem(
+            route = WATCHED_MATCHES,
+            text = R.string.bottom_nav_favorite,
+            icon = Icons.Filled.Favorite
+        )
+    )
 
     fun NavGraphBuilder.mainNavigationGraph(
         navController: NavController,
@@ -119,18 +131,14 @@ object MainNavigation {
         navController: NavController,
         paddingValues: PaddingValues,
     ): Unit =
-        composable(
-            route = WATCHED_MATCHES
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
-                contentAlignment = Alignment.Center
-            ) {
-
-                Text(text = "Watched Matches")
-            }
+        composable(route = WATCHED_MATCHES) {
+            WatchedMatchesScreen(
+                modifier = Modifier.padding(paddingValues),
+                onMatchClicked = { navController.navigateToMatchDetails(it) },
+                onCompetitionClicked = {
+                    navController.navigateToLeagueDetailsModuleInstallation(it)
+                }
+            )
         }
 
     private fun NavController.navigateToMatchDetails(matchId: Int) =
@@ -142,5 +150,11 @@ object MainNavigation {
     private fun NavController.navigateToLeagueDetails(leagueId: Int) =
         navigate("$LEAGUE_DETAILS/$LEAGUE_ID_ARGUMENT=$leagueId") {
             popUpTo(currentBackStackEntry?.destination?.route.orEmpty()) { inclusive = true }
+        }
+
+    internal fun NavController.navigateToBottomNavItem(bottomNavRoute: String) =
+        navigate(bottomNavRoute) {
+            launchSingleTop = true
+            popUpTo(ROOT) { inclusive = true }
         }
 }
