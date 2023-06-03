@@ -23,17 +23,19 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mateuszholik.common.extensions.toDateString
 import com.mateuszholik.designsystem.R
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
-import com.mateuszholik.model.Competition
-import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.UiState
+import com.mateuszholik.model.WatchedMatchesMap
 import com.mateuszholik.uicomponents.divider.CustomDivider
 import com.mateuszholik.uicomponents.headers.CompetitionHeader
+import com.mateuszholik.uicomponents.headers.SmallTextHeader
 import com.mateuszholik.uicomponents.info.ErrorInfo
 import com.mateuszholik.uicomponents.loading.Loading
 import com.mateuszholik.uicomponents.match.MatchItem
 import com.mateuszholik.uicomponents.utils.PreviewConstants
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -73,13 +75,13 @@ fun WatchedMatchesScreen(
                         top = paddingValues.calculateTopPadding(),
                         bottom = paddingValues.calculateBottomPadding()
                     ),
-                    data = (watchedMatchesUiState as UiState.Success<Map<Competition, List<MatchInfo>>>).data,
+                    data = (watchedMatchesUiState as UiState.Success<WatchedMatchesMap>).data,
                     onMatchClicked = onMatchClicked,
                     onCompetitionClicked = onCompetitionClicked,
                     onFavoriteButtonClicked = { matchId -> viewModel.removeWatchedMatch(matchId) }
                 )
                 is UiState.Error ->
-                    ErrorInfo((watchedMatchesUiState as UiState.Error<Map<Competition, List<MatchInfo>>>).errorType)
+                    ErrorInfo((watchedMatchesUiState as UiState.Error<WatchedMatchesMap>).errorType)
             }
         }
     )
@@ -89,31 +91,37 @@ fun WatchedMatchesScreen(
 @Composable
 private fun Content(
     modifier: Modifier,
-    data: Map<Competition, List<MatchInfo>>,
+    data: WatchedMatchesMap,
     onMatchClicked: (matchId: Int) -> Unit,
     onCompetitionClicked: (competitionId: Int) -> Unit,
     onFavoriteButtonClicked: (matchId: Int) -> Unit,
 ) {
     LazyColumn(modifier = modifier.fillMaxSize()) {
-        data.forEach { (competition, matches) ->
+        data.forEach { (matchDate, matchInfoMap) ->
             stickyHeader {
-                CompetitionHeader(
-                    modifier = Modifier.clickable { onCompetitionClicked(competition.id) },
-                    competition = competition
-                )
+                SmallTextHeader(text = matchDate.toDateString())
             }
-            itemsIndexed(
-                items = matches,
-                key = { _, item -> item.id }
-            ) { index, matchInfo ->
-                MatchItem(
-                    modifier = Modifier.clickable { onMatchClicked(matchInfo.id) },
-                    matchInfo = matchInfo,
-                    onFavoriteButtonClicked = { onFavoriteButtonClicked(matchInfo.id) },
-                    isAddedToFavorites = true
-                )
-                if (index < matches.lastIndex) {
-                    CustomDivider()
+
+            matchInfoMap.forEach { (competition, matches) ->
+                stickyHeader {
+                    CompetitionHeader(
+                        modifier = Modifier.clickable { onCompetitionClicked(competition.id) },
+                        competition = competition
+                    )
+                }
+                itemsIndexed(
+                    items = matches,
+                    key = { _, item -> item.id }
+                ) { index, matchInfo ->
+                    MatchItem(
+                        modifier = Modifier.clickable { onMatchClicked(matchInfo.id) },
+                        matchInfo = matchInfo,
+                        onFavoriteButtonClicked = { onFavoriteButtonClicked(matchInfo.id) },
+                        isAddedToFavorites = true
+                    )
+                    if (index < matches.lastIndex) {
+                        CustomDivider()
+                    }
                 }
             }
         }
@@ -128,16 +136,18 @@ private fun Preview() {
             Content(
                 modifier = Modifier,
                 data = mapOf(
-                    PreviewConstants.COMPETITION to listOf(
-                        PreviewConstants.IN_PLAY_MATCH_INFO,
-                        PreviewConstants.FINISHED_MATCH_INFO,
-                        PreviewConstants.SCHEDULED_MATCH_INFO
-                    ),
-                    PreviewConstants.COMPETITION_2 to listOf(
-                        PreviewConstants.IN_PLAY_MATCH_INFO,
-                        PreviewConstants.SCHEDULED_MATCH_INFO,
-                        PreviewConstants.FINISHED_MATCH_INFO
-                    ),
+                    LocalDate.of(2023, 3, 4) to mapOf(
+                        PreviewConstants.COMPETITION to listOf(
+                            PreviewConstants.IN_PLAY_MATCH_INFO,
+                            PreviewConstants.FINISHED_MATCH_INFO,
+                            PreviewConstants.SCHEDULED_MATCH_INFO
+                        ),
+                        PreviewConstants.COMPETITION_2 to listOf(
+                            PreviewConstants.IN_PLAY_MATCH_INFO,
+                            PreviewConstants.SCHEDULED_MATCH_INFO,
+                            PreviewConstants.FINISHED_MATCH_INFO
+                        ),
+                    )
                 ),
                 onMatchClicked = {},
                 onCompetitionClicked = {},
