@@ -11,7 +11,18 @@ import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.MatchScore
 import com.mateuszholik.model.Score
 import com.mateuszholik.model.Team
+import com.mateuszholik.model.WatchedMatchesMap
 import com.mateuszholik.network.models.MatchApi
+
+internal fun List<MatchApi>.toWatchedMatchesMap(): WatchedMatchesMap =
+    this.map { it.toCommonModel() }
+        .sortedByDescending { it.utcDate }
+        .groupBy { it.utcDate.toLocalDate() }
+        .mapValues { map ->
+            map.value
+                .groupBy { it.competition }
+                .mapValues { it.value.toListOfMatchInfo() }
+        }
 
 internal fun List<MatchApi>.toMatchInfoMap(): Map<Competition, List<MatchInfo>> =
     this.map { it.toCommonModel() }
