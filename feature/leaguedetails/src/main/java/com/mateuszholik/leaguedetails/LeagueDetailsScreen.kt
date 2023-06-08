@@ -47,6 +47,7 @@ import com.mateuszholik.uicomponents.utils.PreviewConstants.SEASON
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LeagueDetailsScreen(
+    modifier: Modifier,
     onBackPressed: () -> Unit,
     viewModel: LeagueDetailsViewModel,
 ) {
@@ -54,6 +55,7 @@ fun LeagueDetailsScreen(
     var topAppBarText by remember { mutableStateOf("") }
 
     Scaffold(
+        modifier = modifier,
         topBar = {
             TopAppBar(
                 navigationIcon = {

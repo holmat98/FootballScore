@@ -1,11 +1,13 @@
 package com.mateuszholik.footballscore.contract
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 interface LeagueDetailsContract {
 
     @Composable
     fun DisplayLeagueDetails(
+        modifier: Modifier,
         leagueId: Int,
         onBackPressed: () -> Unit,
     )

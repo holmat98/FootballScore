@@ -2,6 +2,8 @@
     <string name="app_name">FootballScore</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_ok">OK</string>
+    <string name="bottom_nav_home">Home</string>
+    <string name="bottom_nav_favorite">Favorite</string>
     <string name="calendar_monday">Mon</string>
     <string name="calendar_tuesday">Tues</string>
     <string name="calendar_wednesday">Wed</string>
@@ -97,4 +99,5 @@
     <string name="referee_var">VAR referee</string>
     <string name="scorers_list_legend_player">Player</string>
     <string name="title_leaguedetails">League details</string>
+    <string name="watched_matches_title">Watched</string>
 </resources>

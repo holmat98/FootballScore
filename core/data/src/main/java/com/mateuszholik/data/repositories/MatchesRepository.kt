@@ -5,12 +5,14 @@ import com.mateuszholik.data.extensions.toCommonModel
 import com.mateuszholik.data.extensions.toListOfMatchInfoDB
 import com.mateuszholik.data.extensions.toMatchInfoMap
 import com.mateuszholik.data.extensions.toResult
+import com.mateuszholik.data.extensions.toWatchedMatchesMap
 import com.mateuszholik.database.repositories.MatchesDBRepository
 import com.mateuszholik.model.Competition
 import com.mateuszholik.model.Head2Head
 import com.mateuszholik.model.Match
 import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.Result
+import com.mateuszholik.model.WatchedMatchesMap
 import com.mateuszholik.network.repositories.MatchesApiRepository
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -29,7 +31,7 @@ interface MatchesRepository {
 
     fun getMatchH2H(id: Int): Flow<Result<Head2Head>>
 
-    fun getWatchedMatches(): Flow<Result<Map<Competition, List<MatchInfo>>>>
+    fun getWatchedMatches(): Flow<Result<WatchedMatchesMap>>
 
     fun getWatchedMatchesId(): Flow<Result<List<Int>>>
 
@@ -80,7 +82,7 @@ internal class MatchesRepositoryImpl(
             }
         }
 
-    override fun getWatchedMatches(): Flow<Result<Map<Competition, List<MatchInfo>>>> =
+    override fun getWatchedMatches(): Flow<Result<WatchedMatchesMap>> =
         getWatchedMatchesId().flatMapConcat {
             when (it) {
                 is Result.Success -> getMatchesInfoByIds(it.data)
@@ -133,10 +135,10 @@ internal class MatchesRepositoryImpl(
 
     private fun getMatchesInfoByIds(
         ids: List<Int>,
-    ): Flow<Result<Map<Competition, List<MatchInfo>>>> =
+    ): Flow<Result<WatchedMatchesMap>> =
         flow {
             emit(matchesApiRepository.getMatchesForIds(ids))
         }.map { resultApi ->
-            resultApi.toResult { this.toMatchInfoMap() }
+            resultApi.toResult { this.toWatchedMatchesMap() }
         }
 }

@@ -52,11 +52,13 @@ import com.mateuszholik.uicomponents.utils.PreviewConstants
 fun MatchDetailsScreen(
     onBackPressed: () -> Unit,
     onH2HMatchClicked: (matchId: Int) -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: MatchDetailsViewModel = hiltViewModel(),
 ) {
     val matchDetails by viewModel.matchDetails.collectAsStateWithLifecycle()
 
     Scaffold(
+        modifier = modifier,
         topBar = {
             TopAppBar(
                 navigationIcon = {
