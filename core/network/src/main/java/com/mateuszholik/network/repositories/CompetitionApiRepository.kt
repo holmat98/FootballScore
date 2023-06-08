@@ -6,39 +6,27 @@ import com.mateuszholik.network.models.ResultApi
 import com.mateuszholik.network.models.CompetitionStandingsDetailsApi
 import com.mateuszholik.network.models.ScorerApi
 import com.mateuszholik.network.services.CompetitionService
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 interface CompetitionApiRepository {
 
-    fun getCompetition(id: Int): Flow<ResultApi<CompetitionDetailsApi>>
+    suspend fun getCompetition(id: Int): ResultApi<CompetitionDetailsApi>
 
-    fun getCompetitionStandings(id: Int): Flow<ResultApi<List<CompetitionStandingsDetailsApi>>>
+    suspend fun getCompetitionStandings(id: Int): ResultApi<List<CompetitionStandingsDetailsApi>>
 
-    fun getCompetitionTopScorers(id: Int): Flow<ResultApi<List<ScorerApi>>>
+    suspend fun getCompetitionTopScorers(id: Int): ResultApi<List<ScorerApi>>
 }
 
 internal class CompetitionApiRepositoryImpl(
     private val competitionService: CompetitionService,
 ) : CompetitionApiRepository {
 
-    override fun getCompetition(id: Int): Flow<ResultApi<CompetitionDetailsApi>> =
-        flow {
-            emit(competitionService.getCompetitionDetails(id).toResultApi())
-        }
+    override suspend fun getCompetition(id: Int): ResultApi<CompetitionDetailsApi> =
+        competitionService.getCompetitionDetails(id).toResultApi()
 
-    override fun getCompetitionStandings(id: Int): Flow<ResultApi<List<CompetitionStandingsDetailsApi>>> =
-        flow {
-            emit(
-                competitionService.getStandingsOfCompetition(id)
-                    .toResultApi { this.standingsDetails }
-            )
-        }
+    override suspend fun getCompetitionStandings(id: Int): ResultApi<List<CompetitionStandingsDetailsApi>> =
+        competitionService.getStandingsOfCompetition(id)
+            .toResultApi { this.standingsDetails }
 
-    override fun getCompetitionTopScorers(id: Int): Flow<ResultApi<List<ScorerApi>>> =
-        flow {
-            emit(
-                competitionService.getTopScorersOfCompetition(id).toResultApi { this.scorers }
-            )
-        }
+    override suspend fun getCompetitionTopScorers(id: Int): ResultApi<List<ScorerApi>> =
+        competitionService.getTopScorersOfCompetition(id).toResultApi { this.scorers }
 }
