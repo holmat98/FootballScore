@@ -6,46 +6,36 @@ import com.mateuszholik.network.models.Head2HeadApi
 import com.mateuszholik.network.models.MatchApi
 import com.mateuszholik.network.models.ResultApi
 import com.mateuszholik.network.services.MatchesService
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import java.time.LocalDate
 
 interface MatchesApiRepository {
 
-    fun getMatchesForDateRange(
+    suspend fun getMatchesForDateRange(
         dateFrom: LocalDate,
         dateTo: LocalDate,
-    ): Flow<ResultApi<List<MatchApi>>>
+    ): ResultApi<List<MatchApi>>
 
-    fun getMatch(id: Int): Flow<ResultApi<MatchApi>>
+    suspend fun getMatch(id: Int): ResultApi<MatchApi>
 
-    fun getHead2HeadForMatch(id: Int): Flow<ResultApi<Head2HeadApi>>
+    suspend fun getHead2HeadForMatch(id: Int): ResultApi<Head2HeadApi>
 }
 
 internal class MatchesApiRepositoryImpl(
     private val matchesService: MatchesService,
 ) : MatchesApiRepository {
 
-    override fun getMatchesForDateRange(
+    override suspend fun getMatchesForDateRange(
         dateFrom: LocalDate,
         dateTo: LocalDate,
-    ): Flow<ResultApi<List<MatchApi>>> =
-        flow {
-            emit(
-                matchesService.getMatchesForDateRange(
-                    dateFrom = dateFrom.asString(),
-                    dateTo = dateTo.asString()
-                ).toResultApi { this.matches }
-            )
-        }
+    ): ResultApi<List<MatchApi>> =
+        matchesService.getMatchesForDateRange(
+            dateFrom = dateFrom.asString(),
+            dateTo = dateTo.asString()
+        ).toResultApi { this.matches }
 
-    override fun getMatch(id: Int): Flow<ResultApi<MatchApi>> =
-        flow {
-            emit(matchesService.getMatch(id).toResultApi())
-        }
+    override suspend fun getMatch(id: Int): ResultApi<MatchApi> =
+        matchesService.getMatch(id).toResultApi()
 
-    override fun getHead2HeadForMatch(id: Int): Flow<ResultApi<Head2HeadApi>> =
-        flow {
-            emit(matchesService.getHead2HeadForMatch(id).toResultApi())
-        }
+    override suspend fun getHead2HeadForMatch(id: Int): ResultApi<Head2HeadApi> =
+        matchesService.getHead2HeadForMatch(id).toResultApi()
 }

@@ -6,15 +6,20 @@ plugins {
 }
 
 android {
-    namespace = "com.mateuszholik.data"
+    namespace = "com.mateuszholik.database"
     compileSdk = DefaultConfig.COMPILE_SDK
 
     defaultConfig {
         minSdk = DefaultConfig.MIN_SDK
-        targetSdk = DefaultConfig.TARGET_SDK
 
         testInstrumentationRunner = DefaultConfig.TEST_INSTRUMENTATION_RUNNER
         consumerProguardFiles("consumer-rules.pro")
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["room.schemaLocation"] = "$projectDir/schemas"
+            }
+        }
     }
 
     buildTypes {
@@ -36,14 +41,14 @@ android {
 
 dependencies {
 
-    // Modules
-    implementation(project(":core:common"))
-    implementation(project(":core:database"))
-    implementation(project(":core:model"))
-    implementation(project(":core:network"))
-
     // CoreKtx
     implementation(CoreKtx.DEPENDENCY)
+
+    // Room
+    implementation(Room.DEPENDENCY)
+    annotationProcessor(Room.COMPILER)
+    kapt(Room.COMPILER)
+    implementation(Room.KTX)
 
     // Hilt
     implementation(Hilt.DEPENDENCY)

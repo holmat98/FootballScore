@@ -1,9 +1,11 @@
 package com.mateuszholik.data.di
 
+import com.mateuszholik.common.providers.CurrentDateProvider
 import com.mateuszholik.data.repositories.CompetitionRepository
 import com.mateuszholik.data.repositories.CompetitionRepositoryImpl
 import com.mateuszholik.data.repositories.MatchesRepository
 import com.mateuszholik.data.repositories.MatchesRepositoryImpl
+import com.mateuszholik.database.repositories.MatchesDBRepository
 import com.mateuszholik.network.repositories.CompetitionApiRepository
 import com.mateuszholik.network.repositories.MatchesApiRepository
 import dagger.Module
@@ -20,9 +22,13 @@ internal object RepositoriesModule {
     @Singleton
     fun providesMatchesRepository(
         matchesApiRepository: MatchesApiRepository,
+        matchesDBRepository: MatchesDBRepository,
+        currentDateProvider: CurrentDateProvider,
     ): MatchesRepository =
         MatchesRepositoryImpl(
-            matchesApiRepository = matchesApiRepository
+            matchesApiRepository = matchesApiRepository,
+            matchesDBRepository = matchesDBRepository,
+            currentDateProvider = currentDateProvider
         )
 
     @Provides
