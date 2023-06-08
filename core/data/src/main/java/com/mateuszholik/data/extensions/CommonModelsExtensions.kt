@@ -11,6 +11,12 @@ import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.MatchScore
 import com.mateuszholik.model.Score
 import com.mateuszholik.model.Team
+import com.mateuszholik.network.models.MatchApi
+
+internal fun List<MatchApi>.toMatchInfoMap(): Map<Competition, List<MatchInfo>> =
+    this.map { it.toCommonModel() }
+        .groupBy { it.competition }
+        .mapValues { it.value.toListOfMatchInfo() }
 
 internal fun List<Match>.toListOfMatchInfo(): List<MatchInfo> =
     map {

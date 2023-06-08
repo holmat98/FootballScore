@@ -7,13 +7,20 @@ import com.mateuszholik.database.converters.LocalDateTimeConverter
 import com.mateuszholik.database.daos.CompetitionDao
 import com.mateuszholik.database.daos.MatchInfoDao
 import com.mateuszholik.database.daos.TeamDao
+import com.mateuszholik.database.daos.WatchedGameDao
 import com.mateuszholik.database.models.entities.CompetitionEntity
 import com.mateuszholik.database.models.entities.MatchInfoEntity
 import com.mateuszholik.database.models.entities.TeamEntity
+import com.mateuszholik.database.models.entities.WatchedGameEntity
 import com.mateuszholik.database.models.views.MergedMatchInfo
 
 @Database(
-    entities = [CompetitionEntity::class, TeamEntity::class, MatchInfoEntity::class],
+    entities = [
+        CompetitionEntity::class,
+        TeamEntity::class,
+        MatchInfoEntity::class,
+        WatchedGameEntity::class
+    ],
     views = [MergedMatchInfo::class],
     version = 1,
 )
@@ -23,4 +30,6 @@ internal abstract class FootballDataDatabase : RoomDatabase() {
     abstract fun competitionDao(): CompetitionDao
     abstract fun teamDao(): TeamDao
     abstract fun matchInfoDao(): MatchInfoDao
+
+    abstract fun watchedGameDao(): WatchedGameDao
 }

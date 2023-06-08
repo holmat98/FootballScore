@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -60,6 +59,7 @@ fun MatchesScreen(
     val days = remember { viewModel.days }
     val currentDay by viewModel.currentDay.collectAsStateWithLifecycle()
     val matchesUiState by viewModel.matches.collectAsStateWithLifecycle()
+    val watchedMatchesIds by viewModel.watchedMatches.collectAsStateWithLifecycle()
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -98,9 +98,17 @@ fun MatchesScreen(
                     days = days,
                     selectedDay = currentDay,
                     data = (matchesUiState as UiState.Success<Map<Competition, List<MatchInfo>>>).data,
+                    watchedMatchesIds = watchedMatchesIds,
                     onDaySelected = { viewModel.updateCurrentDate(it) },
                     onMatchClicked = onMatchClicked,
-                    onCompetitionClicked = onCompetitionClicked
+                    onCompetitionClicked = onCompetitionClicked,
+                    onFavoriteButtonClicked = { isChecked, matchId ->
+                        if (isChecked) {
+                            viewModel.addToWatchedMatches(matchId)
+                        } else {
+                            viewModel.deleteFromWatchedMatches(matchId)
+                        }
+                    }
                 )
                 is UiState.Error ->
                     ErrorInfo((matchesUiState as UiState.Error<Map<Competition, List<MatchInfo>>>).errorType)
@@ -130,9 +138,11 @@ private fun Content(
     days: List<LocalDate>,
     selectedDay: LocalDate,
     data: Map<Competition, List<MatchInfo>>,
+    watchedMatchesIds: List<Int>,
     onDaySelected: (LocalDate) -> Unit,
     onMatchClicked: (matchId: Int) -> Unit,
     onCompetitionClicked: (competitionId: Int) -> Unit,
+    onFavoriteButtonClicked: (isChecked: Boolean, matchId: Int) -> Unit,
 ) {
     LazyColumn(modifier = modifier.fillMaxSize()) {
         item {
@@ -150,10 +160,15 @@ private fun Content(
                     competition = competition
                 )
             }
-            itemsIndexed(items = matches) { index, matchInfo ->
+            itemsIndexed(
+                items = matches,
+                key = { _, item -> item.id }
+            ) { index, matchInfo ->
                 MatchItem(
                     modifier = Modifier.clickable { onMatchClicked(matchInfo.id) },
                     matchInfo = matchInfo,
+                    onFavoriteButtonClicked = { onFavoriteButtonClicked(it, matchInfo.id) },
+                    isAddedToFavorites = matchInfo.id in watchedMatchesIds
                 )
                 if (index < matches.lastIndex) {
                     CustomDivider()
@@ -184,9 +199,11 @@ private fun Preview() {
                         PreviewConstants.FINISHED_MATCH_INFO
                     ),
                 ),
+                watchedMatchesIds = listOf(1),
                 onDaySelected = {},
-                onMatchClicked =  {},
-                onCompetitionClicked = {}
+                onMatchClicked = {},
+                onCompetitionClicked = {},
+                onFavoriteButtonClicked = { _, _ -> }
             )
         }
     }

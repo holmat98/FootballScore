@@ -2,8 +2,8 @@ package com.mateuszholik.data.repositories
 
 import com.mateuszholik.common.providers.CurrentDateProvider
 import com.mateuszholik.data.extensions.toCommonModel
-import com.mateuszholik.data.extensions.toListOfMatchInfo
 import com.mateuszholik.data.extensions.toListOfMatchInfoDB
+import com.mateuszholik.data.extensions.toMatchInfoMap
 import com.mateuszholik.data.extensions.toResult
 import com.mateuszholik.database.repositories.MatchesDBRepository
 import com.mateuszholik.model.Competition
@@ -28,15 +28,23 @@ interface MatchesRepository {
     fun getMatch(id: Int): Flow<Result<Match>>
 
     fun getMatchH2H(id: Int): Flow<Result<Head2Head>>
+
+    fun getWatchedMatches(): Flow<Result<Map<Competition, List<MatchInfo>>>>
+
+    fun getWatchedMatchesId(): Flow<Result<List<Int>>>
+
+    suspend fun insertWatchedGame(id: Int)
+
+    suspend fun deleteWatchedGame(id: Int)
 }
 
+@OptIn(FlowPreview::class)
 internal class MatchesRepositoryImpl(
     private val matchesApiRepository: MatchesApiRepository,
     private val matchesDBRepository: MatchesDBRepository,
     private val currentDateProvider: CurrentDateProvider,
 ) : MatchesRepository {
 
-    @OptIn(FlowPreview::class)
     override fun getMatchesForDate(date: LocalDate): Flow<Result<Map<Competition, List<MatchInfo>>>> =
         if (currentDateProvider.provide().isAfter(date)) {
             getMatchesForDateFromDatabase(date)
@@ -72,6 +80,23 @@ internal class MatchesRepositoryImpl(
             }
         }
 
+    override fun getWatchedMatches(): Flow<Result<Map<Competition, List<MatchInfo>>>> =
+        getWatchedMatchesId().flatMapConcat {
+            when (it) {
+                is Result.Success -> getMatchesInfoByIds(it.data)
+                is Result.Error -> flowOf(Result.Error(it.errorType))
+            }
+        }
+
+    override fun getWatchedMatchesId(): Flow<Result<List<Int>>> =
+        matchesDBRepository.getWatchedGames().map { it.toResult() }
+
+    override suspend fun insertWatchedGame(id: Int) =
+        matchesDBRepository.insertWatchedGame(id)
+
+    override suspend fun deleteWatchedGame(id: Int) =
+        matchesDBRepository.deleteWatchedGame(id)
+
     private fun getMatchesForDateFromDatabase(
         date: LocalDate,
     ): Flow<Result<Map<Competition, List<MatchInfo>>>> =
@@ -99,14 +124,19 @@ internal class MatchesRepositoryImpl(
                 )
             )
         }.map { resultApi ->
-            resultApi.toResult {
-                this.map { it.toCommonModel() }
-                    .groupBy { it.competition }
-                    .mapValues { it.value.toListOfMatchInfo() }
-            }
+            resultApi.toResult { this.toMatchInfoMap() }
         }.onEach {
             if (shouldSaveToDatabase && it is Result.Success) {
                 matchesDBRepository.saveMatchesInfo(it.data.toListOfMatchInfoDB())
             }
+        }
+
+    private fun getMatchesInfoByIds(
+        ids: List<Int>,
+    ): Flow<Result<Map<Competition, List<MatchInfo>>>> =
+        flow {
+            emit(matchesApiRepository.getMatchesForIds(ids))
+        }.map { resultApi ->
+            resultApi.toResult { this.toMatchInfoMap() }
         }
 }

@@ -2,7 +2,8 @@ package com.mateuszholik.domain.di
 
 import com.mateuszholik.common.providers.DispatchersProvider
 import com.mateuszholik.data.repositories.CompetitionRepository
-import com.mateuszholik.data.repositories.MatchesRepository
+import com.mateuszholik.domain.usecases.DeleteWatchedGameUseCase
+import com.mateuszholik.domain.usecases.DeleteWatchedGameUseCaseImpl
 import com.mateuszholik.domain.usecases.GetCombinedCompetitionDetailsUseCase
 import com.mateuszholik.domain.usecases.GetCombinedCompetitionDetailsUseCaseImpl
 import com.mateuszholik.domain.usecases.GetHead2HeadUseCase
@@ -11,6 +12,13 @@ import com.mateuszholik.domain.usecases.GetMatchUseCase
 import com.mateuszholik.domain.usecases.GetMatchUseCaseImpl
 import com.mateuszholik.domain.usecases.GetMatchesForDateUseCase
 import com.mateuszholik.domain.usecases.GetMatchesForDateUseCaseImpl
+import com.mateuszholik.domain.usecases.GetWatchedGamesIdsUseCase
+import com.mateuszholik.domain.usecases.GetWatchedGamesIdsUseCaseImpl
+import com.mateuszholik.domain.usecases.GetWatchedGamesUseCase
+import com.mateuszholik.domain.usecases.GetWatchedGamesUseCaseImpl
+import com.mateuszholik.domain.usecases.InsertWatchedGameUseCase
+import com.mateuszholik.domain.usecases.InsertWatchedGameUseCaseImpl
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,37 +27,42 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal object UseCasesModule {
+internal abstract class UseCasesModule {
 
-    @Provides
-    fun providesGetMatchesForDateUseCase(
-        matchesRepository: MatchesRepository,
-        dispatchersProvider: DispatchersProvider,
-    ): GetMatchesForDateUseCase =
-        GetMatchesForDateUseCaseImpl(
-            matchesRepository = matchesRepository,
-            dispatchersProvider = dispatchersProvider
-        )
+    @Binds
+    abstract fun bindsGetMatchesForDateUseCase(
+        getMatchesForDateUseCaseImpl: GetMatchesForDateUseCaseImpl
+    ): GetMatchesForDateUseCase
 
-    @Provides
-    fun providesMatchUseCase(
-        matchesRepository: MatchesRepository,
-        dispatchersProvider: DispatchersProvider,
-    ): GetMatchUseCase =
-        GetMatchUseCaseImpl(
-            matchesRepository = matchesRepository,
-            dispatchersProvider = dispatchersProvider
-        )
+    @Binds
+    abstract fun bindsMatchUseCase(
+        getMatchUseCaseImpl: GetMatchUseCaseImpl
+    ): GetMatchUseCase
 
-    @Provides
-    fun providesHead2HeadUseCase(
-        matchesRepository: MatchesRepository,
-        dispatchersProvider: DispatchersProvider,
-    ): GetHead2HeadUseCase =
-        GetHead2HeadUseCaseImpl(
-            matchesRepository = matchesRepository,
-            dispatchersProvider = dispatchersProvider
-        )
+    @Binds
+    abstract fun bindsHead2HeadUseCase(
+        getHead2HeadUseCaseImpl: GetHead2HeadUseCaseImpl
+    ): GetHead2HeadUseCase
+
+    @Binds
+    abstract fun bindsGetWatchedGamesUseCase(
+        getWatchedGamesUseCaseImpl: GetWatchedGamesUseCaseImpl
+    ): GetWatchedGamesUseCase
+
+    @Binds
+    abstract fun bindsInsertWatchedGameUseCase(
+        insertWatchedGameUseCaseImpl: InsertWatchedGameUseCaseImpl
+    ): InsertWatchedGameUseCase
+
+    @Binds
+    abstract fun bindsDeleteWatchedGameUseCase(
+        deleteWatchedGameUseCaseImpl: DeleteWatchedGameUseCaseImpl
+    ): DeleteWatchedGameUseCase
+
+    @Binds
+    abstract fun bindsGetWatchedGamesIdsUseCase(
+        getWatchedGamesIdsUseCaseImpl: GetWatchedGamesIdsUseCaseImpl
+    ): GetWatchedGamesIdsUseCase
 }
 
 @Module
@@ -59,8 +72,10 @@ internal object UseCasesSingletonComponentModule{
     @Provides
     fun providesGetCombinedCompetitionDetailsUseCase(
         competitionRepository: CompetitionRepository,
+        dispatchersProvider: DispatchersProvider,
     ): GetCombinedCompetitionDetailsUseCase =
         GetCombinedCompetitionDetailsUseCaseImpl(
-            competitionRepository = competitionRepository
+            competitionRepository = competitionRepository,
+            dispatchersProvider = dispatchersProvider
         )
 }

@@ -22,10 +22,10 @@ import com.mateuszholik.uicomponents.team.Teams
 
 @Composable
 fun HalfTimeMatch(
-    modifier: Modifier,
     homeTeam: Team,
     awayTeam: Team,
     score: Score,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),

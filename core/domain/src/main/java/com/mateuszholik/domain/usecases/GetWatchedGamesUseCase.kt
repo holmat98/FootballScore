@@ -2,24 +2,22 @@ package com.mateuszholik.domain.usecases
 
 import com.mateuszholik.common.providers.DispatchersProvider
 import com.mateuszholik.data.repositories.MatchesRepository
-import com.mateuszholik.domain.usecases.base.ParameterizedFlowUseCase
+import com.mateuszholik.domain.usecases.base.FlowUseCase
 import com.mateuszholik.model.Competition
 import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
-import java.time.LocalDate
 import javax.inject.Inject
 
-interface GetMatchesForDateUseCase :
-    ParameterizedFlowUseCase<LocalDate, Map<Competition, List<MatchInfo>>>
+interface GetWatchedGamesUseCase : FlowUseCase<Map<Competition, List<MatchInfo>>>
 
-internal class GetMatchesForDateUseCaseImpl @Inject constructor(
+internal class GetWatchedGamesUseCaseImpl @Inject constructor(
     private val matchesRepository: MatchesRepository,
     private val dispatchersProvider: DispatchersProvider,
-) : GetMatchesForDateUseCase {
+) : GetWatchedGamesUseCase {
 
-    override fun invoke(param: LocalDate): Flow<Result<Map<Competition, List<MatchInfo>>>> =
-        matchesRepository.getMatchesForDate(param)
+    override fun invoke(): Flow<Result<Map<Competition, List<MatchInfo>>>> =
+        matchesRepository.getWatchedMatches()
             .flowOn(dispatchersProvider.io)
 }

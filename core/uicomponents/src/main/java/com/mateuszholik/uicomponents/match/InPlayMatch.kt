@@ -15,10 +15,10 @@ import com.mateuszholik.uicomponents.team.Teams
 
 @Composable
 fun InPlayMatch(
-    modifier: Modifier,
     homeTeam: Team,
     awayTeam: Team,
     score: Score,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),

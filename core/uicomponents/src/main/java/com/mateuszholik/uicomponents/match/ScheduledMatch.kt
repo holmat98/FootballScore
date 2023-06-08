@@ -20,10 +20,10 @@ import com.mateuszholik.uicomponents.team.Teams
 
 @Composable
 fun ScheduledMatch(
-    modifier: Modifier,
     homeTeam: Team,
     awayTeam: Team,
     text: String,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
