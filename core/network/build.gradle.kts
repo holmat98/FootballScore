@@ -18,6 +18,8 @@ android {
 
         buildConfigField(type = "String", name = "API_KEY", value = "\"${project.property("API_KEY") as String}\"")
         buildConfigField(type = "String", name = "API_URL", value = "\"https://api.football-data.org/\"")
+        buildConfigField(type = "String", name = "NEWS_API_KEY", value = "\"${project.property("NEWS_API_KEY") as String}\"")
+        buildConfigField(type = "String", name = "NEWS_API_URL", value = "\"https://newsapi.org/\"")
     }
 
     buildTypes {
