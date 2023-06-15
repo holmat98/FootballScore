@@ -100,4 +100,5 @@
     <string name="scorers_list_legend_player">Player</string>
     <string name="title_leaguedetails">League details</string>
     <string name="watched_matches_title">Watched</string>
+    <string name="news_title">News</string>
 </resources>

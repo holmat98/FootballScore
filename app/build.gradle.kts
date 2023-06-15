@@ -70,6 +70,7 @@ dependencies {
     implementation(project(":feature:matches"))
     implementation(project(":feature:matchdetails"))
     implementation(project(":feature:watchedmatches"))
+    implementation(project(":feature:news"))
 
     // Activity
     implementation(Activity.DEPENDENCY)
