@@ -5,9 +5,12 @@ import com.mateuszholik.data.repositories.CompetitionRepository
 import com.mateuszholik.data.repositories.CompetitionRepositoryImpl
 import com.mateuszholik.data.repositories.MatchesRepository
 import com.mateuszholik.data.repositories.MatchesRepositoryImpl
+import com.mateuszholik.data.repositories.NewsRepository
+import com.mateuszholik.data.repositories.NewsRepositoryImpl
 import com.mateuszholik.database.repositories.MatchesDBRepository
 import com.mateuszholik.network.repositories.CompetitionApiRepository
 import com.mateuszholik.network.repositories.MatchesApiRepository
+import com.mateuszholik.network.repositories.NewsApiRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,5 +41,14 @@ internal object RepositoriesModule {
     ): CompetitionRepository =
         CompetitionRepositoryImpl(
             competitionApiRepository = competitionApiRepository
+        )
+
+    @Provides
+    @Singleton
+    fun providesNewsRepository(
+        newsApiRepository: NewsApiRepository,
+    ): NewsRepository =
+        NewsRepositoryImpl(
+            newsApiRepository = newsApiRepository
         )
 }

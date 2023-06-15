@@ -12,6 +12,8 @@ import com.mateuszholik.domain.usecases.GetMatchUseCase
 import com.mateuszholik.domain.usecases.GetMatchUseCaseImpl
 import com.mateuszholik.domain.usecases.GetMatchesForDateUseCase
 import com.mateuszholik.domain.usecases.GetMatchesForDateUseCaseImpl
+import com.mateuszholik.domain.usecases.GetTopSportsNewsUseCase
+import com.mateuszholik.domain.usecases.GetTopSportsNewsUseCaseImpl
 import com.mateuszholik.domain.usecases.GetWatchedGamesIdsUseCase
 import com.mateuszholik.domain.usecases.GetWatchedGamesIdsUseCaseImpl
 import com.mateuszholik.domain.usecases.GetWatchedGamesUseCase
@@ -63,6 +65,11 @@ internal abstract class UseCasesModule {
     abstract fun bindsGetWatchedGamesIdsUseCase(
         getWatchedGamesIdsUseCaseImpl: GetWatchedGamesIdsUseCaseImpl
     ): GetWatchedGamesIdsUseCase
+
+    @Binds
+    abstract fun bindsGetTopSportsNewsUseCase(
+        getTopSportsNewsUseCaseImpl: GetTopSportsNewsUseCaseImpl
+    ): GetTopSportsNewsUseCase
 }
 
 @Module
