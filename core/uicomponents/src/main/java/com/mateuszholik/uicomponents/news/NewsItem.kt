@@ -33,25 +33,24 @@ fun NewsItem(
 ) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.Top,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
             modifier = Modifier
                 .weight(3f)
-                .height(MaterialTheme.sizing.large)
                 .padding(MaterialTheme.spacing.small)
                 .clip(RoundedCornerShape(MaterialTheme.cornerRadius.normal)),
             url = article.urlToImage,
-            onErrorImageRes = R.drawable.ic_news
+            onErrorImageRes = R.drawable.football_news
         )
         Text(
             modifier = Modifier
                 .weight(7f)
-                .padding(top = MaterialTheme.spacing.small, end = MaterialTheme.spacing.small),
+                .padding(MaterialTheme.spacing.small),
             text = article.title,
             color = textColor,
             fontSize = MaterialTheme.textSizing.normal,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.SemiBold
         )
     }
 }

@@ -35,11 +35,10 @@ fun NewsItemHeader(
         Image(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(MaterialTheme.sizing.extraLarge)
                 .padding(MaterialTheme.spacing.small)
-                .clip(RoundedCornerShape(MaterialTheme.cornerRadius.normal)),
+                .clip(RoundedCornerShape(MaterialTheme.cornerRadius.medium)),
             url = article.urlToImage,
-            onErrorImageRes = R.drawable.ic_news
+            onErrorImageRes = R.drawable.football_news
         )
         Text(
             modifier = Modifier.padding(
