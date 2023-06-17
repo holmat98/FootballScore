@@ -1,7 +1,6 @@
 package com.mateuszholik.uicomponents.news
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -17,7 +16,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
 import com.mateuszholik.designsystem.R
 import com.mateuszholik.designsystem.theme.cornerRadius
-import com.mateuszholik.designsystem.theme.sizing
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Article

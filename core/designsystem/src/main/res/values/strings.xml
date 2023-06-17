@@ -101,4 +101,5 @@
     <string name="title_leaguedetails">League details</string>
     <string name="watched_matches_title">Watched</string>
     <string name="news_title">News</string>
+    <string name="read_more">Read more...</string>
 </resources>
