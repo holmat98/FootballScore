@@ -54,6 +54,7 @@ object Compose {
     const val UI_TOOLING = "androidx.compose.ui:ui-tooling:$composeVersion"
     const val NAVIGATION = "androidx.navigation:navigation-compose:2.5.2"
     const val TEST_MANIFEST = "androidx.compose.ui:ui-test-manifest:$composeVersion"
+    const val MATERIAL_DESIGN_ICONS = "androidx.compose.material:material-icons-extended:$composeVersion"
 }
 
 object ConstraintLayout {

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Newspaper
 import androidx.compose.material.icons.outlined.MailOutline
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -49,7 +50,7 @@ object MainNavigation {
         BottomNavItem(
             route = NEWS,
             text = R.string.news_title,
-            icon = Icons.Outlined.MailOutline
+            icon = Icons.Filled.Newspaper
         )
     )
 

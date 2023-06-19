@@ -3,24 +3,25 @@ package com.mateuszholik.domain.usecases
 import com.mateuszholik.common.providers.CurrentDateProvider
 import com.mateuszholik.data.repositories.NewsRepository
 import com.mateuszholik.domain.usecases.base.FlowUseCase
+import com.mateuszholik.domain.usecases.base.ParameterizedFlowUseCase
 import com.mateuszholik.model.Article
 import com.mateuszholik.model.ArticleSortingOptions
 import com.mateuszholik.model.Result
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-interface GetTopSportsNewsUseCase : FlowUseCase<List<Article>>
+interface GetTopSportsNewsUseCase : ParameterizedFlowUseCase<ArticleSortingOptions, List<Article>>
 
 internal class GetTopSportsNewsUseCaseImpl @Inject constructor(
     private val newsRepository: NewsRepository,
     private val currentDateProvider: CurrentDateProvider
 ) : GetTopSportsNewsUseCase {
 
-    override fun invoke(): Flow<Result<List<Article>>> =
+    override fun invoke(param: ArticleSortingOptions): Flow<Result<List<Article>>> =
         newsRepository.getTopSportsNews(
             domains = DEFAULT_DOMAINS,
             fromDate = currentDateProvider.provide().minusDays(DAYS_IN_WEEK),
-            sortBy = DEFAULT_SORTING_OPTION
+            sortBy = param
         )
 
     private companion object {
@@ -34,6 +35,5 @@ internal class GetTopSportsNewsUseCaseImpl @Inject constructor(
             "fourfourtwo.com"
         )
         const val DAYS_IN_WEEK = 7L
-        val DEFAULT_SORTING_OPTION = ArticleSortingOptions.POPULARITY
     }
 }
