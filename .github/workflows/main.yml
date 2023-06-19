@@ -27,10 +27,12 @@ jobs:
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
           API_KEY: ${{ secrets.API_KEY }}
+          NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
         run: |
           mkdir -p ~/.gradle/
           echo "::set-env name=GRADLE_USER_HOME::$HOME/.gradle"
           echo API_KEY=${API_KEY} > ~/.gradle/gradle.properties
+          echo NEWS_API_KEY=${NEWS_API_KEY} >> ~/.gradle/gradle.properties
       - name: Build App Bundle
         run: ./gradlew :app:bundleDebug
       - run: npm install -g appcenter-cli
