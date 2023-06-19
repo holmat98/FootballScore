@@ -228,19 +228,19 @@ internal fun PlayerApi.toCommonModel(): Player =
 internal fun List<ArticleApi>.toCommonModel(): List<Article> =
     this.map {
         Article(
-            author = it.author,
-            content = it.content,
-            description = it.description,
+            author = it.author.orEmpty(),
+            content = it.content.orEmpty(),
+            description = it.description.orEmpty(),
             publishedAt = it.publishedAt.toLocalDateTime(),
             source = it.source.toCommonModel(),
             title = it.title,
             url = it.url,
-            urlToImage = it.urlToImage
+            urlToImage = it.urlToImage.orEmpty()
         )
     }
 
 internal fun SourceApi.toCommonModel(): Source =
     Source(
-        id = id,
+        id = id.orEmpty(),
         name = name
     )

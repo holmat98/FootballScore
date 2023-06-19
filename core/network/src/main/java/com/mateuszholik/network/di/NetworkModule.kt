@@ -51,11 +51,9 @@ internal object NetworkModule {
     @Provides
     @Singleton
     fun providesOkHttpClient(
-        authorizationInterceptor: AuthorizationInterceptor,
         httpLoggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient =
         OkHttpClient.Builder()
-            .addInterceptor(authorizationInterceptor)
             .addInterceptor(httpLoggingInterceptor)
             .build()
 
