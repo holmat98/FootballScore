@@ -70,6 +70,7 @@ dependencies {
     implementation(project(":feature:matches"))
     implementation(project(":feature:matchdetails"))
     implementation(project(":feature:watchedmatches"))
+    implementation(project(":feature:news"))
 
     // Activity
     implementation(Activity.DEPENDENCY)
@@ -79,6 +80,7 @@ dependencies {
     implementation(Compose.MATERIAL)
     implementation(Compose.PREVIEW)
     implementation(Compose.NAVIGATION)
+    implementation(Compose.MATERIAL_DESIGN_ICONS)
     androidTestImplementation(Compose.TESTS)
     debugImplementation(Compose.UI_TOOLING)
     debugImplementation(Compose.TEST_MANIFEST)

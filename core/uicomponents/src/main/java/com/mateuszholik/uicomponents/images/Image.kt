@@ -3,6 +3,7 @@ package com.mateuszholik.uicomponents.images
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
@@ -28,7 +29,8 @@ fun Image(
             modifier = modifier,
             model = url,
             contentDescription = contentDescription,
-            error = painterResource(onErrorImageRes)
+            error = painterResource(onErrorImageRes),
+            contentScale = ContentScale.FillWidth
         )
     }
 }
@@ -47,6 +49,7 @@ private fun SvgImage(
             .decoderFactory(SvgDecoder.Factory())
             .build(),
         contentDescription = contentDescription,
-        error = painterResource(onErrorImageRes)
+        error = painterResource(onErrorImageRes),
+        contentScale = ContentScale.FillWidth
     )
 }

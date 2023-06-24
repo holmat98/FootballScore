@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Newspaper
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -19,6 +20,7 @@ import com.mateuszholik.footballscore.contract.LeagueDetailsContract
 import com.mateuszholik.footballscore.ui.installmodule.ModuleInstallationScreen
 import com.mateuszholik.footballscore.ui.installmodule.ModuleInstallationViewModel.Companion.MODULE_NAME_ARGUMENT
 import com.mateuszholik.matches.MatchesScreen
+import com.mateuszholik.news.NewsScreen
 import com.mateuszholik.uicomponents.bottomnavigation.model.BottomNavItem
 import com.mateuszholik.watchedmatches.WatchedMatchesScreen
 
@@ -29,6 +31,7 @@ object MainNavigation {
     private const val MODULE_INSTALLATION = "$ROOT/MODULE_INSTALLATION"
     private const val LEAGUE_DETAILS = "$ROOT/LEAGUE_DETAILS"
     private const val WATCHED_MATCHES = "$ROOT/WATCHED_MATCHES"
+    private const val NEWS = "$ROOT/NEWS"
 
     private const val LEAGUE_ID_ARGUMENT = "leagueId"
 
@@ -42,6 +45,11 @@ object MainNavigation {
             route = WATCHED_MATCHES,
             text = R.string.bottom_nav_favorite,
             icon = Icons.Filled.Favorite
+        ),
+        BottomNavItem(
+            route = NEWS,
+            text = R.string.news_title,
+            icon = Icons.Filled.Newspaper
         )
     )
 
@@ -55,6 +63,7 @@ object MainNavigation {
             leagueDetailsModuleInstallation(navController, paddingValues)
             leagueDetails(navController, paddingValues)
             watchedMatches(navController, paddingValues)
+            news(paddingValues)
         }
 
     private fun NavGraphBuilder.matchesList(
@@ -138,6 +147,13 @@ object MainNavigation {
                 onCompetitionClicked = {
                     navController.navigateToLeagueDetailsModuleInstallation(it)
                 }
+            )
+        }
+
+    private fun NavGraphBuilder.news(paddingValues: PaddingValues): Unit =
+        composable(route = NEWS) {
+            NewsScreen(
+                modifier = Modifier.padding(paddingValues)
             )
         }
 

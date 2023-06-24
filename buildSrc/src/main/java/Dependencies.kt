@@ -44,16 +44,17 @@ object Activity {
 }
 
 object Compose {
-    private const val composeVersion = "1.4.2"
+    private const val composeVersion = "1.4.3"
 
     const val KOTLIN_COMPILER_EXTENSION_VERSION = "1.4.0"
     const val UI = "androidx.compose.ui:ui:$composeVersion"
-    const val MATERIAL = "androidx.compose.material3:material3:1.0.1"
+    const val MATERIAL = "androidx.compose.material3:material3:1.2.0-alpha02"
     const val PREVIEW = "androidx.compose.ui:ui-tooling-preview:$composeVersion"
     const val TESTS = "androidx.compose.ui:ui-test-junit4:$composeVersion"
     const val UI_TOOLING = "androidx.compose.ui:ui-tooling:$composeVersion"
     const val NAVIGATION = "androidx.navigation:navigation-compose:2.5.2"
     const val TEST_MANIFEST = "androidx.compose.ui:ui-test-manifest:$composeVersion"
+    const val MATERIAL_DESIGN_ICONS = "androidx.compose.material:material-icons-extended:$composeVersion"
 }
 
 object ConstraintLayout {
