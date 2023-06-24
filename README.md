@@ -16,7 +16,7 @@
 
 ### Used REST API
 
-In this app I am using [football-data.org](https://www.football-data.org/documentation/quickstart) REST API for all the data displayed in the app.
+In this app I am using [football-data.org](https://www.football-data.org/documentation/quickstart) and [newsapi.org](https://newsapi.org/) REST API for all the data displayed in the app.
 
 ### How to build and run the app
 
@@ -26,6 +26,7 @@ To build and start the app on the device:
 * Create authorization key required by the news REST API on this website [newsapi.org](https://newsapi.org/)
 * Paste authorization keys to the global gradle.properties file (Directory of the file: C:\Users\username\ .gradle):
   API_KEY=your_api_key
+
   NEWS_API_KEY=your_news_api_key
 * Create project on Firebase console and paste in the google-services.json to the app folder
 * open the cmd console in the root location of this project
