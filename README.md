@@ -1,7 +1,10 @@
 # FootballScore
 
-<b>Android application for checking the results of football games. App is currently under the development. User currently has access to two screens, 
-one with all games that are played on the selected day and the second one with game details. To create the layout I am using Jetpack Compose library and for the asynchronous code Kotlin Flow and Coroutines.</b>
+<p align="center">
+<img src="app/src/main/ic_launcher-playstore.png" alt="App icon" width="256px" height="256px">
+</p>
+
+<b>Android application for checking the results of football games, top scorers of the league, league table and reading latest sports news. To create the layout I am using Jetpack Compose library and for the asynchronous code Kotlin Flow and Coroutines.</b>
 
 ### Table of contents
 * [Used REST API](#used-rest-api)
@@ -9,19 +12,23 @@ one with all games that are played on the selected day and the second one with g
 * [Supported Android versions](#supported-android-versions)
 * [Tech stack](#tech-stack)
 * [Architecture and modularization](#architecture-and-modularization)
-* [Plans for future](#plans-for-future)
 * [App design](#app-design)
 
 ### Used REST API
 
-In this app I am using [football-data.org](https://www.football-data.org/documentation/quickstart) REST API for all the data displayed in the app.
+In this app I am using [football-data.org](https://www.football-data.org/documentation/quickstart) and [newsapi.org](https://newsapi.org/) REST API for all the data displayed in the app.
 
 ### How to build and run the app
 
 To build and start the app on the device:
 
 * Create authorization key required by the REST API on this website [football-data.org](https://www.football-data.org/documentation/quickstart)
-* Paste authorization key to the gradle.properties file (Directory of the file: C:\Users\username\.gradle): API_KEY=your_api_key
+* Create authorization key required by the news REST API on this website [newsapi.org](https://newsapi.org/)
+* Paste authorization keys to the global gradle.properties file (Directory of the file: C:\Users\username\ .gradle):
+  API_KEY=your_api_key
+
+  NEWS_API_KEY=your_news_api_key
+* Create project on Firebase console and paste in the google-services.json to the app folder
 * open the cmd console in the root location of this project
 * run .\buildAndDeployAppBundle.bat script
 
@@ -58,6 +65,7 @@ Core modules:
 
 * common - Common code shared between all modules
 * data - module with repositories
+* database - module for local database with cached data
 * designsystem - module for set up of theme, colors, etc.
 * domain - module for use cases
 * model - module with all models used in the app
@@ -69,15 +77,18 @@ Feature modules:
 * leaguedetails - module for league details screen. It's dynamic feature module so it has to be downloaded on runtime before first usage. Dynamic feature module has access to the app module code.
 * matchdetails - module for screen with match details
 * matches - module for screen with the list of games played in the chosen day
-
-### Plans for future
-
-* Adding new screens like team details, favorite teams, favorite games, settings
-* Adding ROOM database for caching some data from REST API
+* news - module for screen with the latest sports news
+* watchedmatches - module for screen with the list of the watched matches
 
 ### App design
 
 <p align="center">
 <img src="images/list_of_games.png" alt="List of game screen">
 <img src="images/match_details.png" alt="Match details screen">
+<img src="images/league_table.png" alt="League table screen">
+<img src="images/top_scorers.png" alt="Top scorers screen">
+<img src="images/winners.png" alt="Winners of the league screen">
+<img src="images/module_installation.png" alt="Module installation screen">
+<img src="images/watched_matches.png" alt="Watched matches screen">
+<img src="images/sports_news.png" alt="Sports news screen">
 </p>
