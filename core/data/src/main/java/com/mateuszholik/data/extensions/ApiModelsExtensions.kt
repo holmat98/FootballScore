@@ -1,6 +1,7 @@
 package com.mateuszholik.data.extensions
 
 import com.mateuszholik.model.Area
+import com.mateuszholik.model.Article
 import com.mateuszholik.model.Competition
 import com.mateuszholik.model.CompetitionDetails
 import com.mateuszholik.model.CompetitionStandingsDetails
@@ -18,6 +19,7 @@ import com.mateuszholik.model.Score
 import com.mateuszholik.model.Scorer
 import com.mateuszholik.model.Season
 import com.mateuszholik.model.SeasonWinner
+import com.mateuszholik.model.Source
 import com.mateuszholik.model.Stage
 import com.mateuszholik.model.Status
 import com.mateuszholik.model.TablePosition
@@ -42,6 +44,8 @@ import com.mateuszholik.network.models.TablePositionApi
 import com.mateuszholik.network.models.TeamApi
 import com.mateuszholik.network.models.TeamH2HDataApi
 import com.mateuszholik.network.models.WinnerApi
+import com.mateuszholik.network.models.ArticleApi
+import com.mateuszholik.network.models.SourceApi
 
 internal fun MatchApi.toCommonModel(): Match =
     Match(
@@ -219,4 +223,24 @@ internal fun PlayerApi.toCommonModel(): Player =
         position = position,
         shirtNumber = shirtNumber ?: -1,
         lastUpdated = lastUpdated.toLocalDateTime()
+    )
+
+internal fun List<ArticleApi>.toCommonModel(): List<Article> =
+    this.map {
+        Article(
+            author = it.author.orEmpty(),
+            content = it.content.orEmpty(),
+            description = it.description.orEmpty(),
+            publishedAt = it.publishedAt.toLocalDateTime(),
+            source = it.source.toCommonModel(),
+            title = it.title,
+            url = it.url,
+            urlToImage = it.urlToImage.orEmpty()
+        )
+    }
+
+internal fun SourceApi.toCommonModel(): Source =
+    Source(
+        id = id.orEmpty(),
+        name = name
     )

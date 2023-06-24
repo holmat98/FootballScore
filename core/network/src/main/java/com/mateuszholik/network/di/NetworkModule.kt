@@ -11,8 +11,22 @@ import com.mateuszholik.network.BuildConfig
 import com.mateuszholik.network.interceptors.AuthorizationInterceptor
 import com.mateuszholik.network.services.CompetitionService
 import com.mateuszholik.network.services.MatchesService
+import com.mateuszholik.network.services.NewsService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import javax.inject.Qualifier
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+internal annotation class NewsApiRetrofit
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+internal annotation class FootballDataApiRetrofit
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+internal annotation class FootballDataApiOkHttpClient
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -37,6 +51,16 @@ internal object NetworkModule {
     @Provides
     @Singleton
     fun providesOkHttpClient(
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+    ): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(httpLoggingInterceptor)
+            .build()
+
+    @FootballDataApiOkHttpClient
+    @Provides
+    @Singleton
+    fun providesFootballDataOkHttpClient(
         authorizationInterceptor: AuthorizationInterceptor,
         httpLoggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient =
@@ -51,11 +75,12 @@ internal object NetworkModule {
     fun providesGsonConverterFactory(): GsonConverterFactory =
         GsonConverterFactory.create()
 
+    @FootballDataApiRetrofit
     @Provides
     @Singleton
-    fun providesRetrofit(
+    fun providesFootballDataApiRetrofit(
         gsonConverterFactory: GsonConverterFactory,
-        okHttpClient: OkHttpClient,
+        @FootballDataApiOkHttpClient okHttpClient: OkHttpClient,
     ): Retrofit =
         Retrofit.Builder()
             .baseUrl(BuildConfig.API_URL)
@@ -63,14 +88,38 @@ internal object NetworkModule {
             .client(okHttpClient)
             .build()
 
+    @NewsApiRetrofit
     @Provides
     @Singleton
-    fun providesMatchesService(retrofit: Retrofit): MatchesService =
+    fun providesNewsApiRetrofit(
+        gsonConverterFactory: GsonConverterFactory,
+        okHttpClient: OkHttpClient,
+    ): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BuildConfig.NEWS_API_URL)
+            .addConverterFactory(gsonConverterFactory)
+            .client(okHttpClient)
+            .build()
+
+    @Provides
+    @Singleton
+    fun providesMatchesService(
+        @FootballDataApiRetrofit retrofit: Retrofit,
+    ): MatchesService =
         provideService(retrofit)
 
     @Provides
     @Singleton
-    fun providesCompetitionService(retrofit: Retrofit): CompetitionService =
+    fun providesCompetitionService(
+        @FootballDataApiRetrofit retrofit: Retrofit,
+    ): CompetitionService =
+        provideService(retrofit)
+
+    @Provides
+    @Singleton
+    fun providesNewsApiService(
+        @NewsApiRetrofit retrofit: Retrofit,
+    ): NewsService =
         provideService(retrofit)
 }
 
