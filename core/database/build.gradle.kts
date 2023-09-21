@@ -1,8 +1,8 @@
 plugins {
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOTLIN_ANDROID)
-    kotlin (Plugins.KAPT)
-    id (Plugins.HILT)
+    id(Google.KSP.PLUGIN)
+    id(Plugins.HILT)
 }
 
 android {
@@ -31,11 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
@@ -47,10 +47,10 @@ dependencies {
     // Room
     implementation(Room.DEPENDENCY)
     annotationProcessor(Room.COMPILER)
-    kapt(Room.COMPILER)
+    ksp(Room.COMPILER)
     implementation(Room.KTX)
 
     // Hilt
     implementation(Hilt.DEPENDENCY)
-    kapt(Hilt.Compiler.DEPENDENCY)
+    ksp(Hilt.Compiler.DEPENDENCY)
 }

@@ -1,7 +1,7 @@
 plugins {
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOTLIN_ANDROID)
-    kotlin (Plugins.KAPT)
+    id(Google.KSP.PLUGIN)
     id (Plugins.HILT)
 }
 
@@ -26,11 +26,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
@@ -44,5 +44,5 @@ dependencies {
 
     // Hilt
     implementation(Hilt.DEPENDENCY)
-    kapt(Hilt.Compiler.DEPENDENCY)
+    ksp(Hilt.Compiler.DEPENDENCY)
 }
