@@ -11,7 +11,7 @@ object Plugins {
 }
 
 object GradlePlugins {
-    const val kotlinVersion = "1.8.0"
+    const val kotlinVersion = "1.9.0"
     private const val gradlePluginVersion = "7.4.0"
 
     const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:$gradlePluginVersion"
@@ -46,7 +46,7 @@ object Activity {
 object Compose {
     private const val composeVersion = "1.4.3"
 
-    const val KOTLIN_COMPILER_EXTENSION_VERSION = "1.4.0"
+    const val KOTLIN_COMPILER_EXTENSION_VERSION = "1.5.0"
     const val UI = "androidx.compose.ui:ui:$composeVersion"
     const val MATERIAL = "androidx.compose.material3:material3:1.2.0-alpha02"
     const val PREVIEW = "androidx.compose.ui:ui-tooling-preview:$composeVersion"
@@ -102,6 +102,12 @@ object Timber {
 }
 
 object Google {
+
+    object KSP {
+        const val version = "1.9.0-1.0.13"
+
+        const val PLUGIN = "com.google.devtools.ksp"
+    }
 
     object Services {
         private const val version = "4.3.15"
@@ -179,7 +185,7 @@ object OkHttp {
 }
 
 object Hilt {
-    const val version = "2.44"
+    const val version = "2.48"
 
     const val PLUGIN = "com.google.dagger.hilt.android"
     const val DEPENDENCY = "com.google.dagger:hilt-android:$version"
@@ -217,7 +223,7 @@ object AndroidGitVersion {
 }
 
 object Room {
-    private const val version = "2.5.1"
+    private const val version = "2.5.2"
 
     const val DEPENDENCY = "androidx.room:room-runtime:$version"
     const val COMPILER = "androidx.room:room-compiler:$version"

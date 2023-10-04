@@ -3,7 +3,7 @@ plugins {
     id (Plugins.KOTLIN_ANDROID)
     id (Plugins.GOOGLE_SERVICES)
     id (Plugins.FIREBASE_CRASHLYTICS)
-    kotlin (Plugins.KAPT)
+    id(Google.KSP.PLUGIN)
     id (Plugins.HILT)
     id(AndroidGitVersion.PLUGIN)
 }
@@ -41,11 +41,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
@@ -118,7 +118,7 @@ dependencies {
     // Hilt
     implementation(Hilt.DEPENDENCY)
     implementation(Hilt.Compose.DEPENDENCY)
-    kapt(Hilt.Compiler.DEPENDENCY)
+    ksp(Hilt.Compiler.DEPENDENCY)
 
     // Play core
     implementation(Google.PlayCore.DEPENDENCY)

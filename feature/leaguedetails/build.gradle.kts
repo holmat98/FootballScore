@@ -1,7 +1,7 @@
 plugins {
     id(Plugins.DYNAMIC_FEATURE)
     id(Plugins.KOTLIN_ANDROID)
-    kotlin (Plugins.KAPT)
+    id(Google.KSP.PLUGIN)
     id (Plugins.HILT)
 }
 android {
@@ -66,5 +66,5 @@ dependencies {
     // Hilt
     implementation(Hilt.DEPENDENCY)
     implementation(Hilt.Compose.DEPENDENCY)
-    kapt(Hilt.Compiler.DEPENDENCY)
+    ksp(Hilt.Compiler.DEPENDENCY)
 }
