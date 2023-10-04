@@ -1,10 +1,10 @@
 plugins {
-    id (Plugins.ANDROID_APPLICATION)
-    id (Plugins.KOTLIN_ANDROID)
-    id (Plugins.GOOGLE_SERVICES)
-    id (Plugins.FIREBASE_CRASHLYTICS)
+    id(Plugins.ANDROID_APPLICATION)
+    id(Plugins.KOTLIN_ANDROID)
+    id(Plugins.GOOGLE_SERVICES)
+    id(Plugins.FIREBASE_CRASHLYTICS)
     id(Google.KSP.PLUGIN)
-    id (Plugins.HILT)
+    id(Plugins.HILT)
     id(AndroidGitVersion.PLUGIN)
 }
 
@@ -53,7 +53,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Compose.KOTLIN_COMPILER_EXTENSION_VERSION
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
