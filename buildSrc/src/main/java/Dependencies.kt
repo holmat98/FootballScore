@@ -11,8 +11,8 @@ object Plugins {
 }
 
 object GradlePlugins {
-    const val kotlinVersion = "1.9.0"
-    private const val gradlePluginVersion = "7.4.0"
+    const val kotlinVersion = "1.9.10"
+    private const val gradlePluginVersion = "8.1.2"
 
     const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:$gradlePluginVersion"
     const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
@@ -20,13 +20,11 @@ object GradlePlugins {
 }
 
 object DefaultConfig {
-    const val COMPILE_SDK = 33
+    const val COMPILE_SDK = 34
     const val APPLICATION_ID = "com.mateuszholik.footballscore"
     const val NAMESPACE = APPLICATION_ID
     const val MIN_SDK = 29
-    const val TARGET_SDK = 33
-    const val VERSION_CODE = 1
-    const val VERSION_NAME = "1.0"
+    const val TARGET_SDK = 34
     const val TEST_INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
 }
 
@@ -36,23 +34,23 @@ object Proguard {
 }
 
 object CoreKtx {
-    const val DEPENDENCY = "androidx.core:core-ktx:1.9.0"
+    const val DEPENDENCY = "androidx.core:core-ktx:1.12.0"
 }
 
 object Activity {
-    const val DEPENDENCY = "androidx.activity:activity-compose:1.6.1"
+    const val DEPENDENCY = "androidx.activity:activity-compose:1.7.2"
 }
 
 object Compose {
-    private const val composeVersion = "1.4.3"
+    private const val composeVersion = "1.5.2"
 
-    const val KOTLIN_COMPILER_EXTENSION_VERSION = "1.5.0"
+    const val KOTLIN_COMPILER_EXTENSION_VERSION = "1.5.3"
     const val UI = "androidx.compose.ui:ui:$composeVersion"
     const val MATERIAL = "androidx.compose.material3:material3:1.2.0-alpha02"
     const val PREVIEW = "androidx.compose.ui:ui-tooling-preview:$composeVersion"
     const val TESTS = "androidx.compose.ui:ui-test-junit4:$composeVersion"
     const val UI_TOOLING = "androidx.compose.ui:ui-tooling:$composeVersion"
-    const val NAVIGATION = "androidx.navigation:navigation-compose:2.5.2"
+    const val NAVIGATION = "androidx.navigation:navigation-compose:2.7.3"
     const val TEST_MANIFEST = "androidx.compose.ui:ui-test-manifest:$composeVersion"
     const val MATERIAL_DESIGN_ICONS = "androidx.compose.material:material-icons-extended:$composeVersion"
 }
@@ -64,7 +62,7 @@ object ConstraintLayout {
 }
 
 object MaterialDesign {
-    private const val version = "1.8.0"
+    private const val version = "1.9.0"
 
     const val DEPENDENCY = "com.google.android.material:material:$version"
 }
@@ -84,13 +82,13 @@ object Testing {
 }
 
 object Lifecycle {
-    private const val lifecycleVersion = "2.5.1"
+    private const val lifecycleVersion = "2.6.2"
 
     const val VIEW_MODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     const val LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
 
     object Compose {
-        private const val version = "2.6.0-beta01"
+        private const val version = "2.6.2"
         const val DEPENDENCY = "androidx.lifecycle:lifecycle-runtime-compose:$version"
     }
 }
@@ -104,7 +102,7 @@ object Timber {
 object Google {
 
     object KSP {
-        const val version = "1.9.0-1.0.13"
+        const val version = "1.9.10-1.0.13"
 
         const val PLUGIN = "com.google.devtools.ksp"
     }
@@ -115,20 +113,8 @@ object Google {
         const val DEPENDENCY = "com.google.gms:google-services:$version"
     }
 
-    object AutoService {
-        private const val version = "1.0.1"
-
-        object Annotations {
-            const val DEPENDENCY = "com.google.auto.service:auto-service-annotations:$version"
-        }
-
-        object Processor {
-            const val DEPENDENCY = "com.google.auto.service:auto-service:$version"
-        }
-    }
-
     object PlayCore {
-        private const val version = "2.0.1"
+        private const val version = "2.1.0"
 
         const val DEPENDENCY = "com.google.android.play:feature-delivery:$version"
         const val DEPENDENCY_KTX = "com.google.android.play:feature-delivery-ktx:$version"
@@ -136,8 +122,8 @@ object Google {
 
     object Firebase {
         object Crashlytics {
-            private const val gradleVersion = "2.9.2"
-            private const val version = "18.3.3"
+            private const val gradleVersion = "2.9.9"
+            private const val version = "18.4.3"
 
             const val GRADLE = "com.google.firebase:firebase-crashlytics-gradle:$gradleVersion"
             const val DEPENDENCY = "com.google.firebase:firebase-crashlytics:$version"
@@ -161,7 +147,7 @@ object LeakCanary {
 
 object Accompanist {
 
-    const val SYSTEM_UI_CONTROLLER = "com.google.accompanist:accompanist-systemuicontroller:0.28.0"
+    const val SYSTEM_UI_CONTROLLER = "com.google.accompanist:accompanist-systemuicontroller:0.32.0"
 }
 
 object Retrofit {
@@ -202,7 +188,7 @@ object Hilt {
 }
 
 object Coil {
-    private const val version = "2.2.2"
+    private const val version = "2.4.0"
 
     const val DEPENDENCY = "io.coil-kt:coil-compose:$version"
 
@@ -212,7 +198,7 @@ object Coil {
 }
 
 object Lottie {
-    private const val version = "6.0.0"
+    private const val version = "6.1.0"
 
     const val DEPENDENCY = "com.airbnb.android:lottie-compose:$version"
 }

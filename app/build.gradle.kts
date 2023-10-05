@@ -1,10 +1,10 @@
 plugins {
-    id (Plugins.ANDROID_APPLICATION)
-    id (Plugins.KOTLIN_ANDROID)
-    id (Plugins.GOOGLE_SERVICES)
-    id (Plugins.FIREBASE_CRASHLYTICS)
+    id(Plugins.ANDROID_APPLICATION)
+    id(Plugins.KOTLIN_ANDROID)
+    id(Plugins.GOOGLE_SERVICES)
+    id(Plugins.FIREBASE_CRASHLYTICS)
     id(Google.KSP.PLUGIN)
-    id (Plugins.HILT)
+    id(Plugins.HILT)
     id(AndroidGitVersion.PLUGIN)
 }
 
@@ -17,6 +17,10 @@ androidGitVersion {
 android {
     namespace = DefaultConfig.NAMESPACE
     compileSdk = DefaultConfig.COMPILE_SDK
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
         applicationId = DefaultConfig.APPLICATION_ID
@@ -41,11 +45,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -53,7 +57,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Compose.KOTLIN_COMPILER_EXTENSION_VERSION
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }

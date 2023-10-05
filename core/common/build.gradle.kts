@@ -2,7 +2,7 @@ plugins {
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOTLIN_ANDROID)
     id(Google.KSP.PLUGIN)
-    id (Plugins.HILT)
+    id(Plugins.HILT)
 }
 
 android {
@@ -11,7 +11,6 @@ android {
 
     defaultConfig {
         minSdk = DefaultConfig.MIN_SDK
-        targetSdk = DefaultConfig.TARGET_SDK
 
         testInstrumentationRunner = DefaultConfig.TEST_INSTRUMENTATION_RUNNER
         consumerProguardFiles("consumer-rules.pro")
@@ -26,11 +25,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }
 

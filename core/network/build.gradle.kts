@@ -9,9 +9,12 @@ android {
     namespace = "com.mateuszholik.network"
     compileSdk = DefaultConfig.COMPILE_SDK
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         minSdk = DefaultConfig.MIN_SDK
-        targetSdk = DefaultConfig.TARGET_SDK
 
         testInstrumentationRunner = DefaultConfig.TEST_INSTRUMENTATION_RUNNER
         consumerProguardFiles("consumer-rules.pro")
@@ -31,11 +34,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }
 
