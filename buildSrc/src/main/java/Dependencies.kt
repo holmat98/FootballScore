@@ -11,7 +11,7 @@ object Plugins {
 }
 
 object GradlePlugins {
-    const val kotlinVersion = "1.9.0"
+    const val kotlinVersion = "1.9.10"
     private const val gradlePluginVersion = "8.1.2"
 
     const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:$gradlePluginVersion"
@@ -102,7 +102,7 @@ object Timber {
 object Google {
 
     object KSP {
-        const val version = "1.9.0-1.0.13"
+        const val version = "1.9.10-1.0.13"
 
         const val PLUGIN = "com.google.devtools.ksp"
     }

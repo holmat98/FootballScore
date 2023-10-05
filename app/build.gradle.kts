@@ -18,6 +18,10 @@ android {
     namespace = DefaultConfig.NAMESPACE
     compileSdk = DefaultConfig.COMPILE_SDK
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = DefaultConfig.APPLICATION_ID
         minSdk = DefaultConfig.MIN_SDK
@@ -41,11 +45,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
