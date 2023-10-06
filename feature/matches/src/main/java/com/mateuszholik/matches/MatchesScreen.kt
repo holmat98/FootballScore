@@ -119,8 +119,6 @@ fun MatchesScreen(
             if (shouldShowDatePicker) {
                 DatePickerDialog(
                     title = stringResource(R.string.dialog_date_picker_title),
-                    positiveButtonText = stringResource(R.string.button_ok),
-                    negativeButtonText = stringResource(R.string.button_cancel),
                     onDateSelected = {
                         viewModel.updateCurrentDate(it)
                     },
