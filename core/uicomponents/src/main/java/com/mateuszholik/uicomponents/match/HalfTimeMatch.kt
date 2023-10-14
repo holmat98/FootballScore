@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,6 +20,8 @@ import com.mateuszholik.model.Team
 import com.mateuszholik.designsystem.R
 import com.mateuszholik.uicomponents.score.Score
 import com.mateuszholik.uicomponents.team.Teams
+import com.mateuszholik.uicomponents.utils.PreviewConstants.TEAM_1
+import com.mateuszholik.uicomponents.utils.PreviewConstants.TEAM_2
 
 @Composable
 fun HalfTimeMatch(
@@ -55,23 +58,13 @@ fun HalfTimeMatch(
 @Composable
 private fun HalfTimeMatchPreview() {
     FootballScoreTheme {
-        HalfTimeMatch(
-            modifier = Modifier,
-            homeTeam = Team(
-                crest = "",
-                id = 1,
-                name = "Manchester United",
-                shortName = "ManU",
-                tla = "MU"
-            ),
-            awayTeam = Team(
-                crest = "",
-                id = 2,
-                name = "Manchester City",
-                shortName = "ManCity",
-                tla = "MC"
-            ),
-            score = Score(1, 1)
-        )
+        Surface {
+            HalfTimeMatch(
+                modifier = Modifier,
+                homeTeam = TEAM_1,
+                awayTeam = TEAM_2,
+                score = Score(1, 1)
+            )
+        }
     }
 }

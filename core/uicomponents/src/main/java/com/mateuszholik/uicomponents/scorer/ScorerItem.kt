@@ -20,9 +20,10 @@ import com.mateuszholik.designsystem.theme.sizing
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Scorer
-import com.mateuszholik.uicomponents.images.RoundedImage
+import com.mateuszholik.uicomponents.images.RoundedImageWithBackground
 import com.mateuszholik.uicomponents.texts.SmallText
 import com.mateuszholik.uicomponents.texts.TextWithBackground
+import com.mateuszholik.uicomponents.texts.TextWithBackgroundColors
 import com.mateuszholik.uicomponents.utils.PreviewConstants.SCORER
 
 private val TEXT_WITH_BACKGROUND_HEIGHT = 37.5.dp
@@ -45,15 +46,18 @@ fun ScorerItem(
                 .padding(MaterialTheme.spacing.extraSmall),
             textSize = MaterialTheme.textSizing.small,
             text = "$position.",
-            backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
-            textColor = MaterialTheme.colorScheme.onSurfaceVariant
+            textWithBackgroundColors = TextWithBackgroundColors(
+                backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
+                textColor = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         )
 
-        RoundedImage(
+        RoundedImageWithBackground(
+            modifier = Modifier
+                .padding(MaterialTheme.spacing.normal)
+                .size(MaterialTheme.sizing.normal),
             imageUrl = scorer.team.crest,
             cornerRadius = MaterialTheme.cornerRadius.medium,
-            padding = MaterialTheme.spacing.extraSmall,
-            size = MaterialTheme.sizing.normal,
             onErrorImageRes = R.drawable.ic_ball
         )
 

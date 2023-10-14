@@ -2,6 +2,7 @@ package com.mateuszholik.uicomponents.images
 
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -42,12 +43,17 @@ private fun SvgImage(
     contentDescription: String?,
     @DrawableRes onErrorImageRes: Int
 ) {
-    AsyncImage(
-        modifier = modifier,
-        model = ImageRequest.Builder(LocalContext.current)
+    val context = LocalContext.current
+    val model = remember {
+        ImageRequest.Builder(context)
             .data(url)
             .decoderFactory(SvgDecoder.Factory())
-            .build(),
+            .build()
+    }
+
+    AsyncImage(
+        modifier = modifier,
+        model = model,
         contentDescription = contentDescription,
         error = painterResource(onErrorImageRes),
         contentScale = ContentScale.FillWidth

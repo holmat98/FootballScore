@@ -4,7 +4,9 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -23,6 +25,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
@@ -31,10 +35,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mateuszholik.designsystem.R
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
+import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.matchdetails.model.MatchDetails
 import com.mateuszholik.model.CompetitionType
 import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.UiState
+import com.mateuszholik.uicomponents.divider.CustomDivider
 import com.mateuszholik.uicomponents.head2head.TeamHead2HeadInfo
 import com.mateuszholik.uicomponents.headers.CompetitionHeader
 import com.mateuszholik.uicomponents.headers.MatchScoreHeader
@@ -129,7 +135,7 @@ private fun Content(
 
         items(items = data.match.referees) {
             RefereeItem(referee = it)
-            Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+            CustomDivider()
         }
 
         item {
@@ -153,7 +159,7 @@ private fun Content(
                 backgroundColor = MaterialTheme.colorScheme.surface,
                 contentColor = MaterialTheme.colorScheme.onSurface
             )
-            Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+            CustomDivider()
         }
 
         item {
@@ -166,15 +172,19 @@ private fun Content(
                 backgroundColor = MaterialTheme.colorScheme.surface,
                 contentColor = MaterialTheme.colorScheme.onSurface
             )
-            Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+            CustomDivider()
         }
 
         item {
             TeamHead2HeadInfo(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = MaterialTheme.spacing.small),
                 homeTeamCrest = data.match.homeTeam.crest,
                 awayTeamCrest = data.match.awayTeam.crest,
-                homeTeamH2hData = data.h2hData.homeTeam,
-                awayTeamH2HData = data.h2hData.awayTeam
+                wins = data.h2hData.homeTeam.wins,
+                draws = data.h2hData.homeTeam.draws,
+                losses = data.h2hData.homeTeam.losses,
             )
         }
 
@@ -186,7 +196,7 @@ private fun Content(
                 matchInfo = matchInfo
             )
             if (index < data.h2hData.matches.lastIndex) {
-                Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+                CustomDivider()
             }
         }
     }

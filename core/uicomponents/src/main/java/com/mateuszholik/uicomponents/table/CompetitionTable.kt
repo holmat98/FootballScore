@@ -34,6 +34,7 @@ import com.mateuszholik.model.TeamForm
 import com.mateuszholik.uicomponents.team.HorizontalTeamItem
 import com.mateuszholik.uicomponents.texts.SmallText
 import com.mateuszholik.uicomponents.texts.TextWithBackground
+import com.mateuszholik.uicomponents.texts.TextWithBackgroundColors
 import com.mateuszholik.uicomponents.utils.PreviewConstants.TABLE
 
 private val COLUMN_ITEM_HEIGHT = 45.dp
@@ -135,8 +136,10 @@ private fun PositionsColumn(tableStandings: List<TablePosition>) {
                         .padding(MaterialTheme.spacing.extraSmall),
                     textSize = MaterialTheme.textSizing.small,
                     text = "${tableStanding.position}.",
-                    backgroundColor = tableStanding.position.toBackgroundColor(isLast),
-                    textColor = tableStanding.position.toContentColor(isLast)
+                    textWithBackgroundColors = TextWithBackgroundColors(
+                        backgroundColor = tableStanding.position.toBackgroundColor(isLast),
+                        textColor = tableStanding.position.toContentColor(isLast)
+                    )
                 )
             }
         }
@@ -213,8 +216,10 @@ private fun TeamFormColumn(tableStandings: List<TablePosition>) {
                             .padding(MaterialTheme.spacing.extraSmall),
                         textSize = MaterialTheme.textSizing.small,
                         text = it.type,
-                        backgroundColor = it.toBackgroundColor,
-                        textColor = it.toContentColor
+                        textWithBackgroundColors = TextWithBackgroundColors(
+                            backgroundColor = it.toBackgroundColor,
+                            textColor = it.toContentColor
+                        )
                     )
                 }
             }
