@@ -50,7 +50,7 @@ private fun Content(
     doOnInstallationSucceeded: () -> Unit,
     modifier: Modifier,
 ) {
-    val text = installationState.toText
+    val text = installationState.toText()
 
     when (installationState) {
         is InstallationState.AlreadyInstalled -> {
@@ -59,10 +59,10 @@ private fun Content(
             }
         }
         is InstallationState.Downloading -> DownloadingContent(
-                modifier = modifier,
-                downloadedData = installationState.downloadedData,
-                totalDataToDownload = installationState.totalDataToDownload
-            )
+            modifier = modifier,
+            downloadedData = installationState.downloadedData,
+            totalDataToDownload = installationState.totalDataToDownload
+        )
         is InstallationState.Canceled,
         is InstallationState.Canceling,
         is InstallationState.Failed -> ErrorContent(
@@ -88,10 +88,10 @@ private fun Content(
     }
 }
 
-private val InstallationState.toText
-    @Composable
-    @ReadOnlyComposable
-    get() = stringResource(
+@Composable
+@ReadOnlyComposable
+private fun InstallationState.toText(): String {
+    return stringResource(
         when (this) {
             is InstallationState.Canceled -> R.string.module_installation_description_canceled
             is InstallationState.Canceling -> R.string.module_installation_description_canceling
@@ -103,6 +103,7 @@ private val InstallationState.toText
             else -> R.string.module_installation_description
         }
     )
+}
 
 @Composable
 private fun ErrorContent(
