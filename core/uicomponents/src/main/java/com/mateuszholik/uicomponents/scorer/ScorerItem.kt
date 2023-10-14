@@ -26,8 +26,6 @@ import com.mateuszholik.uicomponents.texts.TextWithBackground
 import com.mateuszholik.uicomponents.texts.TextWithBackgroundColors
 import com.mateuszholik.uicomponents.utils.PreviewConstants.SCORER
 
-private val TEXT_WITH_BACKGROUND_HEIGHT = 37.5.dp
-
 @Composable
 fun ScorerItem(
     position: Int,
@@ -42,7 +40,7 @@ fun ScorerItem(
     ) {
         TextWithBackground(
             modifier = Modifier
-                .size(TEXT_WITH_BACKGROUND_HEIGHT)
+                .size(37.5.dp)
                 .padding(MaterialTheme.spacing.extraSmall),
             textSize = MaterialTheme.textSizing.small,
             text = "$position.",
@@ -55,7 +53,7 @@ fun ScorerItem(
         RoundedImageWithBackground(
             modifier = Modifier
                 .padding(MaterialTheme.spacing.normal)
-                .size(MaterialTheme.sizing.normal),
+                .size(MaterialTheme.sizing.medium),
             imageUrl = scorer.team.crest,
             cornerRadius = MaterialTheme.cornerRadius.medium,
             onErrorImageRes = R.drawable.ic_ball
