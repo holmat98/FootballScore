@@ -6,19 +6,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,10 +28,10 @@ import com.mateuszholik.uicomponents.headers.SmallTextHeader
 import com.mateuszholik.uicomponents.info.ErrorInfo
 import com.mateuszholik.uicomponents.loading.Loading
 import com.mateuszholik.uicomponents.match.MatchItem
+import com.mateuszholik.uicomponents.scaffold.CustomScaffold
 import com.mateuszholik.uicomponents.utils.PreviewConstants
 import java.time.LocalDate
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WatchedMatchesScreen(
     onCompetitionClicked: (competitionId: Int) -> Unit,
@@ -46,46 +39,28 @@ fun WatchedMatchesScreen(
     modifier: Modifier = Modifier,
     viewModel: WatchedMatchesViewModel = hiltViewModel(),
 ) {
-    val topAppBarState = rememberTopAppBarState()
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(topAppBarState)
-
     val watchedMatchesUiState by viewModel.watchedMatchesUiState.collectAsStateWithLifecycle()
 
-    Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = stringResource(R.string.watched_matches_title))
-                },
-                colors = topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    scrolledContainerColor = MaterialTheme.colorScheme.onSurface,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
-                    titleContentColor = MaterialTheme.colorScheme.onSurface,
-                    actionIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+    CustomScaffold(
+        modifier = modifier,
+        title = { Text(text = stringResource(R.string.watched_matches_title)) },
+    ) { paddingValues ->
+        when (watchedMatchesUiState) {
+            is UiState.Loading -> Loading()
+            is UiState.Success -> Content(
+                modifier = Modifier.padding(
+                    top = paddingValues.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding()
                 ),
-                scrollBehavior = scrollBehavior
+                data = (watchedMatchesUiState as UiState.Success<WatchedMatchesMap>).data,
+                onMatchClicked = onMatchClicked,
+                onCompetitionClicked = onCompetitionClicked,
+                onFavoriteButtonClicked = { matchId -> viewModel.removeWatchedMatch(matchId) }
             )
-        },
-        content = { paddingValues ->
-            when (watchedMatchesUiState) {
-                is UiState.Loading -> Loading()
-                is UiState.Success -> Content(
-                    modifier = Modifier.padding(
-                        top = paddingValues.calculateTopPadding(),
-                        bottom = paddingValues.calculateBottomPadding()
-                    ),
-                    data = (watchedMatchesUiState as UiState.Success<WatchedMatchesMap>).data,
-                    onMatchClicked = onMatchClicked,
-                    onCompetitionClicked = onCompetitionClicked,
-                    onFavoriteButtonClicked = { matchId -> viewModel.removeWatchedMatch(matchId) }
-                )
-                is UiState.Error ->
-                    ErrorInfo((watchedMatchesUiState as UiState.Error<WatchedMatchesMap>).errorType)
-            }
+            is UiState.Error ->
+                ErrorInfo((watchedMatchesUiState as UiState.Error<WatchedMatchesMap>).errorType)
         }
-    )
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)

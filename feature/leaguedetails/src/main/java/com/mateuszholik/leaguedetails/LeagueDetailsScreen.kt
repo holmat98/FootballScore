@@ -9,15 +9,11 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -39,12 +35,12 @@ import com.mateuszholik.uicomponents.buttons.SelectableButton
 import com.mateuszholik.uicomponents.headers.CompetitionHeader
 import com.mateuszholik.uicomponents.info.ErrorInfo
 import com.mateuszholik.uicomponents.loading.Loading
+import com.mateuszholik.uicomponents.scaffold.CustomScaffold
 import com.mateuszholik.uicomponents.utils.PreviewConstants.AREA
 import com.mateuszholik.uicomponents.utils.PreviewConstants.COMPETITION_STANDINGS_DETAILS
 import com.mateuszholik.uicomponents.utils.PreviewConstants.SCORER
 import com.mateuszholik.uicomponents.utils.PreviewConstants.SEASON
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LeagueDetailsScreen(
     modifier: Modifier,
@@ -54,46 +50,35 @@ fun LeagueDetailsScreen(
     val combinedCompetitionDetailsUiState by viewModel.combinedCompetitionDetails.collectAsStateWithLifecycle()
     var topAppBarText by remember { mutableStateOf("") }
 
-    Scaffold(
+    CustomScaffold(
         modifier = modifier,
-        topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = onBackPressed) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "")
-                    }
-                },
-                title = { Text(text = topAppBarText) },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    scrolledContainerColor = MaterialTheme.colorScheme.onSurface,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
-                    titleContentColor = MaterialTheme.colorScheme.onSurface,
-                    actionIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                ),
-            )
-        },
-        content = {
-            when (combinedCompetitionDetailsUiState) {
-                is UiState.Error ->
-                    ErrorInfo(
-                        (combinedCompetitionDetailsUiState as UiState.Error<CombinedCompetitionDetails>).errorType
-                    )
-                is UiState.Loading -> Loading()
-                is UiState.Success -> {
-                    val combinedCompetitionDetails =
-                        (combinedCompetitionDetailsUiState as UiState.Success<CombinedCompetitionDetails>).data
-                    LaunchedEffect(Unit) {
-                        topAppBarText = combinedCompetitionDetails.name
-                    }
-                    Content(
-                        paddingValues = it,
-                        combinedCompetitionDetails = combinedCompetitionDetails
-                    )
-                }
+        title = { Text(text = topAppBarText) },
+        navigationIcon = {
+            IconButton(onClick = onBackPressed) {
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "")
             }
         }
-    )
+    ) {
+        when (combinedCompetitionDetailsUiState) {
+            is UiState.Error ->
+                ErrorInfo(
+                    (combinedCompetitionDetailsUiState as UiState.Error<CombinedCompetitionDetails>).errorType
+                )
+
+            is UiState.Loading -> Loading()
+            is UiState.Success -> {
+                val combinedCompetitionDetails =
+                    (combinedCompetitionDetailsUiState as UiState.Success<CombinedCompetitionDetails>).data
+                LaunchedEffect(Unit) {
+                    topAppBarText = combinedCompetitionDetails.name
+                }
+                Content(
+                    paddingValues = it,
+                    combinedCompetitionDetails = combinedCompetitionDetails
+                )
+            }
+        }
+    }
 }
 
 @Composable

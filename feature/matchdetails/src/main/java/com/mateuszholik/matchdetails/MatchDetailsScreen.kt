@@ -6,27 +6,19 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
@@ -51,9 +43,9 @@ import com.mateuszholik.uicomponents.info.ErrorInfo
 import com.mateuszholik.uicomponents.loading.Loading
 import com.mateuszholik.uicomponents.match.H2HMatch
 import com.mateuszholik.uicomponents.referee.RefereeItem
+import com.mateuszholik.uicomponents.scaffold.CustomScaffold
 import com.mateuszholik.uicomponents.utils.PreviewConstants
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MatchDetailsScreen(
     onBackPressed: () -> Unit,
@@ -63,41 +55,30 @@ fun MatchDetailsScreen(
 ) {
     val matchDetails by viewModel.matchDetails.collectAsStateWithLifecycle()
 
-    Scaffold(
+    CustomScaffold(
         modifier = modifier,
-        topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = onBackPressed) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "")
-                    }
-                },
-                title = { Text(text = stringResource(R.string.app_name)) },
-                colors = topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    scrolledContainerColor = MaterialTheme.colorScheme.onSurface,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
-                    titleContentColor = MaterialTheme.colorScheme.onSurface,
-                    actionIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                ),
-            )
-        },
-        content = { paddingValues ->
-            when (matchDetails) {
-                is UiState.Loading -> Loading()
-                is UiState.Success -> Content(
-                    modifier = Modifier.padding(
-                        top = paddingValues.calculateTopPadding(),
-                        bottom = paddingValues.calculateBottomPadding()
-                    ),
-                    data = (matchDetails as UiState.Success<MatchDetails>).data,
-                    onH2HMatchClicked = onH2HMatchClicked
-                )
-                is UiState.Error ->
-                    ErrorInfo((matchDetails as UiState.Error<MatchDetails>).errorType)
+        title = { Text(text = stringResource(R.string.app_name)) },
+        navigationIcon = {
+            IconButton(onClick = onBackPressed) {
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "")
             }
         }
-    )
+    ) { paddingValues ->
+        when (matchDetails) {
+            is UiState.Loading -> Loading()
+            is UiState.Success -> Content(
+                modifier = Modifier.padding(
+                    top = paddingValues.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding()
+                ),
+                data = (matchDetails as UiState.Success<MatchDetails>).data,
+                onH2HMatchClicked = onH2HMatchClicked
+            )
+            is UiState.Error ->
+                ErrorInfo((matchDetails as UiState.Error<MatchDetails>).errorType)
+        }
+
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
