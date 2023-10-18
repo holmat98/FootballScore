@@ -63,3 +63,15 @@ private fun Preview() {
         )
     }
 }
+
+@Preview
+@Composable
+private fun PreviewNotSelected() {
+    FootballScoreTheme {
+        SelectableButton(
+            text = "Not selected",
+            isSelected = false,
+            onClick = {}
+        )
+    }
+}

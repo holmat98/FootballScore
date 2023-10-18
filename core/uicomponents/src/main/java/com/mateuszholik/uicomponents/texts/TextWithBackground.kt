@@ -24,26 +24,40 @@ import com.mateuszholik.designsystem.theme.textSizing
 fun TextWithBackground(
     text: String,
     modifier: Modifier = Modifier,
+    textWithBackgroundColors: TextWithBackgroundColors = TextWithBackgroundDefaults.defaultColors(),
     textSize: TextUnit = MaterialTheme.textSizing.extraSmall,
-    textColor: Color = MaterialTheme.colorScheme.primaryContainer,
-    backgroundColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
     textPadding: Dp = MaterialTheme.spacing.extraSmall,
     shape: Shape = CircleShape,
 ) {
     Box(
         modifier = modifier
             .clip(shape)
-            .background(backgroundColor),
+            .background(textWithBackgroundColors.backgroundColor),
         contentAlignment = Alignment.Center,
     ) {
         Text(
             modifier = Modifier.padding(textPadding),
             text = text,
-            color = textColor,
+            color = textWithBackgroundColors.textColor,
             fontSize = textSize,
             textAlign = TextAlign.Center
         )
     }
+}
+
+data class TextWithBackgroundColors(
+    val backgroundColor: Color,
+    val textColor: Color,
+)
+
+object TextWithBackgroundDefaults {
+
+    @Composable
+    fun defaultColors(): TextWithBackgroundColors =
+        TextWithBackgroundColors(
+            backgroundColor = MaterialTheme.colorScheme.primaryContainer,
+            textColor = MaterialTheme.colorScheme.onPrimaryContainer
+        )
 }
 
 @Preview

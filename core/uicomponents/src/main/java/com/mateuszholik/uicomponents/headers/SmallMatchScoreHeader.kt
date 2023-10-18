@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,7 +20,7 @@ import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.model.CompetitionType
 import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.uicomponents.extensions.backgroundColorForCompetition
-import com.mateuszholik.uicomponents.images.RoundedImage
+import com.mateuszholik.uicomponents.images.RoundedImageWithBackground
 import com.mateuszholik.uicomponents.score.DetailedScore
 import com.mateuszholik.uicomponents.utils.PreviewConstants
 
@@ -36,10 +37,11 @@ fun SmallMatchScoreHeader(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        RoundedImage(
+        RoundedImageWithBackground(
+            modifier = Modifier
+                .size(MaterialTheme.sizing.medium)
+                .padding(MaterialTheme.spacing.none),
             imageUrl = matchInfo.homeTeam.crest,
-            size = MaterialTheme.sizing.medium,
-            padding = MaterialTheme.spacing.none,
             innerPadding = MaterialTheme.spacing.extraSmall,
             cornerRadius = MaterialTheme.cornerRadius.normal,
             onErrorImageRes = R.drawable.ic_ball
@@ -53,10 +55,11 @@ fun SmallMatchScoreHeader(
             status = matchInfo.status,
             shouldShowDuration = false
         )
-        RoundedImage(
+        RoundedImageWithBackground(
+            modifier = Modifier
+                .size(MaterialTheme.sizing.medium)
+                .padding(MaterialTheme.spacing.none),
             imageUrl = matchInfo.awayTeam.crest,
-            size = MaterialTheme.sizing.medium,
-            padding = MaterialTheme.spacing.none,
             innerPadding = MaterialTheme.spacing.extraSmall,
             cornerRadius = MaterialTheme.cornerRadius.normal,
             onErrorImageRes = R.drawable.ic_ball

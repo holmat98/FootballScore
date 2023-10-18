@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +24,7 @@ import com.mateuszholik.model.CompetitionType
 import com.mateuszholik.designsystem.R
 import com.mateuszholik.uicomponents.extensions.backgroundColorForCompetition
 import com.mateuszholik.uicomponents.extensions.textColorForCompetition
-import com.mateuszholik.uicomponents.images.RoundedImage
+import com.mateuszholik.uicomponents.images.RoundedImageWithBackground
 
 @Composable
 fun CompetitionHeader(
@@ -57,11 +58,12 @@ fun CompetitionHeader(
             .background(competitionType.backgroundColorForCompetition),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        RoundedImage(
+        RoundedImageWithBackground(
+            modifier = Modifier
+                .size(MaterialTheme.sizing.normal)
+                .padding(MaterialTheme.spacing.small),
             imageUrl = emblem,
             cornerRadius = MaterialTheme.cornerRadius.medium,
-            padding = MaterialTheme.spacing.small,
-            size = MaterialTheme.sizing.normal,
             onErrorImageRes = R.drawable.ic_ball
         )
         Column {
@@ -73,12 +75,13 @@ fun CompetitionHeader(
                 fontWeight = FontWeight.Bold
             )
             Row {
-                RoundedImage(
+                RoundedImageWithBackground(
+                    modifier = Modifier
+                        .size(MaterialTheme.sizing.extraSmall)
+                        .padding(MaterialTheme.spacing.tiny),
                     imageUrl = countryFlag,
-                    padding = MaterialTheme.spacing.tiny,
                     innerPadding = MaterialTheme.spacing.none,
                     cornerRadius = MaterialTheme.cornerRadius.none,
-                    size = MaterialTheme.sizing.extraSmall,
                     backgroundColor = Color.Transparent,
                     onErrorImageRes = R.drawable.ic_ball
                 )

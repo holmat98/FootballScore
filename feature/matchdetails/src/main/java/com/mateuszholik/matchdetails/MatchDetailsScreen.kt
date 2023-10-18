@@ -4,6 +4,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,16 +12,11 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -31,10 +27,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mateuszholik.designsystem.R
 import com.mateuszholik.designsystem.theme.FootballScoreTheme
+import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.matchdetails.model.MatchDetails
 import com.mateuszholik.model.CompetitionType
 import com.mateuszholik.model.MatchInfo
 import com.mateuszholik.model.UiState
+import com.mateuszholik.uicomponents.divider.CustomDivider
 import com.mateuszholik.uicomponents.head2head.TeamHead2HeadInfo
 import com.mateuszholik.uicomponents.headers.CompetitionHeader
 import com.mateuszholik.uicomponents.headers.MatchScoreHeader
@@ -45,9 +43,9 @@ import com.mateuszholik.uicomponents.info.ErrorInfo
 import com.mateuszholik.uicomponents.loading.Loading
 import com.mateuszholik.uicomponents.match.H2HMatch
 import com.mateuszholik.uicomponents.referee.RefereeItem
+import com.mateuszholik.uicomponents.scaffold.CustomScaffold
 import com.mateuszholik.uicomponents.utils.PreviewConstants
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MatchDetailsScreen(
     onBackPressed: () -> Unit,
@@ -57,41 +55,30 @@ fun MatchDetailsScreen(
 ) {
     val matchDetails by viewModel.matchDetails.collectAsStateWithLifecycle()
 
-    Scaffold(
+    CustomScaffold(
         modifier = modifier,
-        topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = onBackPressed) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "")
-                    }
-                },
-                title = { Text(text = stringResource(R.string.app_name)) },
-                colors = topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    scrolledContainerColor = MaterialTheme.colorScheme.onSurface,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
-                    titleContentColor = MaterialTheme.colorScheme.onSurface,
-                    actionIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                ),
-            )
-        },
-        content = { paddingValues ->
-            when (matchDetails) {
-                is UiState.Loading -> Loading()
-                is UiState.Success -> Content(
-                    modifier = Modifier.padding(
-                        top = paddingValues.calculateTopPadding(),
-                        bottom = paddingValues.calculateBottomPadding()
-                    ),
-                    data = (matchDetails as UiState.Success<MatchDetails>).data,
-                    onH2HMatchClicked = onH2HMatchClicked
-                )
-                is UiState.Error ->
-                    ErrorInfo((matchDetails as UiState.Error<MatchDetails>).errorType)
+        title = { Text(text = stringResource(R.string.app_name)) },
+        navigationIcon = {
+            IconButton(onClick = onBackPressed) {
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "")
             }
         }
-    )
+    ) { paddingValues ->
+        when (matchDetails) {
+            is UiState.Loading -> Loading()
+            is UiState.Success -> Content(
+                modifier = Modifier.padding(
+                    top = paddingValues.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding()
+                ),
+                data = (matchDetails as UiState.Success<MatchDetails>).data,
+                onH2HMatchClicked = onH2HMatchClicked
+            )
+            is UiState.Error ->
+                ErrorInfo((matchDetails as UiState.Error<MatchDetails>).errorType)
+        }
+
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -129,7 +116,7 @@ private fun Content(
 
         items(items = data.match.referees) {
             RefereeItem(referee = it)
-            Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+            CustomDivider()
         }
 
         item {
@@ -153,7 +140,7 @@ private fun Content(
                 backgroundColor = MaterialTheme.colorScheme.surface,
                 contentColor = MaterialTheme.colorScheme.onSurface
             )
-            Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+            CustomDivider()
         }
 
         item {
@@ -166,15 +153,19 @@ private fun Content(
                 backgroundColor = MaterialTheme.colorScheme.surface,
                 contentColor = MaterialTheme.colorScheme.onSurface
             )
-            Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+            CustomDivider()
         }
 
         item {
             TeamHead2HeadInfo(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = MaterialTheme.spacing.small),
                 homeTeamCrest = data.match.homeTeam.crest,
                 awayTeamCrest = data.match.awayTeam.crest,
-                homeTeamH2hData = data.h2hData.homeTeam,
-                awayTeamH2HData = data.h2hData.awayTeam
+                wins = data.h2hData.homeTeam.wins,
+                draws = data.h2hData.homeTeam.draws,
+                losses = data.h2hData.homeTeam.losses,
             )
         }
 
@@ -186,7 +177,7 @@ private fun Content(
                 matchInfo = matchInfo
             )
             if (index < data.h2hData.matches.lastIndex) {
-                Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+                CustomDivider()
             }
         }
     }

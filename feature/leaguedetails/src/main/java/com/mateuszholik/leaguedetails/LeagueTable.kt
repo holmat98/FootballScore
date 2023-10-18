@@ -1,6 +1,5 @@
 package com.mateuszholik.leaguedetails
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyListScope
@@ -37,9 +36,9 @@ internal fun LazyListScope.leagueTable(
                 val isCurrentTable = currentTable == index
                 SelectableButton(
                     text = if (table.group != Group.N_A) {
-                        stringResource(R.string.competition_table_group,table.group.toText)
+                        stringResource(R.string.competition_table_group, table.group.toText())
                     } else {
-                        "${stringResource(table.stage.toStringResId)} - ${stringResource(table.type.toStringResId)}"
+                        "${stringResource(table.stage.toStringResId())} - ${stringResource(table.type.toStringResId())}"
                     },
                     isSelected = isCurrentTable,
                     onClick = { onTableTypeClicked(index) }
@@ -56,8 +55,8 @@ internal fun LazyListScope.leagueTable(
     }
 }
 
-private val Group.toText: String
-    get() = when (this) {
+private fun Group.toText(): String =
+    when (this) {
         Group.N_A -> "N/A"
         Group.GROUP_A -> "A"
         Group.GROUP_B -> "B"
@@ -69,8 +68,8 @@ private val Group.toText: String
         Group.GROUP_H -> "H"
     }
 
-private val Stage.toStringResId: Int
-    get() = when (this) {
+private fun Stage.toStringResId(): Int =
+    when (this) {
         Stage.REGULAR_SEASON -> R.string.competition_table_stage_regular_season
         Stage.APERTURA -> R.string.competition_table_stage_apertura
         Stage.CHAMPIONSHIP -> R.string.competition_table_stage_championship
@@ -99,8 +98,8 @@ private val Stage.toStringResId: Int
         Stage.THIRD_PLACE -> R.string.competition_table_stage_third_place
     }
 
-private val CompetitionTableType.toStringResId: Int
-    get() = when (this) {
+private fun CompetitionTableType.toStringResId(): Int =
+    when (this) {
         CompetitionTableType.TOTAL -> R.string.competition_table_type_total
         CompetitionTableType.HOME -> R.string.competition_table_type_home
         CompetitionTableType.AWAY -> R.string.competition_table_type_away

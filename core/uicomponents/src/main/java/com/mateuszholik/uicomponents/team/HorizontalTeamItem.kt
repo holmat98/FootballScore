@@ -31,14 +31,9 @@ internal fun HorizontalTeamItem(
     textColor: Color = MaterialTheme.colorScheme.onSurface,
     imageSize: Dp = MaterialTheme.sizing.small,
     textSize: TextUnit = MaterialTheme.textSizing.small,
-    paddingValues: PaddingValues = PaddingValues(
-        top = MaterialTheme.spacing.tiny,
-        bottom = MaterialTheme.spacing.tiny,
-        start = MaterialTheme.spacing.small
-    ),
 ) {
     Row(
-        modifier = modifier.padding(paddingValues),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
@@ -63,6 +58,13 @@ private fun Preview() {
     FootballScoreTheme {
         Surface(color = MaterialTheme.colorScheme.surface) {
             HorizontalTeamItem(
+                modifier = Modifier.padding(
+                    PaddingValues(
+                        top = MaterialTheme.spacing.tiny,
+                        bottom = MaterialTheme.spacing.tiny,
+                        start = MaterialTheme.spacing.small
+                    )
+                ),
                 team = PreviewConstants.TEAM_1
             )
         }

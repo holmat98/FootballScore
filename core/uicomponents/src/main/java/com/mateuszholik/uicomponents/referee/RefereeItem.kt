@@ -40,7 +40,7 @@ fun RefereeItem(
             colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onSurface)
         )
         Text(
-            text = "${referee.type.toText} - ${referee.name}",
+            text = "${referee.type.toText()} - ${referee.name}",
             color = MaterialTheme.colorScheme.onSurface,
             fontSize = MaterialTheme.textSizing.small,
             fontWeight = FontWeight.Bold
@@ -48,17 +48,20 @@ fun RefereeItem(
     }
 }
 
-private val RefereeType.toText: String
-    @Composable
-    @ReadOnlyComposable
-    get() = when (this) {
-        RefereeType.REFEREE -> stringResource(R.string.referee_main)
-        RefereeType.ASSISTANT_REFEREE_N1,
-        RefereeType.ASSISTANT_REFEREE_N2 -> stringResource(R.string.referee_assistant)
-        RefereeType.FOURTH_OFFICIAL -> stringResource(R.string.referee_technical)
-        RefereeType.VIDEO_ASSISTANT_REFEREE_N1,
-        RefereeType.VIDEO_ASSISTANT_REFEREE_N2 -> stringResource(R.string.referee_var)
-    }
+@Composable
+@ReadOnlyComposable
+private fun RefereeType.toText(): String {
+    return stringResource(
+        when (this) {
+            RefereeType.REFEREE -> R.string.referee_main
+            RefereeType.ASSISTANT_REFEREE_N1,
+            RefereeType.ASSISTANT_REFEREE_N2 -> R.string.referee_assistant
+            RefereeType.FOURTH_OFFICIAL -> R.string.referee_technical
+            RefereeType.VIDEO_ASSISTANT_REFEREE_N1,
+            RefereeType.VIDEO_ASSISTANT_REFEREE_N2 -> R.string.referee_var
+        }
+    )
+}
 
 @Preview
 @Composable

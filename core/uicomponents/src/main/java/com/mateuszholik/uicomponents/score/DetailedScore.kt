@@ -59,7 +59,7 @@ internal fun DetailedScore(
                 )
                 if (shouldShowDuration) {
                     Text(
-                        text = matchScore.duration.toText,
+                        text = matchScore.duration.toText(),
                         color = MaterialTheme.colorScheme.error,
                         fontSize = MaterialTheme.textSizing.small
                     )

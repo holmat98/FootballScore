@@ -1,6 +1,8 @@
 package com.mateuszholik.uicomponents.team
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,7 +17,7 @@ import com.mateuszholik.designsystem.theme.sizing
 import com.mateuszholik.designsystem.theme.spacing
 import com.mateuszholik.designsystem.theme.textSizing
 import com.mateuszholik.model.Team
-import com.mateuszholik.uicomponents.images.RoundedImage
+import com.mateuszholik.uicomponents.images.RoundedImageWithBackground
 import com.mateuszholik.uicomponents.utils.PreviewConstants
 
 @Composable
@@ -28,11 +30,12 @@ internal fun VerticalTeamInfo(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        RoundedImage(
+        RoundedImageWithBackground(
+            modifier = Modifier
+                .size(MaterialTheme.sizing.large)
+                .padding(MaterialTheme.spacing.none),
             imageUrl = team.crest,
             onErrorImageRes = R.drawable.ic_ball,
-            size = MaterialTheme.sizing.large,
-            padding = MaterialTheme.spacing.none,
             innerPadding = MaterialTheme.spacing.small,
             cornerRadius = MaterialTheme.cornerRadius.large
         )

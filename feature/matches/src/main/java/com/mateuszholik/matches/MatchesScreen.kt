@@ -7,16 +7,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
@@ -43,10 +36,10 @@ import com.mateuszholik.uicomponents.headers.CompetitionHeader
 import com.mateuszholik.uicomponents.info.ErrorInfo
 import com.mateuszholik.uicomponents.loading.Loading
 import com.mateuszholik.uicomponents.match.MatchItem
+import com.mateuszholik.uicomponents.scaffold.CustomScaffold
 import com.mateuszholik.uicomponents.utils.PreviewConstants
 import java.time.LocalDate
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MatchesScreen(
     onCompetitionClicked: (competitionId: Int) -> Unit,
@@ -54,8 +47,6 @@ fun MatchesScreen(
     modifier: Modifier = Modifier,
     viewModel: MatchesViewModel = hiltViewModel(),
 ) {
-    val topAppBarState = rememberTopAppBarState()
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(topAppBarState)
 
     var shouldShowDatePicker by remember { mutableStateOf(false) }
     val days = remember { viewModel.days }
@@ -63,74 +54,58 @@ fun MatchesScreen(
     val matchesUiState by viewModel.matches.collectAsStateWithLifecycle()
     val watchedMatchesIds by viewModel.watchedMatches.collectAsStateWithLifecycle()
 
-    Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = stringResource(R.string.app_name))
-                },
-                actions = {
-                    IconButton(onClick = { shouldShowDatePicker = true }) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_calendar),
-                            contentDescription = "",
-                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
-                        )
-                    }
-                },
-                colors = topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    scrolledContainerColor = MaterialTheme.colorScheme.onSurface,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
-                    titleContentColor = MaterialTheme.colorScheme.onSurface,
-                    actionIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                ),
-                scrollBehavior = scrollBehavior
-            )
-        },
-        content = { paddingValues ->
-            when (matchesUiState) {
-                is UiState.Loading -> Loading()
-                is UiState.Success -> Content(
-                    modifier = Modifier.padding(
-                        top = paddingValues.calculateTopPadding(),
-                        bottom = paddingValues.calculateBottomPadding()
-                    ),
-                    days = days,
-                    selectedDay = currentDay,
-                    data = (matchesUiState as UiState.Success<Map<Competition, List<MatchInfo>>>).data,
-                    watchedMatchesIds = watchedMatchesIds,
-                    onDaySelected = { viewModel.updateCurrentDate(it) },
-                    onMatchClicked = onMatchClicked,
-                    onCompetitionClicked = onCompetitionClicked,
-                    onFavoriteButtonClicked = { isChecked, matchId ->
-                        if (isChecked) {
-                            viewModel.addToWatchedMatches(matchId)
-                        } else {
-                            viewModel.deleteFromWatchedMatches(matchId)
-                        }
-                    }
-                )
-                is UiState.Error ->
-                    ErrorInfo((matchesUiState as UiState.Error<Map<Competition, List<MatchInfo>>>).errorType)
-            }
-
-            if (shouldShowDatePicker) {
-                DatePickerDialog(
-                    title = stringResource(R.string.dialog_date_picker_title),
-                    positiveButtonText = stringResource(R.string.button_ok),
-                    negativeButtonText = stringResource(R.string.button_cancel),
-                    onDateSelected = {
-                        viewModel.updateCurrentDate(it)
-                    },
-                    onDismissRequest = {
-                        shouldShowDatePicker = false
-                    }
+    CustomScaffold(
+        modifier = modifier,
+        title = { Text(text = stringResource(R.string.app_name)) },
+        actions = {
+            IconButton(onClick = { shouldShowDatePicker = true }) {
+                Image(
+                    painter = painterResource(R.drawable.ic_calendar),
+                    contentDescription = "",
+                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
                 )
             }
         }
-    )
+    ) { paddingValues ->
+        when (matchesUiState) {
+            is UiState.Loading -> Loading()
+            is UiState.Success -> Content(
+                modifier = Modifier.padding(
+                    top = paddingValues.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding()
+                ),
+                days = days,
+                selectedDay = currentDay,
+                data = (matchesUiState as UiState.Success<Map<Competition, List<MatchInfo>>>).data,
+                watchedMatchesIds = watchedMatchesIds,
+                onDaySelected = { viewModel.updateCurrentDate(it) },
+                onMatchClicked = onMatchClicked,
+                onCompetitionClicked = onCompetitionClicked,
+                onFavoriteButtonClicked = { isChecked, matchId ->
+                    if (isChecked) {
+                        viewModel.addToWatchedMatches(matchId)
+                    } else {
+                        viewModel.deleteFromWatchedMatches(matchId)
+                    }
+                }
+            )
+
+            is UiState.Error ->
+                ErrorInfo((matchesUiState as UiState.Error<Map<Competition, List<MatchInfo>>>).errorType)
+        }
+
+        if (shouldShowDatePicker) {
+            DatePickerDialog(
+                title = stringResource(R.string.dialog_date_picker_title),
+                onDateSelected = {
+                    viewModel.updateCurrentDate(it)
+                },
+                onDismissRequest = {
+                    shouldShowDatePicker = false
+                }
+            )
+        }
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)

@@ -34,10 +34,11 @@ import com.mateuszholik.model.TeamForm
 import com.mateuszholik.uicomponents.team.HorizontalTeamItem
 import com.mateuszholik.uicomponents.texts.SmallText
 import com.mateuszholik.uicomponents.texts.TextWithBackground
+import com.mateuszholik.uicomponents.texts.TextWithBackgroundColors
 import com.mateuszholik.uicomponents.utils.PreviewConstants.TABLE
 
-private val COLUMN_ITEM_HEIGHT = 45.dp
-private val TEXT_WITH_BACKGROUND_HEIGHT = 37.5.dp
+private const val COLUMN_ITEM_HEIGHT = 45
+private const val TEXT_WITH_BACKGROUND_HEIGHT = 37.5
 
 @Composable
 fun CompetitionTable(
@@ -126,17 +127,19 @@ private fun PositionsColumn(tableStandings: List<TablePosition>) {
         tableStandings.forEachIndexed { index, tableStanding ->
             val isLast = tableStandings.lastIndex == index
             Box(
-                modifier = Modifier.height(COLUMN_ITEM_HEIGHT),
+                modifier = Modifier.height(COLUMN_ITEM_HEIGHT.dp),
                 contentAlignment = Alignment.Center
             ) {
                 TextWithBackground(
                     modifier = Modifier
-                        .size(TEXT_WITH_BACKGROUND_HEIGHT)
+                        .size(TEXT_WITH_BACKGROUND_HEIGHT.dp)
                         .padding(MaterialTheme.spacing.extraSmall),
                     textSize = MaterialTheme.textSizing.small,
                     text = "${tableStanding.position}.",
-                    backgroundColor = tableStanding.position.toBackgroundColor(isLast),
-                    textColor = tableStanding.position.toContentColor(isLast)
+                    textWithBackgroundColors = TextWithBackgroundColors(
+                        backgroundColor = tableStanding.position.toBackgroundColor(isLast),
+                        textColor = tableStanding.position.toContentColor(isLast)
+                    )
                 )
             }
         }
@@ -153,14 +156,14 @@ private fun TeamsColumn(
 
         tableStandings.forEach {
             Row(
-                modifier = Modifier.height(COLUMN_ITEM_HEIGHT),
+                modifier = Modifier.height(COLUMN_ITEM_HEIGHT.dp),
                 verticalAlignment = CenterVertically
             ) {
                 HorizontalTeamItem(
+                    modifier = Modifier.padding(MaterialTheme.spacing.extraSmall),
                     team = it.team,
                     imageSize = MaterialTheme.sizing.small,
                     textColor = contentColor,
-                    paddingValues = PaddingValues(MaterialTheme.spacing.extraSmall)
                 )
             }
         }
@@ -181,7 +184,7 @@ private fun <T> TextColumn(
 
         tableStandings.forEach {
             Box(
-                modifier = Modifier.height(COLUMN_ITEM_HEIGHT),
+                modifier = Modifier.height(COLUMN_ITEM_HEIGHT.dp),
                 contentAlignment = Alignment.Center
             ) {
                 SmallText(
@@ -203,18 +206,20 @@ private fun TeamFormColumn(tableStandings: List<TablePosition>) {
 
         tableStandings.forEach { standing ->
             Row(
-                modifier = Modifier.height(COLUMN_ITEM_HEIGHT),
+                modifier = Modifier.height(COLUMN_ITEM_HEIGHT.dp),
                 verticalAlignment = CenterVertically
             ) {
                 standing.form.forEach {
                     TextWithBackground(
                         modifier = Modifier
-                            .size(TEXT_WITH_BACKGROUND_HEIGHT)
+                            .size(TEXT_WITH_BACKGROUND_HEIGHT.dp)
                             .padding(MaterialTheme.spacing.extraSmall),
                         textSize = MaterialTheme.textSizing.small,
                         text = it.type,
-                        backgroundColor = it.toBackgroundColor,
-                        textColor = it.toContentColor
+                        textWithBackgroundColors = TextWithBackgroundColors(
+                            backgroundColor = it.toBackgroundColor,
+                            textColor = it.toContentColor
+                        )
                     )
                 }
             }
